@@ -12,4 +12,10 @@ intent.setClass(TestActivity.this, BookPlayActivity.class);
 TestActivity.this.startActivity(intent);  
 只要通过Intent,传入要显示的书籍名称，书籍本地路径，跳转到BookPlayActivity就可以了，这个BookPlayActivity包含了上面的各自菜单操作，会自动完成加载书籍、分页等各种工作。
 
+
+gif动态图动态图效果xiaog动态图效果效果动态图效果效果如下rux如下：
+
+![image](https://github.com/bifan-wei/HWTxtReader/blob/master/reader.gif)
+
+
 更多介绍以及其他，请看：http://blog.csdn.net/u014614038/article/details/51799180
