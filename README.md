@@ -18,4 +18,6 @@ gif动态图动态图效果xiaog动态图效果效果动态图效果效果如下
 ![image](https://github.com/bifan-wei/HWTxtReader/blob/master/reader.gif)
 
 
+开源不容易，如果还喜欢，给个start~啦啦啦\(≧▽≦)/~
+
 更多介绍以及其他，请看：http://blog.csdn.net/u014614038/article/details/51799180
