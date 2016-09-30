@@ -18,6 +18,6 @@ gif动态效果图如下（模拟器太卡了，其实蛮流畅的）：
 ![image](https://github.com/bifan-wei/HWTxtReader/blob/master/reader.gif)
 
 
-开源不容易，如果还喜欢，给个start~啦啦啦\(≧▽≦)/~
+开源不容易，如果还喜欢，给个start~啦啦啦,你的支持是我更新的动力\(≧▽≦)/~
 
 更多介绍以及其他，请看：http://blog.csdn.net/u014614038/article/details/51799180
