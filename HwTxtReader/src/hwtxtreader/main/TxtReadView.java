@@ -122,7 +122,7 @@ public class TxtReadView extends View {
 				pagedragstate = PAGE_NONE;
 				currentisfirstpage = true;
 				currentislastpage = islastpage;
-				showshadow = !islastpage;
+				showshadow = true;				
 				postInvalidate();
 			}
 
@@ -133,7 +133,7 @@ public class TxtReadView extends View {
 				currentisfirstpage = false;
 				divider_position = 0;
 				currentislastpage = islastpage;
-				showshadow = !islastpage;
+				showshadow = true;			
 				postInvalidate();
 			}
 

@@ -11,4 +11,6 @@ public interface ManagerToModelTransform extends Transformer {
 	public void refreshbitmaptext();
 	
 	public void refreshbitmapbackground();
+	
+	public void clear();
 }

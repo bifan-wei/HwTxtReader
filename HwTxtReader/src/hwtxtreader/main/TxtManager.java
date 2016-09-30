@@ -47,4 +47,6 @@ public interface TxtManager {
 	
 	public void refreshBitmapBackground();
 	
+	public void Clear();
+	
 }

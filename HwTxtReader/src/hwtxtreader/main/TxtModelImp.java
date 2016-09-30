@@ -374,7 +374,7 @@ public class TxtModelImp implements TxtModel {
 
 				@Override
 				public void PostResult(Boolean t) {
-					tt.PostResult(t);
+					
 
 					if (t) {
 
@@ -391,6 +391,8 @@ public class TxtModelImp implements TxtModel {
 
 						modeToViewTransform.onloadFileException();
 					}
+					
+					tt.PostResult(t);
 				}
 
 				@Override
@@ -443,6 +445,17 @@ public class TxtModelImp implements TxtModel {
 				refrespageBitmap();
 				saveBitmapCache();
 				modeToViewTransform.ReFreshView();
+			}
+		}
+
+		@Override
+		public void clear() {
+			stopsaparatethread = true;  
+			if(bitmapCache!=null){
+				bitmapCache.clear();
+			}
+			if(txtPipeline!=null){
+				txtPipeline.clear();
 			}
 		}
 

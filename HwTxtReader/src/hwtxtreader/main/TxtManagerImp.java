@@ -225,4 +225,12 @@ public class TxtManagerImp implements TxtManager {
 		}
 	}
 
+	@Override
+	public void Clear() {
+		
+		if(modeltransform!=null){
+			modeltransform.clear();
+		}
+	}
+
 }

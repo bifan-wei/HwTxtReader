@@ -73,7 +73,7 @@ public class TxtPipelineImp implements TxtPipeline {
 			txterror.txterrorcode = TxtErrorCode.LOAD_BOOK_EXCEPTION;
 			txterror.message = "加载书籍时出现io异常";
 			t.PostError(txterror);
-			t.PostResult(false);			
+			t.PostResult(false);
 			return paragraphCache;
 		}
 		t.PostResult(true);
@@ -231,6 +231,15 @@ public class TxtPipelineImp implements TxtPipeline {
 	public Boolean HasCaChedata() {
 
 		return paragraphCache.isHasParagraphCache();
+	}
+
+	@Override
+	public void clear() {
+		if (paragraphCache != null) {
+			paragraphCache.Clear();
+			paragraphCache = null;
+		}
+
 	}
 
 }

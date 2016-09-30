@@ -53,6 +53,7 @@ public class BookPlayActivity extends Activity {
 	private String mBookname = "testbook";
 	private int pageindex, pagenums;
 	private Handler mHander;
+	private Boolean isChangeText = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class BookPlayActivity extends Activity {
 		Intent intent = getIntent();
 		mBookname = intent.getStringExtra("bookname");
 		path = intent.getStringExtra("bookpath");
-		
+
 		TxtFile txtFile = new TxtFile();
 		txtFile.setBookname(mBookname);
 		showLoadingView("º”‘ÿ ÈºÆ÷–");
@@ -153,7 +154,7 @@ public class BookPlayActivity extends Activity {
 			}
 
 			@Override
-			public void onSeparateDone() {
+			public void onSeparateDone() { 
 				showProgressmenuDataview();
 			}
 		});
@@ -163,7 +164,10 @@ public class BookPlayActivity extends Activity {
 			@Override
 			public void onOutSideAreaTouch() {
 				hidememu();
-
+				if (isChangeText) {
+					txtManager.separatepage();
+					isChangeText = false;
+				}
 			}
 
 			@Override
@@ -239,18 +243,19 @@ public class BookPlayActivity extends Activity {
 
 			@Override
 			public void onTextSizeChange(int spTextsize) {
-
+				isChangeText = true;
 				txtManager.getViewConfig().setTextSize(spTextsize);
 				txtManager.CommitSetting();
 				txtManager.jumptopage(1);
-				txtManager.separatepage();
 
 			}
-
+  
 			@Override
 			public void onTextSortChange(String textsort) {
+				isChangeText = true;
 				txtManager.getViewConfig().setTextSort(textsort);
-				txtManager.refreshBitmapText();
+				txtManager.CommitSetting();
+				txtManager.jumptopage(1);
 
 			}
 
@@ -437,7 +442,7 @@ public class BookPlayActivity extends Activity {
 			@Override
 			public void run() {
 				mMenu.dismiss();
-
+ 
 			}
 		});
 	}
@@ -451,5 +456,13 @@ public class BookPlayActivity extends Activity {
 
 	public void finishactivity(View view) {
 		finish();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if(txtManager!=null){  
+			txtManager.Clear();
+		}
 	}
 }

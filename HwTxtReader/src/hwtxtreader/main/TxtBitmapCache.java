@@ -9,7 +9,7 @@ public class TxtBitmapCache {
 	private Bitmap nextbitmap;
 
 	public Bitmap getPagebitmap() {
-		
+
 		return pagebitmap;
 	}
 
@@ -40,7 +40,24 @@ public class TxtBitmapCache {
 	public void setNextbitmap(Bitmap nextbitmap) {
 		this.nextbitmap = nextbitmap;
 	}
-	
-	
+
+	public void clear() {
+		if (pagebitmap != null) {
+			pagebitmap.recycle();
+			pagebitmap = null;
+		}
+		if (prebitmap != null) {
+			prebitmap.recycle();
+			prebitmap = null;
+		}
+		if (midbitmap != null) {
+			midbitmap.recycle();
+			midbitmap = null;
+		}
+		if (nextbitmap != null) {
+			nextbitmap.recycle();
+			nextbitmap = null;
+		}
+	}
 
 }

@@ -69,6 +69,9 @@ public interface TxtPipeline {
 	 * @return
 	 */
 	public Boolean HasCaChedata();
+	
+	
+	public void clear();
 
 
 }
