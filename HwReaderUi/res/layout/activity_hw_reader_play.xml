@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
+    android:layout_height="match_parent" >
+
+    <com.hw.readermain.ReaderView
+        android:id="@+id/hwreadView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/hwreader_toucher_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/hwreader_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/memubg_color"
+        android:focusable="true" >
+
+        <RelativeLayout
+            android:id="@+id/textview_titlebar_backey"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/menu_bg_selector"
+            android:clickable="true"
+            android:onClick="finishactivity"
+            android:paddingBottom="5dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/backpic" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/hwreader_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="平凡的世界"
+            android:textColor="@android:color/white"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/hwreader_nodataview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textview_titlebar"
+        layout="@layout/hwreader_nodatalayout"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/hwreader__loadingview"
+        layout="@layout/hwreader_view_loadinglayout" />
+
+</RelativeLayout>
