@@ -39,14 +39,14 @@ public class StyleMenu extends PopupWindow {
 
 	public StyleMenu(TxtReaderContex readerContex) {
 		this.mContext = readerContex;
-		init();
+		
 	}
 
 	public void setonTxtStyleChangeListener(onTxtStyleChangeListener listener) {
 		mListener = listener;
 	}
 
-	private void init() {
+	public void init() {
 		WindowManager m = (WindowManager) mContext.mContext.getSystemService(Context.WINDOW_SERVICE);
 		DisplayMetrics metrics = new DisplayMetrics();
 		m.getDefaultDisplay().getMetrics(metrics);
@@ -189,27 +189,27 @@ public class StyleMenu extends PopupWindow {
 		ReaderStyle historyStyle = mContext.mViewSetting.getPageBackground();
 		switch (historyStyle.getStyle()) {
 		case normal:
-			mSelectedposition = 1;
+			mSelectedposition = -1;
 			SelectedTag = slid1;
 			s_layout1.performClick();
 			break;
 		case sorft:
-			mSelectedposition = 2;
+			mSelectedposition = -1;
 			SelectedTag = slid2;
 			s_layout2.performClick();
 			break;
 		case night:
-			mSelectedposition = 3;
+			mSelectedposition = -1;
 			SelectedTag = slid3;
 			s_layout3.performClick();
 			break;
 		case nice:
-			mSelectedposition = 4;
+			mSelectedposition = -1;
 			SelectedTag = slid4;
 			s_layout4.performClick();
 			break;
 		case ancientry2:
-			mSelectedposition = 5;
+			mSelectedposition = -1;
 			SelectedTag = slid5;
 			s_layout5.performClick();
 			break;

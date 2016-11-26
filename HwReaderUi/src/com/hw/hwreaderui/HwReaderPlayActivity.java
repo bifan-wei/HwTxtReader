@@ -221,6 +221,7 @@ public class HwReaderPlayActivity extends Activity {
 				mStyleMenu = new StyleMenu(readerContex);
 				mBrightMenu = new BrightMenu(readerContex.mContext);
 				registMenuListsner();
+				mStyleMenu.init();
 				readerContex.onPageChageListener();
 			}
 		});
@@ -297,7 +298,7 @@ public class HwReaderPlayActivity extends Activity {
 				if (style == Style.ancientry2) {
 					readerContex.doAction(Action.TypesettingChangetovertical);
 				}
-
+				readerContex.doAction(Action.saveviewsettings);
 			}
 		});
 	}

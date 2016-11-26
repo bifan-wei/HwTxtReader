@@ -1,12 +1,15 @@
 package com.hw.data;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.hw.readermain.ReaderViewSetting;
+import com.hw.txtreader.TxtReaderViewSettings;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.util.Log;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class ViewSettingsDB extends SQLiteOpenHelper {
@@ -60,14 +63,15 @@ public class ViewSettingsDB extends SQLiteOpenHelper {
 	}
 
 	public void inserSetting(String bookname, String bookhashname, ReaderViewSetting viewsettings) {
-		
+
 		if (IsHasData(BOOK_Hashname, bookhashname)) {
 			delete(BOOK_Hashname, bookhashname);
 		}
-		
+
 		Gson gson = new Gson();
-		 
+
 		inserSetting(bookname, bookhashname, gson.toJson(viewsettings));
+		Log.e("inserSetting", gson.toJson(viewsettings));
 	}
 
 	/**
@@ -75,7 +79,7 @@ public class ViewSettingsDB extends SQLiteOpenHelper {
 	 * 
 	 * @param bookhashname
 	 */
-	public ReaderViewSetting getViewSettingMsg(String bookhashname, Class<? extends ReaderViewSetting> classtype) {
+	public String getViewSettingMsg(String bookhashname) {
 		if (IsHasData(BOOK_Hashname, bookhashname)) {
 			Cursor cursor = getCursorByKeyValue(BOOK_Hashname, bookhashname);
 			if (cursor != null && cursor.getCount() > 0) {
@@ -83,9 +87,8 @@ public class ViewSettingsDB extends SQLiteOpenHelper {
 				int index = cursor.getColumnIndex(SettingMsg);
 				String BookMsg = cursor.getString(index);
 				try {
-					Gson gson = new Gson();
-					ReaderViewSetting book = gson.fromJson(BookMsg, classtype);
-					return book;
+
+					return BookMsg;
 				} catch (Exception e) {
 
 					e.printStackTrace();
@@ -95,6 +98,21 @@ public class ViewSettingsDB extends SQLiteOpenHelper {
 			}
 		}
 
+		return null;
+	}
+
+	public TxtReaderViewSettings getTxtViewSettingMsg(String bookhashname) {
+		String bookmsg = getViewSettingMsg(bookhashname);
+		if (bookmsg != null) {
+			Gson gson = new Gson();
+			try {				
+				return gson.fromJson(bookmsg, TxtReaderViewSettings.class);
+			} catch (JsonSyntaxException e) {
+
+				e.printStackTrace();
+			}
+
+		}
 		return null;
 	}
 
@@ -114,14 +132,14 @@ public class ViewSettingsDB extends SQLiteOpenHelper {
 	}
 
 	private void delete(String key, String value) {
-		String sql = "delete from " + TABLE_NAME + " where " + key + " = " +  "'"+value+"'";
+		String sql = "delete from " + TABLE_NAME + " where " + key + " = " + "'" + value + "'";
 		getWritableDatabase().execSQL(sql);
 	}
-   
+
 	private Cursor getCursorByKeyValue(String key, String value) {
 
-		Cursor cursor = getWritableDatabase().rawQuery("select * from " + TABLE_NAME + " where " + key + " = " + "'"+value+"'",
-				null);
+		Cursor cursor = getWritableDatabase()
+				.rawQuery("select * from " + TABLE_NAME + " where " + key + " = " + "'" + value + "'", null);
 		return cursor;
 	}
 }

@@ -30,6 +30,7 @@
             android:layout_below="@+id/txtstyle1"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
+            android:visibility="invisible"
             android:background="#ffffff" />
     </RelativeLayout>
 

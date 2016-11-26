@@ -14,8 +14,6 @@ import com.hw.readermain.ReaderSettingInitProcessor;
 import com.hw.utils.FileCharsetDetector;
 import com.hw.utils.FileHashUtil;
 
-import android.util.Log;
-
 public class TxtFileInitProcessor extends BookFileProcessor {
 
 	@Override
