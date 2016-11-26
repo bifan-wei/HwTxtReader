@@ -12,6 +12,7 @@ import com.hw.readermain.ReaderContex;
 import com.hw.readermain.ReaderException.Type;
 import com.hw.readermain.ReaderSettingInitProcessor;
 import com.hw.utils.FileCharsetDetector;
+import com.hw.utils.FileHashUtil;
 
 import android.util.Log;
 
@@ -72,7 +73,7 @@ public class TxtFileInitProcessor extends BookFileProcessor {
 
 	private void initBookFileCode(Book book) {
 		String code = "UTF-8";
-		
+		 
 		try {
 			
 			code = (new FileCharsetDetector()).guessFileEncoding(new File(book.BookPath));
@@ -81,7 +82,11 @@ public class TxtFileInitProcessor extends BookFileProcessor {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+        try {
+			book.BOOKHashName = FileHashUtil.getMD5Checksum(book.BookPath);
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
 		book.BookCode = code;
 	}
 
