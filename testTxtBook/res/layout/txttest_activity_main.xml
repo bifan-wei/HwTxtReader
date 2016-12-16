@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <hwtxtreader.main.TxtReadView
+        android:id="@+id/txtreadView" 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/textview_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/memubg_color"
+        android:focusable="true" >
+
+        <RelativeLayout
+            android:id="@+id/textview_titlebar_backey"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/menu_bg_selector"
+            android:clickable="true"
+            android:onClick="finishactivity"
+            android:paddingBottom="5dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/backpic" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textview_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="平凡的世界"
+            android:textColor="@android:color/white"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/txtview_nodataview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textview_titlebar"
+        layout="@layout/nodatalayout"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/txtview_loadingview"
+        layout="@layout/txtview_loadinglayout" />
+
+</RelativeLayout>
