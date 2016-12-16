@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/memubg_color" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/txtprogress_concern"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/txtprogress_text"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="88%"
+            android:layout_height="wrap_content" />
+
+        <SeekBar
+            android:id="@+id/txtprogress_seekbar"          
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:maxHeight="3dip"
+            android:minHeight="3dip"
+            android:thumbOffset="0dip"
+            android:progress="55"
+            android:progressDrawable="@drawable/txtview_po_seekbar"
+            android:thumb="@drawable/txtview_seekbar_thumb" />
+    </LinearLayout>
+
+    <Button
+        android:background="@drawable/txtprogressmenu_bt_selector"
+        android:id="@+id/txtprogress_concern"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@android:color/white"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:padding="5dp"
+        android:text="确定" />
+
+</RelativeLayout>
