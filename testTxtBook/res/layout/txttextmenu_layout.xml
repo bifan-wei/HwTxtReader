@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="5dp"
+    android:background="@color/memubg_color"
+    android:orientation="vertical"
+    android:weightSum="2" >
+
+    <LinearLayout
+        
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingRight="5dp"
+        android:weightSum="8" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="字号  "
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/txttextmenu_textsize_decrease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@drawable/menu_bg_selector"
+            android:text="小"
+            android:textColor="@android:color/white" >
+        </Button>
+
+        <View
+            android:id="@+id/txttextmenu_textsize_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/txttextmenu_textsize_add"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@drawable/menu_bg_selector"
+            android:text="大"
+            android:textColor="@android:color/white" >
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingRight="5dp"
+        android:weightSum="8" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="字体  "
+            android:textColor="@android:color/white" />
+
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            
+            android:id="@+id/txttextmenu_texsort_radiogroup"
+            android:checkedButton="@+id/txttextmenu_texsort_1"
+            android:orientation="horizontal"
+            android:weightSum="2" >
+
+            <RadioButton
+                android:id="@+id/txttextmenu_texsort_1"
+                android:layout_width="0dp"               
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"               
+                android:layout_weight="1"
+                android:background="@drawable/txttextmenu_radiobutton_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="字体1"
+                android:textColor="@android:color/white" />
+
+            <RadioButton
+                android:id="@+id/txttextmenu_texsort_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/txttextmenu_radiobutton_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="字体2"
+                android:textColor="@android:color/white" />
+
+          
+        </RadioGroup>
+    </LinearLayout>
+
+</LinearLayout>

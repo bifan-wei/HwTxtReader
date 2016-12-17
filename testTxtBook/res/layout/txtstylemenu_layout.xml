@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/memubg_color"
+    android:orientation="horizontal"
+    android:weightSum="3" >
+
+    
+
+    <RelativeLayout
+        android:id="@+id/txtstyle1_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:background="@drawable/menu_bg_selector" >
+
+        <ImageView
+            android:id="@+id/txtstyle1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:background="#000000" />
+
+        <View
+            android:id="@+id/txtstyle1_tag"
+            android:layout_width="30dp"
+            android:layout_height="3dp"
+            android:layout_below="@+id/txtstyle1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/txtstyle2_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:background="@drawable/menu_bg_selector" >
+
+        <ImageView
+            android:id="@+id/txtstyle2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:background="#77000000" />
+
+        <View
+            android:id="@+id/txtstyle2_tag"
+            android:layout_width="30dp"
+            android:layout_height="3dp"
+            android:layout_below="@+id/txtstyle2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/txtstyle3_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:background="@drawable/menu_bg_selector" >
+
+        <ImageView
+            android:id="@+id/txtstyle3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:background="#00bcd4" />
+
+        <View
+            android:id="@+id/txtstyle3_tag"
+            android:layout_width="30dp"
+            android:layout_height="3dp"
+            android:layout_below="@+id/txtstyle3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    
+
+</LinearLayout>
