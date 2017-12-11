@@ -1,26 +1,26 @@
 # HwTxtReader
-##前言：
+## 前言：
 之前项目中有播放txt文件的功能，虽然是一个不难的功能，但是也不简单，陆陆续续做了很久，于是结合之前的经验，决定重新设计代码，
 打造一个轻量级Txt阅读器组件，用于提供快速集成加载txt文件的功能，从2017-11月开始，空余时间慢慢做，目前把基本功能实现，剩下的就是优化了。
 
-##该库的作用：
+## 该库的作用：
 针对于要求不是特别高的，想快速实现一个效果还不错的加载txt文件功能，这个应该还是不错的。如果是想做专业的阅读器，你可以去啃fbReader之类的。
 
-##目前实现了的功能：
+## 目前实现了的功能：
 1.字体设置，包括大小颜色。
 2.页面风格设置。
 3.进度跳转与当前进度获取。
 4.章节获取与章节跳转。
 5.可以滑盖翻页与平移翻页切换。
 
-##目前demo效果图：
-![https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)
+## 目前demo效果图：
+![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)
 
-##覆盖翻页效果：
-![https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_cover.png)
+## 覆盖翻页效果：
+![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_cover.png)
 
-##平移翻页效果：
-![https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_translate.png)
+## 平移翻页效果：
+![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_translate.png)
 
 
 
