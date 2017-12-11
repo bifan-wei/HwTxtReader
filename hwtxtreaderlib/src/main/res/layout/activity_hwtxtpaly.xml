@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:id="@+id/activity_hwtxtplay_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f9fbdf"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/activity_hwtxtplay_chaptername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/activity_hwtxtplay_chpatermenu"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="第一章"
+            android:textColor="#b1b4b3"/>
+
+        <LinearLayout
+            android:id="@+id/activity_hwtxtplay_chpatermenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <View
+
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/activity_hwtxtplay_chapter_menutext"
+                android:background="@drawable/shape_little_ball"/>
+
+            <TextView
+                android:id="@+id/activity_hwtxtplay_chapter_menutext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:clickable="true"
+                android:text="章节"
+                android:textColor="#858582"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <com.hw.txtreaderlib.main.TxtReaderView
+        android:id="@+id/activity_hwtxtplay_readerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/activity_hwtxtplay_bottom"
+        android:layout_below="@+id/activity_hwtxtplay_top"
+        android:background="#f9fbdf"/>
+
+    <RelativeLayout
+        android:id="@+id/activity_hwtxtplay_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#f9fbdf"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/activity_hwtxtplay_progress_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="0%"
+            android:textColor="#b1b4b3"/>
+
+        <TextView
+            android:id="@+id/activity_hwtxtplay_setting_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:clickable="true"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="设置"
+            android:textColor="#858582"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/activity_hwtxtplay_cover"
+        android:background="#00000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_below="@+id/activity_hwtxtplay_menu_top"
+        android:layout_above="@+id/activity_hwtxtplay_menu_bottom"
+        android:visibility="gone"
+        android:layout_height="match_parent"/>
+
+    <include
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/activity_hwtxtplay_menu_top"
+        android:visibility="gone"
+        layout="@layout/view_menu_top"/>
+
+    <include
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/activity_hwtxtplay_menu_bottom"
+        android:layout_alignParentBottom="true"
+        layout="@layout/view_menu_bottom"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#000000"
+              android:orientation="horizontal"
+              android:paddingBottom="13dp"
+              android:paddingLeft="10dp"
+              android:paddingTop="13dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_back"
+        android:paddingLeft="5dp"
+        android:onClick="BackClick"
+        android:paddingRight="5dp"/>
+
+    <TextView
+        android:id="@+id/txtreadr_menu_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text=""
+        android:textColor="#77ffffff"
+        android:textSize="17sp"/>
+</LinearLayout>

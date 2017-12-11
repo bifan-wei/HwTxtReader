@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="hwtxtreader_bottom_menu_textclor">#5e5d5d</color>
+    <color name="hwtxtreader_styleclor1">#d0cdc4</color>
+    <color name="hwtxtreader_styleclor2">#ccebcc</color>
+    <color name="hwtxtreader_styleclor3">#d4c7a5</color>
+    <color name="hwtxtreader_styleclor4">#393330</color>
+    <color name="hwtxtreader_styleclor5">#00141f</color>
+</resources>
