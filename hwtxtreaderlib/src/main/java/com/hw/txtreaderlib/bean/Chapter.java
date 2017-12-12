@@ -8,11 +8,12 @@ import com.hw.txtreaderlib.interfaces.IChapter;
 */
 public class Chapter implements IChapter {
     public String Title;
-    public int Index;
+    public int Index;//章节位置
     public int StartParagraphIndex;
     public int EndParagraphIndex;
-    public int StartCharIndex;
-    public int EndCharIndex;
+    public int StartCharIndex;//字符开始位置
+    public int EndCharIndex;//字符结束位置
+    public int StartIndex;//第一个字符在全文字符的位置
 
     public Chapter(String title, int startParagraphIndex, int endParagraphIndex) {
         Title = title;
@@ -20,7 +21,8 @@ public class Chapter implements IChapter {
         EndParagraphIndex = endParagraphIndex;
     }
 
-    public Chapter(int index,String title, int startParagraphIndex, int endParagraphIndex, int startCharIndex, int endCharIndex) {
+    public Chapter(int startIndex, int index, String title, int startParagraphIndex, int endParagraphIndex, int startCharIndex, int endCharIndex) {
+        StartIndex = startIndex;
         Title = title;
         Index = index;
         StartParagraphIndex = startParagraphIndex;
@@ -37,6 +39,10 @@ public class Chapter implements IChapter {
         Title = title;
     }
 
+    @Override
+    public int getStartIndex() {
+        return StartIndex;
+    }
 
     @Override
     public int getStartCharIndex() {
@@ -65,12 +71,12 @@ public class Chapter implements IChapter {
 
     @Override
     public void setStartParagraphIndex(int index) {
-      StartParagraphIndex = index;
+        StartParagraphIndex = index;
     }
 
     @Override
     public void setEndParagraphIndex(int index) {
-      EndParagraphIndex = index;
+        EndParagraphIndex = index;
     }
 
     @Override

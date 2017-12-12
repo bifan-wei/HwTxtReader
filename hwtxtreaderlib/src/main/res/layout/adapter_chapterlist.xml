@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/adapter_chatperlist_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="1"
+        android:textColor="#c7c8be"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/adapter_chatperlist_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/adapter_chatperlist_progress"
+        android:layout_toRightOf="@+id/adapter_chatperlist_index"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="第一章"
+        android:textColor="#a86c4d"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/adapter_chatperlist_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:text="23%"
+        android:textColor="#aeaca2"
+        android:textSize="15sp"/>
+
+</RelativeLayout>

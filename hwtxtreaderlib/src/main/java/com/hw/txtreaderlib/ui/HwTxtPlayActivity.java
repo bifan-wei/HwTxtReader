@@ -4,12 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -31,6 +35,8 @@ import java.io.File;
  */
 
 public class HwTxtPlayActivity extends AppCompatActivity {
+    private Handler mHandler;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +46,6 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         loadFile();
         registerListener();
     }
-
 
     public static void LoadTxtFile(Context context, String FilePath) {
         LoadTxtFile(context, FilePath, FilePath);
@@ -64,9 +69,10 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     private View mTopMenu;
     private View mBottomMenu;
     private View mCoverView;
-
+    private ChapterList mChapterListPop;
 
     private void init() {
+        mHandler = new Handler();
         mTopDecoration = findViewById(R.id.activity_hwtxtplay_top);
         mBottomDecoration = findViewById(R.id.activity_hwtxtplay_bottom);
         mTxtReaderView = (TxtReaderView) findViewById(R.id.activity_hwtxtplay_readerView);
@@ -101,17 +107,16 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mMenuHolder.mStyle5 = findViewById(R.id.hwtxtreader_menu_style5);
     }
 
-
     private final int[] StyleTextColors = new int[]{
             Color.parseColor("#4a453a"),
             Color.parseColor("#505550"),
             Color.parseColor("#453e33"),
             Color.parseColor("#8f8e88"),
-            Color.parseColor("#27576c")};
+            Color.parseColor("#27576c")
+    };
 
     private String FilePath = null;
     private String FileName = null;
-
 
     private void getIntentData() {
         FilePath = getIntent().getStringExtra("FilePath");
@@ -149,12 +154,28 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mMenuHolder.mTextSize.setText(mTxtReaderView.getTextSize() + "");
         mTopDecoration.setBackgroundColor(mTxtReaderView.getBackgroundColor());
         mBottomDecoration.setBackgroundColor(mTxtReaderView.getBackgroundColor());
+        //字体设置
         onTextSettingUi(mTxtReaderView.getTxtReaderContext().getTxtConfig().Bold);
+        //翻页设置
         onPageSwitchSettingUi(mTxtReaderView.getTxtReaderContext().getTxtConfig().SwitchByTranslate);
-    }
+        //章节设置
+        if (mTxtReaderView.getChapters() != null) {
+            WindowManager m = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+            DisplayMetrics metrics = new DisplayMetrics();
+            m.getDefaultDisplay().getMetrics(metrics);
+            int ViewHeight = metrics.heightPixels - mTopDecoration.getHeight();
+            mChapterListPop = new ChapterList(this, ViewHeight, mTxtReaderView.getChapters(), mTxtReaderView.getTxtReaderContext().getParagraphData().getCharNum());
 
-    private Boolean SeekBarDragging = false;
-    private Runnable mSeekRunable;
+            mChapterListPop.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    IChapter chapter = (IChapter) mChapterListPop.getAdapter().getItem(i);
+                    mChapterListPop.dismiss();
+                    mTxtReaderView.loadFromProgress(chapter.getStartParagraphIndex(), 0);
+                }
+            });
+        }
+    }
 
     private void registerListener() {
         mTopMenu.setOnTouchListener(new View.OnTouchListener() {
@@ -187,7 +208,21 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mChapterMenuText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (!mChapterListPop.isShowing()) {
+                    mChapterListPop.showAsDropDown(mTopDecoration);
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            IChapter currentChapter = mTxtReaderView.getCurrentChapter();
+                            if (currentChapter != null) {
+                                mChapterListPop.setCurrentIndex(currentChapter.getIndex());
+                                mChapterListPop.notifyDataSetChanged();
+                            }
+                        }
+                    }, 300);
+                } else {
+                    mChapterListPop.dismiss();
+                }
             }
         });
 
@@ -212,6 +247,16 @@ public class HwTxtPlayActivity extends AppCompatActivity {
                     mChapterNameText.setText((currentChapter.getTitle() + "").trim());
                 } else {
                     mChapterNameText.setText("无章节");
+                }
+            }
+        });
+
+
+        mTopMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mChapterListPop.isShowing()) {
+                    mChapterListPop.dismiss();
                 }
             }
         });
@@ -342,7 +387,6 @@ public class HwTxtPlayActivity extends AppCompatActivity {
             mTxtReaderView.setStyle(BgColor, TextColor);
             mTopDecoration.setBackgroundColor(BgColor);
             mBottomDecoration.setBackgroundColor(BgColor);
-
         }
     }
 

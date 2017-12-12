@@ -4,4 +4,8 @@
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>
+    <style name="HwTxtChapterMenuAnimation"  parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/abc_popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/abc_popup_exit</item>
+    </style>
 </resources>

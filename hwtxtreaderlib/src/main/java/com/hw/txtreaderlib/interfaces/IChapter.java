@@ -16,6 +16,8 @@ public interface IChapter {
 
     int getEndCharIndex();
 
+    int getStartIndex();
+
     String getTitle();
 
     void setStartParagraphIndex(int index);

@@ -62,8 +62,8 @@ public class FileDataLoadTask implements ITxtTask {
                 int chapterIndex = 0;
                 while ((data = bufferedReader.readLine()) != null) {
                     if (data.length() > 0) {
+                        IChapter chapter = compileChapter(data, paragraphData.getCharNum(), index, chapterIndex);
                         paragraphData.addParagraph(data);
-                        IChapter chapter = compileChapter(data, index,chapterIndex);
                         if (chapter != null) {
                             chapterIndex++;
                             chapters.add(chapter);
@@ -71,14 +71,12 @@ public class FileDataLoadTask implements ITxtTask {
                         index++;
                     }
                 }
-
                 return true;
             } catch (IOException e) {
                 ELogger.log(tag, "IOException:" + e.toString());
             }
         } catch (UnsupportedEncodingException e) {
             ELogger.log(tag, "UnsupportedEncodingException:" + e.toString());
-
         } catch (FileNotFoundException e) {
             ELogger.log(tag, "FileNotFoundException:" + e.toString());
         } finally {
@@ -96,14 +94,21 @@ public class FileDataLoadTask implements ITxtTask {
 
     private static final String ChapterPatternStr = "(^\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";
 
-    private IChapter compileChapter(String data, int ParagraphIndex,int chapterIndex) {
+    /**
+     * @param data
+     * @param chapterStartIndex 开始字符在全文中的位置
+     * @param ParagraphIndex    段落位置
+     * @param chapterIndex      章节位置
+     * @return
+     */
+    private IChapter compileChapter(String data, int chapterStartIndex, int ParagraphIndex, int chapterIndex) {
         if (data.trim().startsWith("第")) {
             Pattern p = Pattern.compile(ChapterPatternStr);
             Matcher matcher = p.matcher(data);
             while (matcher.find()) {
                 int startIndex = 0;
                 int endIndex = data.length();
-                IChapter c = new Chapter(chapterIndex, data, ParagraphIndex, ParagraphIndex, startIndex, endIndex);
+                IChapter c = new Chapter(chapterStartIndex, chapterIndex, data, ParagraphIndex, ParagraphIndex, startIndex, endIndex);
                 return c;
             }
         }
