@@ -19,11 +19,52 @@
 ## 目前demo效果图：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)
 
+## 章节列表效果图：
+![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_chaper.png)
+
 ## 覆盖翻页效果：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_cover.png)
 
 ## 平移翻页效果：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_translate.png)
+
+
+# 使用方法：
+<br>
+<br>
+  # 添加hwtxtreaderlib依赖
+  compile project(':hwtxtreaderlib')
+  
+  # 使用默认界面使用的话，只需要一句代码：
+   HwTxtPlayActivity.LoadTxtFile(this, FilePath);
+   
+   # 使用自定义view的话，直接使用TxtReaderView
+   
+     # xml中：
+     <com.hw.txtreaderlib.main.TxtReaderView
+        android:id="@+id/activity_hwtxtplay_readerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       />
+       
+     # 代码中调用loadTxtFile方法直接加载文件：
+      mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() {
+            @Override
+            public void onSuccess() {
+             //加载成功回调
+                initWhenLoadDone();
+            }
+
+            @Override
+            public void onFail(TxtMsg txtMsg) {
+               //加载失败回调
+            }
+
+            @Override
+            public void onMessage(String message) {
+            //加载过程信息回调
+            }
+        });
 
 
 
