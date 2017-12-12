@@ -32,23 +32,20 @@
 # 使用方法：
 <br>
 <br>
-  ## 添加hwtxtreaderlib依赖 <br> 
-  compile project(':hwtxtreaderlib') <br> 
-  
-  ##  使用默认界面使用的话，只需要一句代码： <br> 
-   HwTxtPlayActivity.LoadTxtFile(this, FilePath); <br> 
-   
-   ##  使用自定义view的话，直接使用TxtReaderView <br> 
-   
-     ###  xml中：<br> 
-     <com.hw.txtreaderlib.main.TxtReaderView <br> 
+## 添加hwtxtreaderlib依赖 <br> 
+   ```compile project(':hwtxtreaderlib') <br>  ```
+##  使用默认界面使用的话，只需要一句代码： <br> 
+    ```HwTxtPlayActivity.LoadTxtFile(this, FilePath); <br>  ```
+##  使用自定义view的话，直接使用TxtReaderView <br> 
+  ###  xml中：<br> 
+      ```<com.hw.txtreaderlib.main.TxtReaderView <br> 
         android:id="@+id/activity_hwtxtplay_readerView" <br> 
         android:layout_width="match_parent" <br> 
         android:layout_height="match_parent" <br> 
-       /><br> 
-       
-      ### 代码中调用loadTxtFile方法直接加载文件：<br> 
-      mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() { <br> 
+       /><br> <br>  ```
+     
+ ### 代码中调用loadTxtFile方法直接加载文件：<br> 
+  ```mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() { <br> 
             @Override <br> 
             public void onSuccess() { <br> 
              //加载成功回调 <br> 
@@ -64,7 +61,7 @@
             public void onMessage(String message) { <br> 
             //加载过程信息回调 <br> 
             } <br> 
-        }); <br> 
+        });  ```
 
 <br> 
 <br> 
