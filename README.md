@@ -32,10 +32,10 @@
 # 使用方法：
 <br>
 <br>
+
 ## 添加hwtxtreaderlib依赖 
-<br> 
 ```java
-compile project(':hwtxtreaderlib') <br>  
+compile project(':hwtxtreaderlib')
 ```
 ##  使用默认界面使用的话，只需要一句代码： 
 <br> 
@@ -43,10 +43,9 @@ compile project(':hwtxtreaderlib') <br>  
  HwTxtPlayActivity.LoadTxtFile(this, FilePath);
  ```
 <br>
-##  使用自定义view的话，直接使用TxtReaderView <br> 
+
+## 使用自定义view的话，直接使用TxtReaderView 
 ## xml中：
-  <br> 
-  
 ```xml
   <com.hw.txtreaderlib.main.TxtReaderView 
         android:id="@+id/activity_hwtxtplay_readerView" 
@@ -54,10 +53,8 @@ compile project(':hwtxtreaderlib') <br>  
         android:layout_height="match_parent" 
        />
 ```
-     <br>
-     <br>
-     
-## 代码中调用loadTxtFile方法直接加载文件：<br> 
+
+## 代码中调用loadTxtFile方法直接加载文件：
  
  ```java
  mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() { 
