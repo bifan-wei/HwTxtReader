@@ -42,8 +42,6 @@ compile project(':hwtxtreaderlib')
  HwTxtPlayActivity.LoadTxtFile(this, FilePath);
  ```
 <br>
-<br>
-<br>
 
 ## 使用自定义view的话，直接使用TxtReaderView 
 ### xml中：
