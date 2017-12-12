@@ -38,14 +38,15 @@
 compile project(':hwtxtreaderlib')
 ```
 ##  使用默认界面使用的话，只需要一句代码： 
-<br> 
  ```java
  HwTxtPlayActivity.LoadTxtFile(this, FilePath);
  ```
 <br>
+<br>
+<br>
 
 ## 使用自定义view的话，直接使用TxtReaderView 
-## xml中：
+### xml中：
 ```xml
   <com.hw.txtreaderlib.main.TxtReaderView 
         android:id="@+id/activity_hwtxtplay_readerView" 
@@ -54,7 +55,7 @@ compile project(':hwtxtreaderlib')
        />
 ```
 
-## 代码中调用loadTxtFile方法直接加载文件：
+### 代码中调用loadTxtFile方法直接加载文件：
  
  ```java
  mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() { 
