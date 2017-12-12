@@ -32,41 +32,43 @@
 # 使用方法：
 <br>
 <br>
-  # 添加hwtxtreaderlib依赖
-  compile project(':hwtxtreaderlib')
-  
-  # 使用默认界面使用的话，只需要一句代码：
-   HwTxtPlayActivity.LoadTxtFile(this, FilePath);
+  # 添加hwtxtreaderlib依赖 <br> 
+  compile project(':hwtxtreaderlib') <br> 
+  
+  # 使用默认界面使用的话，只需要一句代码： <br> 
+   HwTxtPlayActivity.LoadTxtFile(this, FilePath); <br> 
    
-   # 使用自定义view的话，直接使用TxtReaderView
+   # 使用自定义view的话，直接使用TxtReaderView <br> 
    
-     # xml中：
-     <com.hw.txtreaderlib.main.TxtReaderView
-        android:id="@+id/activity_hwtxtplay_readerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-       />
+     # xml中：<br> 
+     <com.hw.txtreaderlib.main.TxtReaderView <br> 
+        android:id="@+id/activity_hwtxtplay_readerView" <br> 
+        android:layout_width="match_parent" <br> 
+        android:layout_height="match_parent" <br> 
+       /><br> 
        
-     # 代码中调用loadTxtFile方法直接加载文件：
-      mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() {
-            @Override
-            public void onSuccess() {
-             //加载成功回调
-                initWhenLoadDone();
-            }
+     # 代码中调用loadTxtFile方法直接加载文件：<br> 
+      mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() { <br> 
+            @Override <br> 
+            public void onSuccess() { <br> 
+             //加载成功回调 <br> 
+                initWhenLoadDone(); <br> 
+            } <br> 
 
-            @Override
-            public void onFail(TxtMsg txtMsg) {
-               //加载失败回调
-            }
+            @Override <br> 
+            public void onFail(TxtMsg txtMsg) { <br> 
+               //加载失败回调 <br> 
+            } <br> 
 
-            @Override
-            public void onMessage(String message) {
-            //加载过程信息回调
-            }
-        });
+            @Override <br> 
+            public void onMessage(String message) { <br> 
+            //加载过程信息回调 <br> 
+            } <br> 
+        }); <br> 
 
+<br> 
+<br> 
+<br> 
 
-
-后话：想认真做好这个库，陆陆续续空余时间折腾了一个月才把基本功能做完。忽然发现好累，想想开源也不容易，为那些开源的大神致敬，也希望自己也能做点贡献。
+后话：想认真做好这个库，陆陆续续空余时间折腾了一个月才把基本功能做完。忽然发现好累，想想开源也不容易，为那些开源的大神致敬，也希望自己也能做点贡献。<br> 
 
