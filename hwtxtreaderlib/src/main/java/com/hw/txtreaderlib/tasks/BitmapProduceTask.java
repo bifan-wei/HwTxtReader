@@ -23,6 +23,8 @@ public class BitmapProduceTask implements ITxtTask {
     @Override
     public void Run(ILoadListener callBack, TxtReaderContext readerContext) {
         ELogger.log(tag, "Produce Bitmap");
+        callBack.onMessage("start to  Produce Bitmap");
+
         int[] rs = readerContext.getPageData().refreshTag;
         IPage[] pages = readerContext.getPageData().getPages();
         Bitmap[] bitmaps = readerContext.getBitmapData().getPages();
@@ -32,7 +34,6 @@ public class BitmapProduceTask implements ITxtTask {
             IPage page = pages[index];
             if (neeRefresh == 1) {
                 ELogger.log(tag, "page " + index + " neeRefresh");
-
                 Bitmap bitmap = TxtBitmapUtil.createHorizontalPage(readerContext.getBitmapData().getBgBitmap(),
                         readerContext.getPaintContext(), readerContext.getPageParam(), readerContext.getTxtConfig(), page);
                 bitmaps[index] = bitmap;
@@ -43,6 +44,7 @@ public class BitmapProduceTask implements ITxtTask {
             index++;
         }
         ELogger.log(tag, "already done ,call back success");
+        callBack.onMessage("already done ,call back success");
         readerContext.setInitDone(true);
         callBack.onSuccess();//already done ,call back success
     }

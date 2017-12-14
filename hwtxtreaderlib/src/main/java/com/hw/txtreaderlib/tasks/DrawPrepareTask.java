@@ -20,6 +20,7 @@ public class DrawPrepareTask implements ITxtTask {
 
     @Override
     public void Run(ILoadListener callBack, TxtReaderContext readerContext) {
+        callBack.onMessage("start do DrawPrepare");
         ELogger.log(tag, "do DrawPrepare");
         initPainContext(readerContext.getPaintContext(), readerContext.getTxtConfig());
         readerContext.getPaintContext().textPaint.setColor(Color.WHITE);

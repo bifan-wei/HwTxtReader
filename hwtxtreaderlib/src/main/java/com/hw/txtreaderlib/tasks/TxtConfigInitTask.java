@@ -21,6 +21,8 @@ public class TxtConfigInitTask implements ITxtTask {
     @Override
     public void Run(ILoadListener callBack, TxtReaderContext readerContext) {
         ELogger.log(atg, "do TxtConfigInit");
+        callBack.onMessage("start init settings in TxtConfigInitTask");
+
         TxtConfig config = readerContext.getTxtConfig();
         config.showNote = TxtConfig.getIsShowNote(readerContext.context);
         config.canPressSelect = TxtConfig.getCanPressSelect(readerContext.context);
@@ -30,12 +32,15 @@ public class TxtConfigInitTask implements ITxtTask {
         config.NoteColor = TxtConfig.getNoteTextColor(readerContext.context);
         config.SelectTextColor = TxtConfig.getSelectTextColor(readerContext.context);
         config.SliderColor = TxtConfig.getSliderColor(readerContext.context);
+
         //if not null ,do recycle
         if (readerContext.getBitmapData().getBgBitmap() != null) {
             readerContext.getBitmapData().getBgBitmap().recycle();
         }
+
         int width = readerContext.getPageParam().PageWidth;
         int height = readerContext.getPageParam().PageHeight;
+
         //init the bg bitmap
         readerContext.getBitmapData().setBgBitmap(TxtBitmapUtil.CreateBitmap(config.backgroundColor, width, height));
         //initPageParam

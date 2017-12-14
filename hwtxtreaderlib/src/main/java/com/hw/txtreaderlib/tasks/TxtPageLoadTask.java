@@ -23,6 +23,7 @@ public class TxtPageLoadTask implements ITxtTask {
 
     @Override
     public void Run(ILoadListener callBack, TxtReaderContext readerContext) {
+        callBack.onMessage("start load pageData");
 
         IPage firstPage = null;
         IPage midPage = null;
@@ -41,12 +42,12 @@ public class TxtPageLoadTask implements ITxtTask {
 
         ELogger.log(tag, "获取进度数据完成");
         ELogger.log(tag, "startParagraphIndex/ startCharIndex+" + startParagraphIndex + "/" + startCharIndex);
+
         if (firstPage != null) {
             ELogger.log(tag, "firstPage:" + firstPage.toString());
             if (!firstPage.HasData()) {
                 firstPage = null;
             }
-
         } else {
             ELogger.log(tag, "firstPage is null");
         }
@@ -56,7 +57,6 @@ public class TxtPageLoadTask implements ITxtTask {
             if (!midPage.HasData()) {
                 midPage = null;
             }
-
         } else {
             ELogger.log(tag, "midPage is null");
         }
@@ -78,4 +78,5 @@ public class TxtPageLoadTask implements ITxtTask {
         txtTask.Run(callBack, readerContext);
 
     }
+
 }

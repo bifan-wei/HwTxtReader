@@ -16,7 +16,6 @@ import java.io.File;
  */
 
 public class TxtFileLoader {
-
     private String tag = "TxtFileLoader";
 
     public void load(String filePath, TxtReaderContext readerContext, ILoadListener loadListener) {
@@ -28,8 +27,10 @@ public class TxtFileLoader {
             loadListener.onFail(TxtMsg.FileNoExist);
             return;
         }
+        loadListener.onMessage("initFile start");
         initFile(filePath, fileName, readerContext);
         ELogger.log(tag, "initFile done");
+        loadListener.onMessage("initFile done");
         ITxtTask txtTask = new FileDataLoadTask();
         txtTask.Run(loadListener, readerContext);
 

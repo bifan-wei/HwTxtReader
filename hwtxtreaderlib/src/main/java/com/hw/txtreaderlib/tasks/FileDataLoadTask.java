@@ -34,9 +34,11 @@ public class FileDataLoadTask implements ITxtTask {
     public void Run(ILoadListener callBack, TxtReaderContext readerContext) {
         IParagraphData paragraphData = new ParagraphData();
         List<IChapter> chapter = new ArrayList<>();
+        callBack.onMessage("start read file data");
         Boolean readSuccess = ReadData(readerContext.getFileMsg().FilePath, readerContext.getFileMsg().FileCode, paragraphData, chapter);
         if (readSuccess) {
             ELogger.log(tag, "ReadData readSuccess");
+            callBack.onMessage(" read file data success");
             readerContext.setParagraphData(paragraphData);
             readerContext.setChapters(chapter);
             ITxtTask txtTask = new TxtConfigInitTask();
@@ -93,7 +95,6 @@ public class FileDataLoadTask implements ITxtTask {
     }
 
     private static final String ChapterPatternStr = "(^\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";
-
     /**
      * @param data
      * @param chapterStartIndex 开始字符在全文中的位置

@@ -47,6 +47,12 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         registerListener();
     }
 
+    private void getIntentData() {
+        FilePath = getIntent().getStringExtra("FilePath");
+        FileName = getIntent().getStringExtra("FileName");
+
+    }
+
     public static void LoadTxtFile(Context context, String FilePath) {
         LoadTxtFile(context, FilePath, FilePath);
     }
@@ -118,12 +124,6 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     private String FilePath = null;
     private String FileName = null;
 
-    private void getIntentData() {
-        FilePath = getIntent().getStringExtra("FilePath");
-        FileName = getIntent().getStringExtra("FileName");
-
-    }
-
     private void loadFile() {
         if (TextUtils.isEmpty(FilePath) || !(new File(FilePath).exists())) {
             toast("文件不存在");
@@ -140,11 +140,13 @@ public class HwTxtPlayActivity extends AppCompatActivity {
 
             @Override
             public void onFail(TxtMsg txtMsg) {
+                //加载失败信息
                 toast(txtMsg + "");
             }
 
             @Override
             public void onMessage(String message) {
+                //加载过程信息
             }
         });
     }
@@ -154,18 +156,22 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mMenuHolder.mTextSize.setText(mTxtReaderView.getTextSize() + "");
         mTopDecoration.setBackgroundColor(mTxtReaderView.getBackgroundColor());
         mBottomDecoration.setBackgroundColor(mTxtReaderView.getBackgroundColor());
-        //字体设置
+        //字体初始化
         onTextSettingUi(mTxtReaderView.getTxtReaderContext().getTxtConfig().Bold);
-        //翻页设置
+        //翻页初始化
         onPageSwitchSettingUi(mTxtReaderView.getTxtReaderContext().getTxtConfig().SwitchByTranslate);
-        //章节设置
+        if (mTxtReaderView.getTxtReaderContext().getTxtConfig().SwitchByTranslate) {
+            mTxtReaderView.setPageSwitchByTranslate();
+        } else {
+            mTxtReaderView.setPageSwitchByCover();
+        }
+        //章节初始化
         if (mTxtReaderView.getChapters() != null) {
             WindowManager m = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             DisplayMetrics metrics = new DisplayMetrics();
             m.getDefaultDisplay().getMetrics(metrics);
             int ViewHeight = metrics.heightPixels - mTopDecoration.getHeight();
             mChapterListPop = new ChapterList(this, ViewHeight, mTxtReaderView.getChapters(), mTxtReaderView.getTxtReaderContext().getParagraphData().getCharNum());
-
             mChapterListPop.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -333,7 +339,6 @@ public class HwTxtPlayActivity extends AppCompatActivity {
 
     private class ChapterChangeClickListener implements View.OnClickListener {
         private Boolean Pre = false;
-
         public ChapterChangeClickListener(Boolean pre) {
             Pre = pre;
         }

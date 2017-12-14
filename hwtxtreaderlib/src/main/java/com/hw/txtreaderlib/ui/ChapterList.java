@@ -1,6 +1,5 @@
 package com.hw.txtreaderlib.ui;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -26,24 +24,22 @@ import java.util.List;
  */
 
 public class ChapterList extends PopupWindow {
-    private Context context;
+    private Context mContext;
     private ListView mRootView;
     private MyAdapter mAdapter;
-    private List<IChapter> chapters;
+    private List<IChapter> mChapters;
     private int CurrentIndex = -1;
     private int AllCharNum = 0;
-    private int height;
+    private int ViewHeight;
 
-    public ChapterList(Context context, int height, List<IChapter> chapters, int
-            allCharNum) {
-        super(context);
-        this.context = context;
-        this.height = height;
-        this.chapters = chapters;
+    public ChapterList(Context mContext, int ViewHeight, List<IChapter> mChapters, int allCharNum) {
+        super(mContext);
+        this.mContext = mContext;
+        this.ViewHeight = ViewHeight;
+        this.mChapters = mChapters;
         this.AllCharNum = allCharNum;
         initRootView();
     }
-
 
     public void setCurrentIndex(int currentIndex) {
         CurrentIndex = currentIndex;
@@ -60,16 +56,17 @@ public class ChapterList extends PopupWindow {
     public BaseAdapter getAdapter(){
         return mAdapter;
     }
+
     protected void initRootView() {
-        WindowManager m = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager m = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics metrics = new DisplayMetrics();
         m.getDefaultDisplay().getMetrics(metrics);
 
-        int ViewHeight = height;
+        int ViewHeight = this.ViewHeight;
         int ViewWidth = metrics.widthPixels;
-        mRootView = new ListView(context);
-        ViewGroup.LayoutParams params =
-                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+        mRootView = new ListView(mContext);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT);
         mRootView.setLayoutParams(params);
         this.setContentView(mRootView);
@@ -86,12 +83,12 @@ public class ChapterList extends PopupWindow {
     private class MyAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return chapters == null ? 0 : chapters.size();
+            return mChapters == null ? 0 : mChapters.size();
         }
 
         @Override
         public Object getItem(int i) {
-            return chapters.get(i);
+            return mChapters.get(i);
         }
 
         @Override
@@ -104,7 +101,7 @@ public class ChapterList extends PopupWindow {
             Holder holder;
             if (view == null) {
                 holder = new Holder();
-                view = LayoutInflater.from(context).inflate(R.layout.adapter_chapterlist, null);
+                view = LayoutInflater.from(mContext).inflate(R.layout.adapter_chapterlist, null);
                 holder.index = view.findViewById(R.id.adapter_chatperlist_index);
                 holder.title = view.findViewById(R.id.adapter_chatperlist_title);
                 holder.progress = view.findViewById(R.id.adapter_chatperlist_progress);
@@ -112,7 +109,7 @@ public class ChapterList extends PopupWindow {
             } else {
                 holder = (Holder) view.getTag();
             }
-            IChapter chapter = chapters.get(i);
+            IChapter chapter = mChapters.get(i);
             if (CurrentIndex == i) {
                 holder.progress.setTextColor(Color.parseColor("#3f4032"));
                 holder.progress.setText("当前");
