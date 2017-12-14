@@ -10,7 +10,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/hwtxtreaderlib" />
-            <option value="$PROJECT_DIR$/javaunittest" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
