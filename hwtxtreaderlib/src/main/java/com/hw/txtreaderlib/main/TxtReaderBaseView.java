@@ -115,6 +115,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
         Boolean Deal = mGestureDetector.onTouchEvent(event);
         if (Deal) return true;
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_UP:
                 onActionUp(event);
@@ -137,6 +138,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      * @param event
      */
     protected void onActionMove(MotionEvent event) {
+        ELogger.log("onLongPress", "CurrentMode:" + CurrentMode);
         if (CurrentMode == Mode.Normal) {
             onPageMove(event);
         } else {
@@ -177,6 +179,11 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         }
     }
 
+    /**
+     * 执行上一页动画
+     *
+     * @param event
+     */
     protected void startPageUpAnimation(MotionEvent event) {
 
         if (getMoveDistance() < -PageChangeMinMoveDistance || getMoveDistance() > PageChangeMinMoveDistance) {
@@ -201,10 +208,16 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
     }
 
+    /**
+     * @return 当前页是否是第一页
+     */
     protected synchronized Boolean isFirstPage() {
         return readerContext.getPageData().FirstPage() == null || getTopPage() == null;
     }
 
+    /**
+     * @return 当前页是否是最后一页
+     */
     protected synchronized Boolean isLastPage() {
         return readerContext.getPageData().LastPage() == null || getBottomPage() == null;
     }
@@ -274,6 +287,13 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                     return true;
                 }
             }
+        } else {
+            if (CurrentMode == Mode.PagePreIng || CurrentMode == Mode.PageNextIng) {//执行动画的使用不允许刷新状态
+            } else {
+                CurrentMode = Mode.Normal;
+                invalidate();
+            }
+            return true;
         }
         return true;
     }
@@ -283,14 +303,25 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
     }
 
+    /**
+     * 轻击翻页
+     *
+     * @param e
+     * @return
+     */
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-
         return false;
     }
 
+    /**
+     * 长按事件，执行检测长按文字
+     *
+     * @param e
+     */
     @Override
     public void onLongPress(MotionEvent e) {
+        ELogger.log("onLongPress", "onLongPress1");
         if (CurrentMode == Mode.Normal) {
             onPressSelectText(e);
         }
@@ -302,6 +333,15 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         return false;
     }
 
+    /**
+     * 快速滑动翻页
+     *
+     * @param e1
+     * @param e2
+     * @param velocityX
+     * @param velocityY
+     * @return
+     */
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         float MaxVelocityX = 1000;
@@ -317,6 +357,11 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         return false;
     }
 
+    /**
+     * 长按获取按着的文字，这时 FirstSelectedChar =  LastSelectedChar
+     *
+     * @param e
+     */
     private void onPressSelectText(MotionEvent e) {
         TxtChar selectedChar = findCharByPosition(e.getX(), e.getY());
         if (selectedChar != null) {
@@ -326,11 +371,13 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             setRightSlider(LastSelectedChar);
             CurrentMode = Mode.PressSelectText;
         } else {
+            CurrentMode = Mode.PressUnSelectText;
             FirstSelectedChar = null;
             LastSelectedChar = null;
-            CurrentMode = Mode.Normal;
+            CurrentMode = Mode.PressUnSelectText;
         }
-        invalidate();
+        releaseTouch();
+        postInvalidate();
 
     }
 
@@ -397,6 +444,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         }
     }
 
+    /**
+     * @return 可能返回null
+     */
     protected Path getRightSliderPath() {
         if (LastSelectedChar != null) {
             Path p = mSliderPath;
@@ -414,12 +464,18 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
     private final List<ITxtLine> mSelectLines = new ArrayList<>();
 
+    /**
+     * @return 获取当前选中的行文字
+     */
     protected synchronized List<ITxtLine> getCurrentSelectTextLine() {
         return mSelectLines;
     }
 
 
-    protected synchronized void checkSelectedText() {//检测滑动选中的文字
+    /**
+     * 检测滑动选中的文字
+     */
+    protected synchronized void checkSelectedText() {
         Boolean Started = false;
         Boolean Ended = false;
         mSelectLines.clear();
@@ -463,6 +519,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         }
     }
 
+    /**
+     * @return 获取当前选中的文字，不会返回null
+     */
     protected String getCurrentSelectedText() {
         String text = "";
         for (ITxtLine l : mSelectLines) {
@@ -484,6 +543,11 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         return region;
     }
 
+    /**
+     * @param TouchX
+     * @param TouchY
+     * @return 是否可以向后滑动
+     */
     private boolean CanMoveBack(float TouchX, float TouchY) {
         if (FirstSelectedChar != null) {
             Path p = new Path();
@@ -500,6 +564,11 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         }
     }
 
+    /**
+     * @param TouchX
+     * @param TouchY
+     * @return 是否可以向前滑动
+     */
     private boolean CanMoveForward(float TouchX, float TouchY) {
         if (LastSelectedChar != null) {
             Path p = new Path();
@@ -533,7 +602,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         PageParam param = new PageParam();
         param.PageWidth = getWidth();
         param.PageHeight = getHeight();
-
         readerContext.setPageParam(param);
     }
 
@@ -545,7 +613,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                 loader.load(filePath, readerContext, new ILoadListener() {
                     @Override
                     public void onSuccess() {
-
                         checkMoveState();
                         postInvalidate();
                         post(new Runnable() {
@@ -555,7 +622,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                                 listener.onSuccess();
                             }
                         });
-
 
                     }
 
@@ -575,12 +641,12 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
     protected Boolean isPageNext() {
         //是否是执行下一页
-        return getMoveDistance() < 0;
+        return getMoveDistance() < -10;
     }
 
     protected Boolean isPagePre() {
         //是否是执行上一页
-        return getMoveDistance() > 0;
+        return getMoveDistance() > 10;
     }
 
     protected synchronized float getMoveDistance() {
@@ -612,6 +678,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         IPage firstPage = readerContext.getPageData().FirstPage();
         if (firstPage == null) {//没有上一页数据了
             ELogger.log(tag, "没有上一页数据了");
+            CurrentMode = Mode.Normal;
             return;
         }
         pagePreTask.Run(null, readerContext);
@@ -622,6 +689,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         IPage lastPage = readerContext.getPageData().LastPage();
         if (lastPage == null) {//没有下一页数据了
             ELogger.log(tag, "没有下一页数据了");
+            CurrentMode = Mode.Normal;
             return;
         }
 
@@ -654,6 +722,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         PagePreIng,//执行上一页数据获取等相关操作
         PageNextIng,//执行下一页数据获取等相关操作
         PressSelectText,//长按选中文字
+        PressUnSelectText,//长按但是未选中文字
         SelectMoveForward, //向前滑动选中文字
         SelectMoveBack//向后滑动选中文字
     }
@@ -703,7 +772,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             IPage nextFirstPage = readerContext.getPageData().MidPage();
 
             IPage firstPage = null;
-            IPage midPage = null;
+            IPage midPage;
             IPage nextPage = null;
 
             int lineNum = readerContext.getPageParam().PageLineNum;

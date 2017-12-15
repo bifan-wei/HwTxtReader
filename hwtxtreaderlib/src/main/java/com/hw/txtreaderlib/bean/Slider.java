@@ -6,6 +6,7 @@ package com.hw.txtreaderlib.bean;
  */
 
 public class Slider {
+    public Boolean ShowBellow= true;
     public int Left;
     public int Right;
     public int Top;
@@ -14,7 +15,8 @@ public class Slider {
     @Override
     public String toString() {
         return "Slider{" +
-                "Left=" + Left +
+                "ShowBellow=" + ShowBellow +
+                ", Left=" + Left +
                 ", Right=" + Right +
                 ", Top=" + Top +
                 ", Bottom=" + Bottom +

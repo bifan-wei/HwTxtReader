@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\HP\Documents\GitHub\HwTxtReader\hwtxtreaderlib\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="b12337662714260e289142b1bb005214db831de3">
+        <dex dex="C:\Users\HP\Documents\GitHub\HwTxtReader\app\build\intermediates\pre-dexed\debug\classes_29cc639bf4222f8c07b138b34147c3ccf53c88de.jar" />
+    </item>
+
+</items>
