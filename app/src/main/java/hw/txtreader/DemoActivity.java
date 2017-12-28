@@ -12,16 +12,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.hw.txtreaderlib.main.TxtReaderView;
 import com.hw.txtreaderlib.ui.HwTxtPlayActivity;
 
 import java.io.File;
 
 public class DemoActivity extends AppCompatActivity {
-    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 0x01;
-
     private String tag = "MainActivity";
-    private TxtReaderView readerView;
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 0x01;
     private String FilePath = Environment.getExternalStorageDirectory() + "/test1.txt";
     private Boolean Permit = false;
     private EditText mEditText;
@@ -45,7 +42,7 @@ public class DemoActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(FilePath) || !(new File(FilePath)).exists()) {
                 toast("文件不存在");
             } else {
-                HwTxtPlayActivity.LoadTxtFile(this, FilePath);
+                HwTxtPlayActivity.loadTxtFile(this, FilePath);
             }
         }
     }
