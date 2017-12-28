@@ -47,8 +47,8 @@ public class TxtFileLoader {
         fileMsg.CurrentParagraphIndex = 0;
         fileMsg.PreParagraphIndex = 0;
         fileMsg.PreCharIndex = 0;
-        if (fileName == null) {
-            fileName = FileUtil.getDefaultNameFromFilePath(filePath);
+        if (fileName == null||fileName.trim().length()==0) {
+            fileName = file.getName();
         }
         fileMsg.FileName = fileName;
         readerContext.setFileMsg(fileMsg);

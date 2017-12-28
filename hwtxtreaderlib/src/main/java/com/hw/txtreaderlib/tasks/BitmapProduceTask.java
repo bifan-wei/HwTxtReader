@@ -46,6 +46,7 @@ public class BitmapProduceTask implements ITxtTask {
         ELogger.log(tag, "already done ,call back success");
         callBack.onMessage("already done ,call back success");
         readerContext.setInitDone(true);
-        callBack.onSuccess();//already done ,call back success
+        //already done ,call back success
+        callBack.onSuccess();
     }
 }

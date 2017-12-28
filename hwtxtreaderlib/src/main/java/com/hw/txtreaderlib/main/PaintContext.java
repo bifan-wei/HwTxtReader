@@ -19,4 +19,10 @@ public class PaintContext {
         sliderPaint = new Paint();
     }
 
+    public void onDestroy(){
+        textPaint = null;
+        selectTextPaint =null;
+        notePaint = null;
+        sliderPaint =null;
+    }
 }

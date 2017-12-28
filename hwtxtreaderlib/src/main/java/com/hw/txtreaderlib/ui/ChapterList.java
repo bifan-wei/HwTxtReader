@@ -49,11 +49,11 @@ public class ChapterList extends PopupWindow {
         mAdapter.notifyDataSetChanged();
     }
 
-    public ListView getListView(){
+    public ListView getListView() {
         return mRootView;
     }
 
-    public BaseAdapter getAdapter(){
+    public BaseAdapter getAdapter() {
         return mAdapter;
     }
 
@@ -66,8 +66,8 @@ public class ChapterList extends PopupWindow {
         int ViewWidth = metrics.widthPixels;
         mRootView = new ListView(mContext);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT);
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
         mRootView.setLayoutParams(params);
         this.setContentView(mRootView);
         this.setWidth(ViewWidth);
@@ -117,7 +117,7 @@ public class ChapterList extends PopupWindow {
                 holder.progress.setTextColor(Color.parseColor("#aeaca2"));
                 float p = 0;
                 if (AllCharNum > 0) {
-                    p = (float) chapter.getStartIndex()/ (float) AllCharNum;
+                    p = (float) chapter.getStartIndex() / (float) AllCharNum;
                     if (p > 1) {
                         p = 1;
                     }
@@ -125,7 +125,7 @@ public class ChapterList extends PopupWindow {
                 holder.progress.setText((int) (p * 100) + "%");
             }
 
-            holder.index.setText(i+ 1 + "");
+            holder.index.setText(i + 1 + "");
             holder.title.setText((chapter.getTitle() + "").trim());
             return view;
         }
@@ -134,6 +134,16 @@ public class ChapterList extends PopupWindow {
             TextView index;
             TextView title;
             TextView progress;
+        }
+    }
+
+    public void onDestroy() {
+        mContext = null;
+        mRootView = null;
+        mAdapter = null;
+        if (mChapters != null) {
+            mChapters.clear();
+            mChapters = null;
         }
     }
 

@@ -88,9 +88,9 @@ public class FileUtil {
         if (filePath == null || filePath.length() == 0) {
             return "";
         }
-        if (filePath.contains("/")) {
-            String[] s = filePath.split("/");
-            return s[s.length - 1];
+        File file = new File(filePath);
+        if (file.exists()) {
+            return file.getName();
         }
         return filePath;
     }

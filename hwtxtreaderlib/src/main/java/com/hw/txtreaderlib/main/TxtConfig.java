@@ -14,21 +14,24 @@ public class TxtConfig {
     public static final String C_TEXT_COLOR = "TEXT_COLOR";
     public static final String C_NOTE_TEXT_COLOR = "TEXT_COLOR";
     public static final String C_SLIDER_COLOR = "SLIDER_COLOR";
-    public static final String C_SELECT_TEXT_COLOR = "TEXT_COLOR";
+    public static final String C_SELECT_TEXT_COLOR = "SELECTED_TEXT_COLOR";
     public static final String C_BACKGROUND_COLOR = "BACKGROUND_COLOR";
     public static final String C_IS_SHOW_NOTE = "IS_SHOW_NOTE";
     public static final String C_CAN_PRESS_SELECT = "CAN_PRESS_SELECT";
     public static final String C_SWITCH_BY_TRANSLATE = "SWITCH_BY_TRANSLATE";
     public static final String C_BOLD = "BOLD ";
 
+
     public static final int MAX_TEXT_SIZE = 90;//in px
     public static final int MIN_TEXT_SIZE = 40;//in px
+    public static final int DEFAULT_SELECT_TEXT_COLOR = Color.parseColor("#44f6950b");
+    public static final int DEFAULT_SLIDER_COLOR = Color.parseColor("#1f4cf5");
     public  int textSize = MIN_TEXT_SIZE;
     public int textColor = Color.BLACK;
     public int backgroundColor = Color.WHITE;
     public int NoteColor = Color.RED;
-    public int SelectTextColor = Color.parseColor("#44ffffff");
-    public int SliderColor = Color.parseColor("#1f4cf5");
+    public int SelectTextColor = DEFAULT_SELECT_TEXT_COLOR;
+    public int SliderColor = DEFAULT_SLIDER_COLOR;
     public Boolean showNote = true;
     public Boolean canPressSelect = true;
     public Boolean SwitchByTranslate = true;
@@ -89,9 +92,8 @@ public class TxtConfig {
     }
 
     public static int getSelectTextColor(Context context) {
-        //SharedPreferences share = getS(context);
-       // return share.getInt(C_SELECT_TEXT_COLOR,SelectTextColor);
-        return Color.parseColor("#44ffffff");
+        SharedPreferences share = getS(context);
+        return share.getInt(C_SELECT_TEXT_COLOR,DEFAULT_SELECT_TEXT_COLOR);
     }
 
 
@@ -118,7 +120,7 @@ public class TxtConfig {
 
     public static int getSliderColor(Context context) {
         SharedPreferences share = getS(context);
-        return share.getInt(C_SLIDER_COLOR, Color.parseColor("#1f4cf5"));
+        return share.getInt(C_SLIDER_COLOR, DEFAULT_SLIDER_COLOR);
     }
 
     public static void saveIsShowNote(Context context, Boolean IsShowNote) {
@@ -168,7 +170,7 @@ public class TxtConfig {
         editor.commit();
     }
 
-    public static Boolean IsBold(Context context) {
+    public static Boolean isBold(Context context) {
         SharedPreferences share = getS(context);
         return share.getBoolean(C_BOLD, false);
     }

@@ -1,5 +1,7 @@
 package com.hw.txtreaderlib.main;
 
+import android.graphics.Bitmap;
+
 import com.hw.txtreaderlib.interfaces.IPage;
 
 /**
@@ -38,4 +40,12 @@ public class PageData {
     public IPage[] getPages() {
         return pages;
     }
+
+    public void onDestroy() {
+        pages[0]=null;
+        pages[1]=null;
+        pages[2]=null;
+    }
+
+
 }

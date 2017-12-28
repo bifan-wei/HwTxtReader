@@ -76,14 +76,14 @@ public class TxtReaderContext {
     }
 
     public IPageDataPipeline getPageDataPipeline() {
-        if(pageDataPipeline==null){
+        if (pageDataPipeline == null) {
             pageDataPipeline = new PageDataPipeline(this);
         }
         return pageDataPipeline;
     }
 
     public PaintContext getPaintContext() {
-        if(paintContext==null){
+        if (paintContext == null) {
             paintContext = new PaintContext();
         }
         return paintContext;
@@ -98,7 +98,7 @@ public class TxtReaderContext {
     }
 
     public TxtConfig getTxtConfig() {
-        if(txtConfig==null){
+        if (txtConfig == null) {
             txtConfig = new TxtConfig();
         }
         return txtConfig;
@@ -123,7 +123,19 @@ public class TxtReaderContext {
     public void Clear() {
         if (paragraphData != null) {
             paragraphData.Clear();
+            paragraphData = null;
         }
+        if (paintContext != null) {
+            paintContext.onDestroy();
+            paintContext = null;
+        }
+        if (chapters != null) {
+            chapters.clear();
+            chapters = null;
+        }
+        bitmapData.onDestroy();
+        pageData.onDestroy();
+
     }
 
 }

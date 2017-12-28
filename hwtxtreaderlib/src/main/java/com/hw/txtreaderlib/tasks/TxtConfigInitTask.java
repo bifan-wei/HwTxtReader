@@ -24,14 +24,7 @@ public class TxtConfigInitTask implements ITxtTask {
         callBack.onMessage("start init settings in TxtConfigInitTask");
 
         TxtConfig config = readerContext.getTxtConfig();
-        config.showNote = TxtConfig.getIsShowNote(readerContext.context);
-        config.canPressSelect = TxtConfig.getCanPressSelect(readerContext.context);
-        config.textColor = TxtConfig.getTextColor(readerContext.context);
-        config.textSize = TxtConfig.getTextSize(readerContext.context);
-        config.backgroundColor = TxtConfig.getBackgroundColor(readerContext.context);
-        config.NoteColor = TxtConfig.getNoteTextColor(readerContext.context);
-        config.SelectTextColor = TxtConfig.getSelectTextColor(readerContext.context);
-        config.SliderColor = TxtConfig.getSliderColor(readerContext.context);
+        initTxtConfig(readerContext,config);
 
         //if not null ,do recycle
         if (readerContext.getBitmapData().getBgBitmap() != null) {
@@ -57,7 +50,27 @@ public class TxtConfigInitTask implements ITxtTask {
         txtTask.Run(callBack, readerContext);
     }
 
-    private void initPainContext(PaintContext paintContext, TxtConfig txtConfig) {
+    /** 初始化获取保存的或者默认的设置
+     * @param readerContext
+     * @param config
+     */
+    private void initTxtConfig(TxtReaderContext readerContext, TxtConfig config) {
+        config.showNote = TxtConfig.getIsShowNote(readerContext.context);
+        config.canPressSelect = TxtConfig.getCanPressSelect(readerContext.context);
+        config.textColor = TxtConfig.getTextColor(readerContext.context);
+        config.textSize = TxtConfig.getTextSize(readerContext.context);
+        config.backgroundColor = TxtConfig.getBackgroundColor(readerContext.context);
+        config.NoteColor = TxtConfig.getNoteTextColor(readerContext.context);
+        config.SelectTextColor = TxtConfig.getSelectTextColor(readerContext.context);
+        config.SliderColor = TxtConfig.getSliderColor(readerContext.context);
+        config.Bold = TxtConfig.isBold(readerContext.context);
+    }
+
+    /**
+     * @param paintContext
+     * @param txtConfig
+     */
+    public static void initPainContext(PaintContext paintContext, TxtConfig txtConfig) {
         paintContext.textPaint.setTextSize(txtConfig.textSize);
         paintContext.textPaint.setFakeBoldText(txtConfig.Bold);
         paintContext.textPaint.setTextAlign(Paint.Align.LEFT);
@@ -70,6 +83,7 @@ public class TxtConfigInitTask implements ITxtTask {
         paintContext.selectTextPaint.setTextAlign(Paint.Align.LEFT);
         paintContext.sliderPaint.setColor(txtConfig.SliderColor);
         paintContext.sliderPaint.setAntiAlias(true);
+        paintContext.textPaint.setFakeBoldText(txtConfig.Bold);
     }
 
     private void initPageParam(TxtReaderContext readerContext) {
@@ -77,7 +91,6 @@ public class TxtConfigInitTask implements ITxtTask {
         param.LineWidth = param.PageWidth - param.PaddingLeft - param.PaddingRight;
         int lineHeight = readerContext.getTxtConfig().textSize + param.LinePadding;
         param.PageLineNum = (param.PageHeight - param.PaddingTop - param.PaddingBottom+param.LinePadding)/lineHeight;
-
     }
 
 

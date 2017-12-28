@@ -30,18 +30,6 @@ public class DrawPrepareTask implements ITxtTask {
     }
 
     private void initPainContext(PaintContext paintContext, TxtConfig txtConfig) {
-        paintContext.textPaint.setTextSize(txtConfig.textSize);
-        paintContext.textPaint.setFakeBoldText(txtConfig.Bold);
-        paintContext.textPaint.setTextAlign(Paint.Align.LEFT);
-        paintContext.textPaint.setColor(txtConfig.textColor);
-        paintContext.notePaint.setTextSize(txtConfig.textSize);
-        paintContext.notePaint.setColor(txtConfig.NoteColor);
-        paintContext.notePaint.setTextAlign(Paint.Align.LEFT);
-        paintContext.selectTextPaint.setTextSize(txtConfig.textSize);
-        paintContext.selectTextPaint.setColor(txtConfig.SelectTextColor);
-        paintContext.selectTextPaint.setTextAlign(Paint.Align.LEFT);
-        paintContext.sliderPaint.setColor(txtConfig.SliderColor);
-        paintContext.sliderPaint.setColor(txtConfig.SliderColor);
-        paintContext.sliderPaint.setAntiAlias(true);
+        TxtConfigInitTask.initPainContext(paintContext, txtConfig);
     }
 }

@@ -43,6 +43,7 @@ public class TxtPageLoadTask implements ITxtTask {
         ELogger.log(tag, "获取进度数据完成");
         ELogger.log(tag, "startParagraphIndex/ startCharIndex+" + startParagraphIndex + "/" + startCharIndex);
 
+        //show the data
         if (firstPage != null) {
             ELogger.log(tag, "firstPage:" + firstPage.toString());
             if (!firstPage.HasData()) {

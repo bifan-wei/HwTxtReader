@@ -50,14 +50,22 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     private void getIntentData() {
         FilePath = getIntent().getStringExtra("FilePath");
         FileName = getIntent().getStringExtra("FileName");
-
     }
 
-    public static void LoadTxtFile(Context context, String FilePath) {
-        LoadTxtFile(context, FilePath, FilePath);
+    /**
+     * @param context
+     * @param FilePath 文本文件路径
+     */
+    public static void loadTxtFile(Context context, String FilePath) {
+        loadTxtFile(context, FilePath, null);
     }
 
-    public static void LoadTxtFile(Context context, String FilePath, String FileName) {
+    /**
+     * @param context
+     * @param FilePath 文本文件路径
+     * @param FileName 显示的书籍或者文件名称
+     */
+    public static void loadTxtFile(Context context, String FilePath, String FileName) {
         Intent intent = new Intent();
         intent.putExtra("FilePath", FilePath);
         intent.putExtra("FileName", FileName);
@@ -71,11 +79,12 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     private TextView mProgressText;
     private TextView mSettingText;
     private TxtReaderView mTxtReaderView;
-    private MenuHolder mMenuHolder = new MenuHolder();
     private View mTopMenu;
     private View mBottomMenu;
     private View mCoverView;
+
     private ChapterList mChapterListPop;
+    private MenuHolder mMenuHolder = new MenuHolder();
 
     private void init() {
         mHandler = new Handler();
@@ -106,6 +115,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mMenuHolder.mTranslateSelectedLayout = findViewById(R.id.txtreadr_menu_textsetting2_translate);
         mMenuHolder.mTranslateSelectedPc = (ImageView) findViewById(R.id.txtreadr_menu_textsetting2_translatepic);
         mMenuHolder.mTextSize = (TextView) findViewById(R.id.txtreadr_menu_textsize);
+
         mMenuHolder.mStyle1 = findViewById(R.id.hwtxtreader_menu_style1);
         mMenuHolder.mStyle2 = findViewById(R.id.hwtxtreader_menu_style2);
         mMenuHolder.mStyle3 = findViewById(R.id.hwtxtreader_menu_style3);
@@ -127,11 +137,13 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     private void loadFile() {
         if (TextUtils.isEmpty(FilePath) || !(new File(FilePath).exists())) {
             toast("文件不存在");
+            return;
         }
+
         mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() {
             @Override
             public void onSuccess() {
-                if (TextUtils.isEmpty(FileName)) {
+                if (TextUtils.isEmpty(FileName)) {//没有显示的名称，获取文件名显示
                     FileName = mTxtReaderView.getTxtReaderContext().getFileMsg().FileName;
                 }
                 setBookName(FileName);
@@ -339,6 +351,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
 
     private class ChapterChangeClickListener implements View.OnClickListener {
         private Boolean Pre = false;
+
         public ChapterChangeClickListener(Boolean pre) {
             Pre = pre;
         }
@@ -447,8 +460,17 @@ public class HwTxtPlayActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         mTxtReaderView.getTxtReaderContext().Clear();
+        mHandler.removeCallbacksAndMessages(null);
+        if (mChapterListPop != null) {
+            if (mChapterListPop.isShowing()) {
+                mChapterListPop.dismiss();
+            }
+            mChapterListPop.onDestroy();
+        }
+        mMenuHolder = null;
+
+        super.onDestroy();
     }
 
     public void BackClick(View view) {
