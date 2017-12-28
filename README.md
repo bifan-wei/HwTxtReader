@@ -16,11 +16,9 @@
 6.可以进行长按滑动选择文字。<br> 
 7.数字与英文字符显示特点颜色。<br> 
 <br>
-<br>
 
 ## 更新日志请查看 updateLog.txt文件
-
-
+<br>
 
 ## 目前demo效果图：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)
