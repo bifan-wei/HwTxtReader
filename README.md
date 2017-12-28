@@ -43,7 +43,7 @@ compile project(':hwtxtreaderlib')
 ```
 ##  使用默认界面使用的话，只需要一句代码： 
  ```java
- HwTxtPlayActivity.LoadTxtFile(this, FilePath);
+ HwTxtPlayActivity.loadTxtFile(this, FilePath);
  ```
 <br>
 
@@ -67,14 +67,14 @@ compile project(':hwtxtreaderlib')
                 initWhenLoadDone(); 
             } 
 
-            @Override <br> 
+            @Override 
             public void onFail(TxtMsg txtMsg) { 
-               //加载失败回调 <br> 
+               //加载失败回调 
             } 
 
-            @Override <br> 
+            @Override 
             public void onMessage(String message) {  
-            //加载过程信息回调 <br> 
+            //加载过程信息回调 
             } 
         }); 
 ```
