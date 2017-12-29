@@ -38,9 +38,24 @@
 <br>
 
 ## 添加hwtxtreaderlib依赖 
+
 ```java
-compile project(':hwtxtreaderlib')
+
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+  
+ <br>
+ <br>
+ 
+  dependencies {
+	        compile 'com.github.bifan-wei:HwTxtReader:v1.0'
+	}
+	
 ```
+
 ##  使用默认界面使用的话，只需要一句代码： 
  ```java
  HwTxtPlayActivity.loadTxtFile(this, FilePath);
