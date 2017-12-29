@@ -41,14 +41,13 @@
 
 ```java
 
-allprojects {
+    allprojects {
 		repositories {
 			...
 			maven { url 'https://jitpack.io' }
 		}
   
- <br>
- <br>
+
  
   dependencies {
 	        compile 'com.github.bifan-wei:HwTxtReader:v1.0'
