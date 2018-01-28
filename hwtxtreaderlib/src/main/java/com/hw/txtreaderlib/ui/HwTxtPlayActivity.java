@@ -140,6 +140,12 @@ public class HwTxtPlayActivity extends AppCompatActivity {
             return;
         }
 
+        loadOurFile();
+        //you can load with textStr
+        //loadStr();
+    }
+
+    private void loadOurFile() {
         mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() {
             @Override
             public void onSuccess() {
@@ -163,8 +169,47 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         });
     }
 
+    private void loadStr() {
+        String testText = "滚滚长江东逝水，浪花淘尽英雄。是非成败转头空。   " +
+                " 青山依旧在，几度夕阳红。白发渔樵江渚上，惯    " +
+                "看秋月春风。一壶浊酒喜相逢。古今多少事，都付    " +
+                "笑谈中。    ——调寄《临江仙》    话说天下大势，" +
+                "分久必合，合久必分。周末七国分争，并入于秦。及秦灭之后，" +
+                "楚、汉分争，又并入于汉。汉朝自高祖斩白蛇而起义，一统天下，" +
+                "后来光武中兴，传至献帝，遂分为三国。推其致乱之由，殆始于桓、" +
+                "灵二帝。桓帝禁锢善类，崇信宦官。及桓帝崩，灵帝即位，大将军窦武、" +
+                "太傅陈蕃共相辅佐。时有宦官曹节等弄权，窦武、陈蕃谋诛之，机事不密" +
+                "反为所害，中涓自此愈横。    建宁二年四月望日，帝御温德殿。方升座，" +
+                "殿角狂风骤起。只见一条大青蛇，从梁上飞将下来，蟠于椅上。帝惊倒，左右急救入宫，" +
+                "百官俱奔避。须臾，蛇不见了。忽然大雷大雨，加以冰雹，落到半夜方止，坏却房屋无数。" +
+                "建宁四年二月，洛阳地震；又海水泛溢，沿海居民，尽被大浪卷入海中。光和元年，雌鸡化雄。" +
+                "六月朔，黑气十余丈，飞入温德殿中。秋七月，有虹现于玉堂；五原山岸，尽皆崩裂。种种不祥，";
+
+
+        mTxtReaderView.loadText(testText, new ILoadListener() {
+            @Override
+            public void onSuccess() {
+                setBookName("test with str");
+                initWhenLoadDone();
+            }
+
+            @Override
+            public void onFail(TxtMsg txtMsg) {
+                //加载失败信息
+                toast(txtMsg + "");
+            }
+
+            @Override
+            public void onMessage(String message) {
+                //加载过程信息
+            }
+        });
+    }
+
     private void initWhenLoadDone() {
-        FileName = mTxtReaderView.getTxtReaderContext().getFileMsg().FileName;
+        if(mTxtReaderView.getTxtReaderContext().getFileMsg()!=null) {
+            FileName = mTxtReaderView.getTxtReaderContext().getFileMsg().FileName;
+        }
         mMenuHolder.mTextSize.setText(mTxtReaderView.getTextSize() + "");
         mTopDecoration.setBackgroundColor(mTxtReaderView.getBackgroundColor());
         mBottomDecoration.setBackgroundColor(mTxtReaderView.getBackgroundColor());

@@ -25,6 +25,7 @@ import com.hw.txtreaderlib.interfaces.IPageChangeListener;
 import com.hw.txtreaderlib.interfaces.ITxtLine;
 import com.hw.txtreaderlib.interfaces.ITxtTask;
 import com.hw.txtreaderlib.tasks.BitmapProduceTask;
+import com.hw.txtreaderlib.tasks.TextLoader;
 import com.hw.txtreaderlib.tasks.TxtFileLoader;
 import com.hw.txtreaderlib.utils.DisPlayUtil;
 import com.hw.txtreaderlib.utils.ELogger;
@@ -597,6 +598,16 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         });
     }
 
+    public void loadText(final String text, final ILoadListener listener) {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                initReaderContext();
+                loadTextStr(text, listener);
+            }
+        });
+    }
+
     private void initReaderContext() {
         PageChangeMinMoveDistance = getWidth() / 5;
         PageParam param = new PageParam();
@@ -611,6 +622,40 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             public void run() {
                 TxtFileLoader loader = new TxtFileLoader();
                 loader.load(filePath, readerContext, new ILoadListener() {
+                    @Override
+                    public void onSuccess() {
+                        checkMoveState();
+                        postInvalidate();
+                        post(new Runnable() {
+                            @Override
+                            public void run() {
+                                onPageProgress(readerContext.getPageData().MidPage());
+                                listener.onSuccess();
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onFail(TxtMsg txtMsg) {
+                        listener.onFail(txtMsg);
+                    }
+
+                    @Override
+                    public void onMessage(String message) {
+                        listener.onMessage(message);
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private void loadTextStr(final String text, final ILoadListener listener) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                TextLoader loader = new TextLoader();
+                loader.load(text, readerContext, new ILoadListener() {
                     @Override
                     public void onSuccess() {
                         checkMoveState();

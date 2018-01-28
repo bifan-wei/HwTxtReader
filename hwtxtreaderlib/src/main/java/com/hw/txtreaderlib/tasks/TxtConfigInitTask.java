@@ -24,7 +24,7 @@ public class TxtConfigInitTask implements ITxtTask {
         callBack.onMessage("start init settings in TxtConfigInitTask");
 
         TxtConfig config = readerContext.getTxtConfig();
-        initTxtConfig(readerContext,config);
+        initTxtConfig(readerContext, config);
 
         //if not null ,do recycle
         if (readerContext.getBitmapData().getBgBitmap() != null) {
@@ -40,9 +40,12 @@ public class TxtConfigInitTask implements ITxtTask {
         initPageParam(readerContext);
         //start draw prepare
 
-        int startParagraphIndex = readerContext.getFileMsg().PreParagraphIndex;
-        int startCharIndex = readerContext.getFileMsg().PreCharIndex;
-
+        int startParagraphIndex = 0;
+        int startCharIndex = 0;
+        if (readerContext.getFileMsg() != null) {
+            startParagraphIndex = readerContext.getFileMsg().PreParagraphIndex;
+            startCharIndex = readerContext.getFileMsg().PreCharIndex;
+        }
         //初始化一下之前的设置
         initPainContext(readerContext.getPaintContext(), readerContext.getTxtConfig());
 
@@ -50,7 +53,9 @@ public class TxtConfigInitTask implements ITxtTask {
         txtTask.Run(callBack, readerContext);
     }
 
-    /** 初始化获取保存的或者默认的设置
+    /**
+     * 初始化获取保存的或者默认的设置
+     *
      * @param readerContext
      * @param config
      */
@@ -90,7 +95,7 @@ public class TxtConfigInitTask implements ITxtTask {
         PageParam param = readerContext.getPageParam();
         param.LineWidth = param.PageWidth - param.PaddingLeft - param.PaddingRight;
         int lineHeight = readerContext.getTxtConfig().textSize + param.LinePadding;
-        param.PageLineNum = (param.PageHeight - param.PaddingTop - param.PaddingBottom+param.LinePadding)/lineHeight;
+        param.PageLineNum = (param.PageHeight - param.PaddingTop - param.PaddingBottom + param.LinePadding) / lineHeight;
     }
 
 

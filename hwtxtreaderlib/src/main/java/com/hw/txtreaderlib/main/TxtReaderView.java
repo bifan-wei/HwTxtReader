@@ -437,7 +437,7 @@ public class TxtReaderView extends TxtReaderBaseView {
      */
     public void saveProgress() {
         IPage currentPage = readerContext.getPageData().MidPage();
-        if (currentPage != null && currentPage.HasData()) {
+        if (currentPage != null && currentPage.HasData() && readerContext.getFileMsg() != null) {
             TxtChar firstChar = currentPage.getFirstChar();
             readerContext.getFileMsg().PreParagraphIndex = firstChar.ParagraphIndex;
             readerContext.getFileMsg().PreCharIndex = firstChar.CharIndex;
