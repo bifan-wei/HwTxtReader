@@ -1,4 +1,5 @@
 # HwTxtReader
+
 ## 前言：
 之前项目中有播放txt文件的功能，虽然是一个不难的功能，但是也不简单，陆陆续续做了很久，于是结合之前的经验，决定重新设计代码，
 打造一个轻量级Txt阅读器组件，用于提供快速集成加载txt文件的功能，从2017-11月开始，空余时间慢慢做，目前把基本功能实现，剩下的就是优化了。
@@ -14,7 +15,10 @@
 5.可以滑盖翻页与平移翻页切换。<br> 
 6.可以进行长按滑动选择文字。<br> 
 7.数字与英文字符显示特点颜色。<br> 
+<br>
 
+## 更新日志请查看 updateLog.txt文件
+<br>
 
 ## 目前demo效果图：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)
@@ -34,12 +38,26 @@
 <br>
 
 ## 添加hwtxtreaderlib依赖 
+
 ```java
-compile project(':hwtxtreaderlib')
+
+    allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+  
+
+ 
+  dependencies {
+	        compile 'com.github.bifan-wei:HwTxtReader:v1.0'
+	}
+	
 ```
+
 ##  使用默认界面使用的话，只需要一句代码： 
  ```java
- HwTxtPlayActivity.LoadTxtFile(this, FilePath);
+ HwTxtPlayActivity.loadTxtFile(this, FilePath);
  ```
 <br>
 
@@ -63,19 +81,19 @@ compile project(':hwtxtreaderlib')
                 initWhenLoadDone(); 
             } 
 
-            @Override <br> 
+            @Override 
             public void onFail(TxtMsg txtMsg) { 
-               //加载失败回调 <br> 
+               //加载失败回调 
             } 
 
-            @Override <br> 
+            @Override 
             public void onMessage(String message) {  
-            //加载过程信息回调 <br> 
+            //加载过程信息回调 
             } 
         }); 
 ```
 <br> 
 <br> 
 
-后话：想认真做好这个库，陆陆续续空余时间折腾了一个月才把基本功能做完。忽然发现好累，想想开源也不容易，为那些开源的大神致敬，也希望自己也能做点贡献。<br> 
+后话：想认真做好这个库，陆陆续续空余时间折腾了一个月才把基本功能做完。忽然发现好累，想想开源也不容易，为那些开源的大神致敬，也希望自己也能做点贡献,如果你觉得还不错，欢迎start支持。<br> 
 
