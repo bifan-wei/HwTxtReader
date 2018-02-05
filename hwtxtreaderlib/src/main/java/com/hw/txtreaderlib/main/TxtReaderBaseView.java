@@ -1038,4 +1038,17 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         readerContext.getPageData().refreshTag[2] = r3;
     }
 
+
+    /**
+     * 调用该方法释放长按选择模式
+     */
+    public void releaseSelectdState() {
+        if (CurrentMode == Mode.SelectMoveBack ||
+                CurrentMode == Mode.SelectMoveBack
+                || CurrentMode == Mode.PressUnSelectText
+                || CurrentMode == Mode.PressSelectText) {
+            CurrentMode = Mode.Normal;
+            postInvalidate();
+        }
+    }
 }
