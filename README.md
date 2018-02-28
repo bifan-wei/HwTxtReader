@@ -53,7 +53,7 @@
 
  
   dependencies {
-	        compile 'com.github.bifan-wei:HwTxtReader:v1.0'
+	        compile 'com.github.bifan-wei:HwTxtReader:V1.1'
 	}
 	
 ```
