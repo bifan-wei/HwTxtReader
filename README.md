@@ -1,4 +1,4 @@
-# HwTxtReader
+﻿# HwTxtReader
 
 ## 前言：
 之前项目中有播放txt文件的功能，虽然是一个不难的功能，但是也不简单，陆陆续续做了很久，于是结合之前的经验，决定重新设计代码，
@@ -21,7 +21,7 @@
 <br>
 
 ## 目前demo效果图：
-![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)
+![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_copy.png)
 
 ## 章节列表效果图：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_chaper.png)
@@ -31,6 +31,9 @@
 
 ## 平移翻页效果：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_translate.png)
+
+## 文字复制效果：
+![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_copy.png)
 
 
 # 使用方法：
