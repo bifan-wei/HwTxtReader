@@ -21,7 +21,7 @@
 <br>
 
 ## 目前demo效果图：
-![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_copy.png)
+![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)
 
 ## 章节列表效果图：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_chaper.png)
