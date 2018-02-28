@@ -2,13 +2,11 @@ package com.hw.txtreaderlib.main;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.hw.txtreaderlib.bean.TxtChar;
-import com.hw.txtreaderlib.bean.TxtMsg;
 import com.hw.txtreaderlib.interfaces.IChapter;
 import com.hw.txtreaderlib.interfaces.ILoadListener;
 import com.hw.txtreaderlib.interfaces.IPage;
@@ -51,15 +49,24 @@ public class TxtReaderView extends TxtReaderBaseView {
     protected void drawLineText(Canvas canvas) {
         if (isPagePre() || isPageNext()) {
             if (isPagePre()) {
-                if (getTopPage() != null) {
-                    drawPagePreTopPage(canvas);
+                //当前是第一页，只显示第一页
+                if (isFirstPage()) {
+                    if (getTopPage() != null) {
+                        canvas.drawBitmap(getTopPage(), 0, 0, null);
+                    }
+                } else {
+                    //绘制上一页
+                    if (getTopPage() != null) {
+                        drawPagePreTopPage(canvas);
+                    }
+                    //绘制下一页
+                    if (getBottomPage() != null) {
+                        drawPagePreBottomPage(canvas);
+                    }
+                    //绘制阴影线
+                    drawPagePrePageShadow(canvas);
                 }
-                if (getBottomPage() != null) {
-                    drawPagePreBottomPage(canvas);
-                }
-                drawPagePrePageShadow(canvas);
             } else {
-
                 if (getTopPage() != null) {
                     drawPageNextTopPage(canvas);
                 }
@@ -69,13 +76,13 @@ public class TxtReaderView extends TxtReaderBaseView {
                 drawPageNextPageShadow(canvas);
 
             }
-
         } else {
             //说明没有触碰移动屏幕
             if (getTopPage() != null) {
                 canvas.drawBitmap(getTopPage(), 0, 0, null);
             }
         }
+
     }
 
     private void drawPageNextPageShadow(Canvas canvas) {
@@ -131,6 +138,7 @@ public class TxtReaderView extends TxtReaderBaseView {
 
     @Override
     protected void onPageMove(MotionEvent event) {
+
         mTouch.x = event.getX();
         mTouch.y = event.getY();
 
@@ -145,7 +153,6 @@ public class TxtReaderView extends TxtReaderBaseView {
             ELogger.log(tag, "是最后一页了");
             return;
         }
-
         invalidate();
     }
 
@@ -296,7 +303,7 @@ public class TxtReaderView extends TxtReaderBaseView {
         loadFromProgress(paragraphIndex, 0);
     }
 
-    public void loadFromProgress(int paragraphIndex, int charIndex) {
+    public void loadFromProgress(final int paragraphIndex, final int charIndex) {
         refreshTag(1, 1, 1);
         TxtPageLoadTask txtPageLoadTask = new TxtPageLoadTask(paragraphIndex, charIndex);
         txtPageLoadTask.Run(new LoadListenerAdapter() {
@@ -307,8 +314,9 @@ public class TxtReaderView extends TxtReaderBaseView {
                 post(new Runnable() {
                     @Override
                     public void run() {
-                        IPage midPage = readerContext.getPageData().MidPage();
-                        onPageProgress(midPage);
+                        //IPage midPage = readerContext.getPageData().MidPage();
+                        //onPageProgress(midPage);
+                        onProgressCallBack(getProgress(paragraphIndex, charIndex));
                         tryFetchFirstPage();
                     }
                 });
@@ -316,6 +324,7 @@ public class TxtReaderView extends TxtReaderBaseView {
             }
         }, readerContext);
     }
+
 
     private void tryFetchFirstPage() {
         IPage midPage = readerContext.getPageData().MidPage();

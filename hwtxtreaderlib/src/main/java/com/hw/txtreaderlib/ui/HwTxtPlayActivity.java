@@ -1,5 +1,6 @@
 package com.hw.txtreaderlib.ui;
 
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,6 +25,8 @@ import com.hw.txtreaderlib.bean.TxtMsg;
 import com.hw.txtreaderlib.interfaces.IChapter;
 import com.hw.txtreaderlib.interfaces.ILoadListener;
 import com.hw.txtreaderlib.interfaces.IPageChangeListener;
+import com.hw.txtreaderlib.interfaces.ISliderListener;
+import com.hw.txtreaderlib.interfaces.ITextSelectListener;
 import com.hw.txtreaderlib.main.TxtConfig;
 import com.hw.txtreaderlib.main.TxtReaderView;
 
@@ -78,10 +81,13 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     private TextView mChapterMenuText;
     private TextView mProgressText;
     private TextView mSettingText;
+    private TextView mSelectedText;
     private TxtReaderView mTxtReaderView;
     private View mTopMenu;
     private View mBottomMenu;
     private View mCoverView;
+    private View ClipboarView;
+    private String CurrentSelectedText;
 
     private ChapterList mChapterListPop;
     private MenuHolder mMenuHolder = new MenuHolder();
@@ -98,6 +104,8 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mTopMenu = findViewById(R.id.activity_hwtxtplay_menu_top);
         mBottomMenu = findViewById(R.id.activity_hwtxtplay_menu_bottom);
         mCoverView = findViewById(R.id.activity_hwtxtplay_cover);
+        ClipboarView = findViewById(R.id.activity_hwtxtplay_Clipboar);
+        mSelectedText = (TextView) findViewById(R.id.activity_hwtxtplay_selected_text);
 
         mMenuHolder.mTitle = (TextView) findViewById(R.id.txtreadr_menu_title);
         mMenuHolder.mPreChapter = (TextView) findViewById(R.id.txtreadr_menu_chapter_pre);
@@ -207,7 +215,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     }
 
     private void initWhenLoadDone() {
-        if(mTxtReaderView.getTxtReaderContext().getFileMsg()!=null) {
+        if (mTxtReaderView.getTxtReaderContext().getFileMsg() != null) {
             FileName = mTxtReaderView.getTxtReaderContext().getFileMsg().FileName;
         }
         mMenuHolder.mTextSize.setText(mTxtReaderView.getTextSize() + "");
@@ -237,6 +245,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
                     mTxtReaderView.loadFromProgress(chapter.getStartParagraphIndex(), 0);
                 }
             });
+            mChapterListPop.setBackGroundColor(mTxtReaderView.getBackgroundColor());
         }
     }
 
@@ -314,6 +323,31 @@ public class HwTxtPlayActivity extends AppCompatActivity {
             }
         });
 
+        //OnTextSelectListener
+        mTxtReaderView.setOnTextSelectListener(new ITextSelectListener() {
+            @Override
+            public void onTextChanging(String selectText) {
+                onCurrentSelectedText(selectText);
+            }
+
+            @Override
+            public void onTextSelected(String selectText) {
+                onCurrentSelectedText(selectText);
+            }
+        });
+
+        mTxtReaderView.setOnSliderListener(new ISliderListener() {
+            @Override
+            public void onShowSlider(String currentSelectedText) {
+                onCurrentSelectedText(currentSelectedText);
+                Show(ClipboarView);
+            }
+
+            @Override
+            public void onReleaseSlider() {
+                Gone(ClipboarView);
+            }
+        });
 
         mTopMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -339,6 +373,12 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mMenuHolder.mTranslateSelectedLayout.setOnClickListener(new SwitchSettingClickListener(true));
         mMenuHolder.mCoverSelectedLayout.setOnClickListener(new SwitchSettingClickListener(false));
 
+    }
+
+
+    private void onCurrentSelectedText(String SelectedText) {
+        mSelectedText.setText("选中" + (SelectedText + "").length() + "个文字");
+        CurrentSelectedText = SelectedText;
     }
 
     private void onTextSettingUi(Boolean isBold) {
@@ -450,6 +490,9 @@ public class HwTxtPlayActivity extends AppCompatActivity {
             mTxtReaderView.setStyle(BgColor, TextColor);
             mTopDecoration.setBackgroundColor(BgColor);
             mBottomDecoration.setBackgroundColor(BgColor);
+            if (mChapterListPop != null) {
+                mChapterListPop.setBackGroundColor(BgColor);
+            }
         }
     }
 
@@ -520,6 +563,17 @@ public class HwTxtPlayActivity extends AppCompatActivity {
 
     public void BackClick(View view) {
         finish();
+    }
+
+    public void onCopyText(View view) {
+        if (!TextUtils.isEmpty(CurrentSelectedText)) {
+            toast("已经复制到粘贴板");
+            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            cm.setText(CurrentSelectedText + "");
+        }
+        onCurrentSelectedText("");
+        mTxtReaderView.releaseSelectedState();
+        Gone(ClipboarView);
     }
 
     @Override

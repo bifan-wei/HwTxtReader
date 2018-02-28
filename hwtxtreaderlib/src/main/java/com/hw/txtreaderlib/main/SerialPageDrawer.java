@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 import android.widget.Scroller;
 
 import com.hw.txtreaderlib.interfaces.IReaderViewDrawer;
-import com.hw.txtreaderlib.utils.ELogger;
 
 /**
  * Created by bifan-wei
@@ -17,7 +16,7 @@ import com.hw.txtreaderlib.utils.ELogger;
 public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawer {
     private String tag = "SerialPageDrawer";
     private int PageSwitchTime = 500;
-    private final static int BorderShadowWith = 10;
+    private final static int BorderShadowWith = 5;
 
     public SerialPageDrawer(TxtReaderView readerView, TxtReaderContext readerContext, Scroller scroller) {
         super(readerView, readerContext, scroller);

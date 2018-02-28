@@ -80,6 +80,10 @@ public class ChapterList extends PopupWindow {
         mRootView.setAdapter(mAdapter);
     }
 
+    public void setBackGroundColor(int color){
+        mRootView.setBackgroundColor(color);
+    }
+
     private class MyAdapter extends BaseAdapter {
         @Override
         public int getCount() {

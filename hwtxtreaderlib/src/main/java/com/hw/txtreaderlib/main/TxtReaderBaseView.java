@@ -22,6 +22,7 @@ import com.hw.txtreaderlib.bean.TxtMsg;
 import com.hw.txtreaderlib.interfaces.ILoadListener;
 import com.hw.txtreaderlib.interfaces.IPage;
 import com.hw.txtreaderlib.interfaces.IPageChangeListener;
+import com.hw.txtreaderlib.interfaces.ISliderListener;
 import com.hw.txtreaderlib.interfaces.ITxtLine;
 import com.hw.txtreaderlib.interfaces.ITxtTask;
 import com.hw.txtreaderlib.tasks.BitmapProduceTask;
@@ -40,7 +41,7 @@ import java.util.List;
 
 public abstract class TxtReaderBaseView extends View implements GestureDetector.OnGestureListener {
     private String tag = "TxtReaderBaseView";
-    protected static final int SliderWidth = 30;
+    protected static final int SliderWidth = 40;//滑动条宽度
     protected static int PageChangeMinMoveDistance = 40;//页面切换需要的最小滑动距离
     protected TxtReaderContext readerContext;
     protected Scroller mScroller;
@@ -150,9 +151,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                 float y = mRightSlider.Top + dy - 5;
 
                 if (CanMoveBack(x, y)) {
-
                     TxtChar moveToChar = findCharByPosition(x, y);
-
                     if (moveToChar != null) {
                         LastSelectedChar = moveToChar;
                         checkSelectedText();
@@ -284,6 +283,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                 } else {
                     //没有点击到滑动条，释放
                     CurrentMode = Mode.Normal;
+                    onReleasedSlider();
                     invalidate();
                     return true;
                 }
@@ -298,6 +298,21 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         }
         return true;
     }
+
+    protected void onReleasedSlider() {
+        //已经释放了滑动选择
+        if (sliderListener != null) {
+            sliderListener.onReleaseSlider();
+        }
+    }
+
+    protected void onShownSlider() {
+        //开始显示滑动选择
+        if (sliderListener != null) {
+            sliderListener.onShowSlider(FirstSelectedChar.getValueStr());
+        }
+    }
+
 
     @Override
     public void onShowPress(MotionEvent motionEvent) {
@@ -322,7 +337,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      */
     @Override
     public void onLongPress(MotionEvent e) {
-        ELogger.log("onLongPress", "onLongPress1");
         if (CurrentMode == Mode.Normal) {
             onPressSelectText(e);
         }
@@ -363,7 +377,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      *
      * @param e
      */
-    private void onPressSelectText(MotionEvent e) {
+    protected void onPressSelectText(MotionEvent e) {
         TxtChar selectedChar = findCharByPosition(e.getX(), e.getY());
         if (selectedChar != null) {
             FirstSelectedChar = selectedChar;
@@ -371,11 +385,13 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             setLeftSlider(FirstSelectedChar);
             setRightSlider(LastSelectedChar);
             CurrentMode = Mode.PressSelectText;
+            onShownSlider();
         } else {
             CurrentMode = Mode.PressUnSelectText;
             FirstSelectedChar = null;
             LastSelectedChar = null;
             CurrentMode = Mode.PressUnSelectText;
+            onReleasedSlider();
         }
         releaseTouch();
         postInvalidate();
@@ -779,7 +795,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     private class PageNextTask implements ITxtTask {
         @Override
         public void Run(ILoadListener callBack, final TxtReaderContext readerContext) {
-            CurrentMode = Mode.PagePreIng;
+            CurrentMode = Mode.PageNextIng;
             getPageNextData();
             bitmapProduceTask.Run(new ILoadListener() {
                 @Override
@@ -815,7 +831,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         private void getPageNextData() {
             IPage nextMidPage = readerContext.getPageData().LastPage();
             IPage nextFirstPage = readerContext.getPageData().MidPage();
-
+            readerContext.getPageData().setLastPage(null);
             IPage firstPage = null;
             IPage midPage;
             IPage nextPage = null;
@@ -852,7 +868,10 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                     TxtChar midL = firstPage.getLastChar();
 
                     TxtChar nextF = nextFirstPage.getFirstChar();
-                    TxtChar nextL = nextFirstPage.getLastChar();
+                    TxtChar nextL = nextFirstPage.
+
+
+                            getLastChar();
 
                     int needRefresh = 1;
                     if (midF.equals(nextF) && midL.equals(nextL)) {
@@ -892,14 +911,13 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     private class PagePreTask implements ITxtTask {
         @Override
         public void Run(ILoadListener callBack, final TxtReaderContext readerContext) {
-            CurrentMode = Mode.PageNextIng;
+            CurrentMode = Mode.PagePreIng;
             getPagePreData();
             bitmapProduceTask.Run(new ILoadListener() {
                 @Override
                 public void onSuccess() {
                     releaseTouch();
                     checkMoveState();
-
                     post(new Runnable() {
                         @Override
                         public void run() {
@@ -927,7 +945,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         private void getPagePreData() {
             IPage nextMayMidPage = readerContext.getPageData().FirstPage();
             IPage nextMayLastPage = readerContext.getPageData().MidPage();
-
+            readerContext.getPageData().setFirstPage(null);
             IPage firstPage = null;
             IPage midPage = null;
             IPage nextPage = null;
@@ -991,25 +1009,33 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     }
 
     protected void onPageProgress(IPage page) {
-        if (pageChangeListener != null) {
-            float progress = 0;
-            if (page != null && page.HasData()) {
-                TxtChar lastChar = page.getLastChar();
+        if (page != null && page.HasData()) {
+            TxtChar lastChar = page.getLastChar();
+            onProgressCallBack(getProgress(lastChar.ParagraphIndex, lastChar.CharIndex));
+        } else {
+            ELogger.log(tag, "onPageProgress !page.HasData()");
+        }
 
-                int index = readerContext.getParagraphData().getParaStartCharIndex(lastChar.ParagraphIndex) + lastChar.CharIndex;
-                int num = readerContext.getParagraphData().getCharNum();
-                if (num > 0) {
-                    if (index > num) {
-                        progress = 1;
-                    } else {
-                        progress = (float) index / (float) num;
-                    }
-                }
-                pageChangeListener.onCurrentPage(progress);
+
+    }
+
+    protected float getProgress(int ParagraphIndex, int chartIndex) {
+        float progress = 0;
+        int index = readerContext.getParagraphData().getParaStartCharIndex(ParagraphIndex) + chartIndex;
+        int num = readerContext.getParagraphData().getCharNum();
+        if (num > 0) {
+            if (index > num) {
+                progress = 1;
             } else {
-                ELogger.log(tag, "onPageProgress !page.HasData()");
+                progress = (float) index / (float) num;
             }
+        }
+        return progress;
+    }
 
+    protected void onProgressCallBack(float progress) {
+        if (pageChangeListener != null) {
+            pageChangeListener.onCurrentPage(progress);
         }
     }
 
@@ -1027,9 +1053,20 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     }
 
     private IPageChangeListener pageChangeListener;
+    private ISliderListener sliderListener;
 
+    /**
+     * @param pageChangeListener 页面进度改变监听
+     */
     public void setPageChangeListener(IPageChangeListener pageChangeListener) {
         this.pageChangeListener = pageChangeListener;
+    }
+
+    /**
+     * @param sliderListener 长按选择出现与消失监听
+     */
+    public void setOnSliderListener(ISliderListener sliderListener) {
+        this.sliderListener = sliderListener;
     }
 
     protected void refreshTag(int r1, int r2, int r3) {
@@ -1042,13 +1079,8 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     /**
      * 调用该方法释放长按选择模式
      */
-    public void releaseSelectdState() {
-        if (CurrentMode == Mode.SelectMoveBack ||
-                CurrentMode == Mode.SelectMoveBack
-                || CurrentMode == Mode.PressUnSelectText
-                || CurrentMode == Mode.PressSelectText) {
+    public void releaseSelectedState() {
             CurrentMode = Mode.Normal;
             postInvalidate();
-        }
     }
 }

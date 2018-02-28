@@ -34,7 +34,7 @@
             android:minHeight="3dip"
             android:progress="30"
             android:progressDrawable="@drawable/txtview_po_seekbar"
-            android:thumb="@drawable/txtview_seekbar_thumb"
+            android:thumb="@drawable/shape_seekbar_thumb"
             android:thumbOffset="0dip"/>
 
         <TextView
@@ -127,8 +127,8 @@
 
                     <ImageView
                         android:id="@+id/txtreadr_menu_textsetting1_boldpic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/hwtxtreader_ic_selector"
+                        android:layout_height="@dimen/hwtxtreader_ic_selector"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="5dp"
                         android:background="@drawable/ic_selected"/>
@@ -153,8 +153,8 @@
 
                     <ImageView
                         android:id="@+id/txtreadr_menu_textsetting1_normalpic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/hwtxtreader_ic_selector"
+                        android:layout_height="@dimen/hwtxtreader_ic_selector"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="5dp"
                         android:background="@drawable/ic_selected"/>
@@ -190,8 +190,8 @@
 
                     <ImageView
                         android:id="@+id/txtreadr_menu_textsetting2_coverpic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/hwtxtreader_ic_selector"
+                        android:layout_height="@dimen/hwtxtreader_ic_selector"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="5dp"
                         android:background="@drawable/ic_selected"/>
@@ -216,8 +216,8 @@
 
                     <ImageView
                         android:id="@+id/txtreadr_menu_textsetting2_translatepic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/hwtxtreader_ic_selector"
+                        android:layout_height="@dimen/hwtxtreader_ic_selector"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="5dp"
                         android:background="@drawable/ic_selected"/>

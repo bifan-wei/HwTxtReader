@@ -50,7 +50,7 @@ public class ParagraphData implements IParagraphData {
                 pre = v;
             } else {
                 if (CharIndex >= pre && CharIndex < v) {
-                    return index-1;
+                    return index;
                 } else {
                     pre = next;
                     next = v;
