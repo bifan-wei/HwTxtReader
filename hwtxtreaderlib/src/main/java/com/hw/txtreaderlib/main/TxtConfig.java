@@ -23,7 +23,7 @@ public class TxtConfig {
     private static final String C_CENTER_CLICK_AREA = "CENTER_CLICK_AREA";
 
 
-    public static final int MAX_TEXT_SIZE = 120;//in px
+    public static final int MAX_TEXT_SIZE = 150;//in px
     public static final int MIN_TEXT_SIZE = 60;//in px
     public static final int DEFAULT_SELECT_TEXT_COLOR = Color.parseColor("#44f6950b");
     public static final int DEFAULT_SLIDER_COLOR = Color.parseColor("#1f4cf5");
