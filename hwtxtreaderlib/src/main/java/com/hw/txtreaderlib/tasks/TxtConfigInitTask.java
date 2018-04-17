@@ -80,12 +80,15 @@ public class TxtConfigInitTask implements ITxtTask {
         paintContext.textPaint.setFakeBoldText(txtConfig.Bold);
         paintContext.textPaint.setTextAlign(Paint.Align.LEFT);
         paintContext.textPaint.setColor(txtConfig.textColor);
+        paintContext.textPaint.setAntiAlias(true);
         paintContext.notePaint.setTextSize(txtConfig.textSize);
         paintContext.notePaint.setColor(txtConfig.NoteColor);
         paintContext.notePaint.setTextAlign(Paint.Align.LEFT);
+        paintContext.notePaint.setAntiAlias(true);
         paintContext.selectTextPaint.setTextSize(txtConfig.textSize);
         paintContext.selectTextPaint.setColor(txtConfig.SelectTextColor);
         paintContext.selectTextPaint.setTextAlign(Paint.Align.LEFT);
+        paintContext.selectTextPaint.setAntiAlias(true);
         paintContext.sliderPaint.setColor(txtConfig.SliderColor);
         paintContext.sliderPaint.setAntiAlias(true);
         paintContext.textPaint.setFakeBoldText(txtConfig.Bold);
