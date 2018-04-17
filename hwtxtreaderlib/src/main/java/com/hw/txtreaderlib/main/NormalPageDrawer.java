@@ -247,5 +247,4 @@ public class NormalPageDrawer extends PageDrawerBase implements IReaderViewDrawe
     }
 
 
-
 }

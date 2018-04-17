@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import com.hw.txtreaderlib.bean.FileReadRecordBean;
 import com.hw.txtreaderlib.bean.TxtChar;
+import com.hw.txtreaderlib.bean.TxtFileMsg;
 import com.hw.txtreaderlib.interfaces.IChapter;
 import com.hw.txtreaderlib.interfaces.ILoadListener;
 import com.hw.txtreaderlib.interfaces.IPage;
@@ -17,8 +19,10 @@ import com.hw.txtreaderlib.tasks.DrawPrepareTask;
 import com.hw.txtreaderlib.tasks.TxtConfigInitTask;
 import com.hw.txtreaderlib.tasks.TxtPageLoadTask;
 import com.hw.txtreaderlib.utils.ELogger;
+import com.hw.txtreaderlib.utils.FileHashUtil;
 import com.hw.txtreaderlib.utils.TxtBitmapUtil;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -144,12 +148,12 @@ public class TxtReaderView extends TxtReaderBaseView {
 
         checkMoveState();
 
-        if (isPagePre() && isFirstPage()) {
+        if (getMoveDistance() > 0 && isFirstPage()) {
             ELogger.log(tag, "是第一页了");
             return;
         }
 
-        if (isPageNext() && isLastPage()) {
+        if (getMoveDistance() < 0 && isLastPage()) {
             ELogger.log(tag, "是最后一页了");
             return;
         }
@@ -293,13 +297,17 @@ public class TxtReaderView extends TxtReaderBaseView {
         float p = progress / 100;
         int charNum = readerContext.getParagraphData().getCharNum();
         int charIndex = (int) (p * charNum);
+        int paragraphNum = readerContext.getParagraphData().getParagraphNum();
         int paragraphIndex = readerContext.getParagraphData().findParagraphIndexByCharIndex(charIndex);
-        if (progress == 100) {
-            paragraphIndex = readerContext.getParagraphData().getParagraphNum() - 1;
+
+        if (progress == 100 || paragraphIndex >= paragraphNum) {
+            paragraphIndex = paragraphNum - 1;
         }
+
         if (paragraphIndex < 0) {
             paragraphIndex = 0;
         }
+
         loadFromProgress(paragraphIndex, 0);
     }
 
@@ -456,22 +464,63 @@ public class TxtReaderView extends TxtReaderBaseView {
     }
 
 
+    /**
+     * @param isBold 字体是否加粗
+     */
     public void setTextBold(boolean isBold) {
         getTxtReaderContext().getTxtConfig().saveIsBold(getContext(), isBold);
         getTxtReaderContext().getTxtConfig().Bold = isBold;
         refreshCurrentView();
     }
 
+    /**
+     * 平移切换页面
+     */
     public void setPageSwitchByTranslate() {
         getTxtReaderContext().getTxtConfig().saveSwitchByTranslate(getContext(), true);
         getTxtReaderContext().getTxtConfig().SwitchByTranslate = true;
         drawer = new SerialPageDrawer(this, readerContext, mScroller);
     }
 
+    /**
+     * 滑盖切换页面
+     */
     public void setPageSwitchByCover() {
         getTxtReaderContext().getTxtConfig().saveSwitchByTranslate(getContext(), false);
         getTxtReaderContext().getTxtConfig().SwitchByTranslate = false;
         drawer = new NormalPageDrawer(this, readerContext, mScroller);
+    }
+
+    /**
+     * 保存当前进度到数据库，建议退出时调用
+     */
+    public void saveCurrentProgress() {
+        TxtFileMsg fileMsg = getTxtReaderContext().getFileMsg();
+        if (getTxtReaderContext().InitDone() && fileMsg != null) {
+            String path = fileMsg.FilePath;
+            if (path != null && new File(path).exists()) {
+                //说明当前是有数据的
+                IPage midPage = getTxtReaderContext().getPageData().MidPage();
+                if (midPage != null && midPage.HasData()) {
+                    FileReadRecordDB readRecordDB = new FileReadRecordDB(readerContext.getContext());
+                    readRecordDB.createTable();
+                    FileReadRecordBean r = new FileReadRecordBean();
+                    r.fileName = fileMsg.FileName;
+                    r.filePath = fileMsg.FilePath;
+                    try {
+                        r.fileHashName = FileHashUtil.getMD5Checksum(path);
+                    } catch (Exception e) {
+                        readRecordDB.closeTable();
+                        return;
+                    }
+                    r.paragraphIndex = midPage.getFirstChar().ParagraphIndex;
+                    r.chartIndex = midPage.getFirstChar().CharIndex;
+                    readRecordDB.insertData(r);
+                    readRecordDB.closeTable();
+                }
+            }
+
+        }
     }
 
     private void refreshCurrentView() {

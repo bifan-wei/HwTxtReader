@@ -120,6 +120,7 @@ public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawe
             scroller.startScroll((int) readerView.mTouch.x, 0, -(int) getMoveDistance(), 0, PageSwitchTime);
             postInvalidate();
         }
+
     }
 
 

@@ -7,10 +7,10 @@ import android.graphics.Color;
 * 2017-11-13
 */
 public class EnChar extends TxtChar {
+    public static int DefaultTextColor = Color.parseColor("#45a1cd");
     public EnChar(char aChar) {
         super(aChar);
     }
-    private final int DefaultTextColor = Color.parseColor("#45a1cd");
     @Override
     public int getTextColor() {
         return DefaultTextColor;

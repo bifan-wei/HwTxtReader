@@ -7,10 +7,10 @@ import android.graphics.Color;
 * 2017-11-13
 */
 public class NumChar extends TxtChar {
+    public static  int DefaultTextColor = Color.parseColor("#45a1cf");
     public NumChar(char aChar) {
         super(aChar);
     }
-    private final int DefaultTextColor = Color.parseColor("#45a1cd");
     @Override
     public int getTextColor() {
         return DefaultTextColor;

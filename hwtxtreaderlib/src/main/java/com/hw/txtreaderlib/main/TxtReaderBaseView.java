@@ -19,6 +19,7 @@ import com.hw.txtreaderlib.bean.Slider;
 import com.hw.txtreaderlib.bean.TxtChar;
 import com.hw.txtreaderlib.bean.TxtLine;
 import com.hw.txtreaderlib.bean.TxtMsg;
+import com.hw.txtreaderlib.interfaces.ICenterAreaClickListener;
 import com.hw.txtreaderlib.interfaces.ILoadListener;
 import com.hw.txtreaderlib.interfaces.IPage;
 import com.hw.txtreaderlib.interfaces.IPageChangeListener;
@@ -41,20 +42,21 @@ import java.util.List;
 
 public abstract class TxtReaderBaseView extends View implements GestureDetector.OnGestureListener {
     private String tag = "TxtReaderBaseView";
+
     protected static final int SliderWidth = 40;//滑动条宽度
     protected static int PageChangeMinMoveDistance = 40;//页面切换需要的最小滑动距离
-    protected TxtReaderContext readerContext;
-    protected Scroller mScroller;
-    private GestureDetector mGestureDetector;
+    protected TxtReaderContext readerContext;//阅读器上下文
+    protected Scroller mScroller;//滑动器
+    protected GestureDetector mGestureDetector;//手势检测器
     protected PointF mTouch = new PointF();//滑动坐标
     protected PointF mDown = new PointF();//点下的坐标
     protected TxtChar FirstSelectedChar = null;//第一个选中的字符
     protected TxtChar LastSelectedChar = null;//最后一个选中的字符
-    protected Slider mLeftSlider = new Slider();
-    protected Slider mRightSlider = new Slider();
-    protected Bitmap TopPage = null;
-    protected Bitmap BottomPage = null;
-    protected Mode CurrentMode = Mode.Normal;
+    protected Slider mLeftSlider = new Slider();//左侧滑动条
+    protected Slider mRightSlider = new Slider();//右侧滑动条
+    protected Bitmap TopPage = null;//顶部页
+    protected Bitmap BottomPage = null;//底部页
+    protected Mode CurrentMode = Mode.Normal;//当前页面模式
 
     public TxtReaderBaseView(Context context) {
         super(context);
@@ -73,19 +75,22 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         mGestureDetector = new GestureDetector(getContext(), this);
         PageChangeMinMoveDistance = DisPlayUtil.dip2px(getContext(), 30);
         setClickable(true);
-
     }
 
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //初始化完成才允许绘制
         if (readerContext.InitDone()) {
+            //绘制页面行数据
             drawLineText(canvas);
+            //是否显示笔记  该功能未完成
             if (readerContext.getTxtConfig().showNote) {
+                //绘制笔记
                 drawNote(canvas);
             }
-
+            //不是正常模式，可能需要绘制长按选择的文字
             if (readerContext.getTxtConfig().canPressSelect && CurrentMode != Mode.Normal) {
                 drawSelectedText(canvas);
             }
@@ -114,9 +119,11 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         if (mScroller.computeScrollOffset()) {
             return true;
         }
-
+        //手势处理完成，捕捉了的话，拦截它
         Boolean Deal = mGestureDetector.onTouchEvent(event);
-        if (Deal) return true;
+        if (Deal) {
+            return true;
+        }
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_UP:
@@ -129,7 +136,11 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         return true;
     }
 
+    /**
+     * @param event onActionUp
+     */
     protected void onActionUp(MotionEvent event) {
+        //默认正常模式下才能响应up事件
         if (CurrentMode == Mode.Normal) {
             startPageUpAnimation(event);
         }
@@ -137,13 +148,16 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
 
     /**
-     * @param event
+     * @param event onActionMove
      */
     protected void onActionMove(MotionEvent event) {
-        ELogger.log("onLongPress", "CurrentMode:" + CurrentMode);
+        ELogger.log(tag, "onActionMove CurrentMode:" + CurrentMode);
+
         if (CurrentMode == Mode.Normal) {
+            //正常模式，执行页面滑动
             onPageMove(event);
         } else {
+            //当前需要执行向后滑动选择文字
             if (CurrentMode == Mode.SelectMoveBack) {
                 float dx = event.getX() - mDown.x;
                 float dy = event.getY() - mDown.y;
@@ -159,7 +173,8 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                         invalidate();
                     }
                 }
-            } else if (CurrentMode == Mode.SelectMoveForward) {
+
+            } else if (CurrentMode == Mode.SelectMoveForward) { //当前需要执行向前滑动选择文字
                 float dx = event.getX() - mDown.x;
                 float dy = event.getY() - mDown.y;
 
@@ -175,6 +190,8 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                         invalidate();
                     }
                 }
+            } else if (CurrentMode == Mode.PressUnSelectText) {
+
             }
         }
     }
@@ -185,7 +202,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      * @param event
      */
     protected void startPageUpAnimation(MotionEvent event) {
-
         if (getMoveDistance() < -PageChangeMinMoveDistance || getMoveDistance() > PageChangeMinMoveDistance) {
             if (isPagePre()) {
                 if (!isFirstPage()) {
@@ -202,11 +218,18 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                     invalidate();
                 }
             }
-        } else {//没有超出距离，自动还原
-            startPageStateBackAnimation();
+        } else {
+            //没有超出距离，自动还原
+            if ((getMoveDistance() > 0 && isFirstPage()) || (getMoveDistance() < 0 && isLastPage())) {
+                //这种情况不执行
+            } else {
+                startPageStateBackAnimation();
+            }
+
         }
 
     }
+
 
     /**
      * @return 当前页是否是第一页
@@ -260,7 +283,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         mTouch.x = motionEvent.getX();
         mTouch.y = motionEvent.getY();
 
-        if (CurrentMode == Mode.PressSelectText || CurrentMode == Mode.SelectMoveForward || CurrentMode == Mode.SelectMoveBack) {
+        if (CurrentMode == Mode.PressSelectText
+                || CurrentMode == Mode.SelectMoveForward
+                || CurrentMode == Mode.SelectMoveBack) {
 
             Path leftSliderPath = getLeftSliderPath();
             Path rightSliderPath = getRightSliderPath();
@@ -280,12 +305,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                         setRightSlider(LastSelectedChar);
                     }
                     return true;
-                } else {
-                    //没有点击到滑动条，释放
-                    CurrentMode = Mode.Normal;
-                    onReleasedSlider();
-                    invalidate();
-                    return true;
                 }
             }
         } else {
@@ -299,6 +318,10 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         return true;
     }
 
+
+    /**
+     * 释放了滑动条
+     */
     protected void onReleasedSlider() {
         //已经释放了滑动选择
         if (sliderListener != null) {
@@ -306,6 +329,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         }
     }
 
+    /**
+     * 显示了滑动条
+     */
     protected void onShownSlider() {
         //开始显示滑动选择
         if (sliderListener != null) {
@@ -313,11 +339,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         }
     }
 
-
-    @Override
-    public void onShowPress(MotionEvent motionEvent) {
-
-    }
 
     /**
      * 轻击翻页
@@ -327,6 +348,85 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      */
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
+        //当前是长按滑动事件的话，没有点击到滑动条，应该释放
+        if (CurrentMode == Mode.PressSelectText
+                || CurrentMode == Mode.SelectMoveForward
+                || CurrentMode == Mode.SelectMoveBack) {
+            //没有点击到滑动条，释放
+            CurrentMode = Mode.Normal;
+            onReleasedSlider();
+            invalidate();
+            return true;
+        }
+
+        Boolean dealCenterClickAndDonChangePage = dealCenterClickAndDoChangePage(e);
+        if (dealCenterClickAndDonChangePage) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param e 处理中间区域点击事件并且可能执行点击翻页效果
+     * @return
+     */
+    private boolean dealCenterClickAndDoChangePage(MotionEvent e) {
+
+        if (CurrentMode == Mode.Normal && readerContext.InitDone()) {
+            float widthPercent = readerContext.getTxtConfig().CenterClickArea;
+            //捕捉异常情况
+            widthPercent = widthPercent < 0 ? 0 : widthPercent;
+            widthPercent = widthPercent > 1 ? 1 : widthPercent;
+
+            int width = (int) (getWidth() * widthPercent);
+            int left = getWidth() / 2 - width / 2;
+            int top = getHeight() / 2 - width;
+            int bottom = top + width + width;
+            int right = left + width;
+
+            int x = (int) e.getX();
+            int y = (int) e.getY();
+
+            boolean needPagePre = x < left;
+            boolean needPageNext = x > right;
+            boolean inCenter = x > left && x < right && y > top && y < bottom;
+            boolean deal = false;
+
+            if (inCenter) {
+                //点击中间区域
+                if (centerAreaClickListener != null) {
+                    deal = centerAreaClickListener.onCenterClick(widthPercent);
+                }
+            } else {
+                if (centerAreaClickListener != null) {
+                    deal = centerAreaClickListener.onOutSideCenterClick(widthPercent);
+                }
+            }
+            //如果这个事件没有被处理，将可能会执行翻页事件
+            if (!deal) {
+                if (needPagePre && !isFirstPage()) {
+                    // mTouch.x - mDown.x>10
+                    //模拟滑动执行翻上一页手势
+                    mDown.x = 0;
+                    mTouch.x = mDown.x + 15;
+
+                    tryDoPagePre();
+                    startPagePreAnimation();
+                    return true;
+                }
+
+                if (needPageNext && !isLastPage()) {
+                    //mTouch.x - mDown.x<-10
+                    ///模拟滑动执行翻下一页手势
+                    mTouch.x = getWidth() - 15;
+                    mDown.x = getWidth();
+                    tryDoPageNext();
+                    startPageNextAnimation();
+                    return true;
+                }
+            }
+
+        }
         return false;
     }
 
@@ -337,12 +437,27 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      */
     @Override
     public void onLongPress(MotionEvent e) {
+        ELogger.log(tag, "onLongPress ,CurrentMode:" + CurrentMode);
         if (CurrentMode == Mode.Normal) {
             onPressSelectText(e);
         }
     }
 
+    /**
+     * @param motionEvent
+     */
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+        ELogger.log(tag, "onShowPress ,CurrentMode:" + CurrentMode);
+    }
 
+    /**
+     * @param motionEvent
+     * @param motionEvent1
+     * @param v
+     * @param v1
+     * @return
+     */
     @Override
     public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
         return false;
@@ -390,7 +505,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             CurrentMode = Mode.PressUnSelectText;
             FirstSelectedChar = null;
             LastSelectedChar = null;
-            CurrentMode = Mode.PressUnSelectText;
             onReleasedSlider();
         }
         releaseTouch();
@@ -417,17 +531,16 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      * @return 找到长按选中的文字，找不到返回null
      */
     private TxtChar findCharByPosition(float positionX, float positionY) {
-
         IPage page = readerContext.getPageData().MidPage();
         int offset = readerContext.getPageParam().LinePadding / 2;
-
+        //当前页面有数据才执行查找
         if (page != null && page.HasData()) {
             List<ITxtLine> lines = page.getLines();
             for (ITxtLine line : lines) {
                 List<TxtChar> chars = line.getTxtChars();
                 if (chars != null && chars.size() > 0) {
                     for (TxtChar c : chars) {
-                        if (positionY > c.Top - offset && positionY < c.Bottom + offset) {
+                        if (positionY > (c.Top - offset) && positionY < (c.Bottom + offset)) {
                             if (positionX > c.Left && positionX <= c.Right) {
                                 return c;
                             }
@@ -437,6 +550,8 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                     }
                 }
             }
+        } else {
+            ELogger.log(tag, "page != null && page.HasData()");
         }
         return null;
     }
@@ -479,6 +594,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         }
     }
 
+    //当前滑动选择的数据
     private final List<ITxtLine> mSelectLines = new ArrayList<>();
 
     /**
@@ -495,10 +611,14 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     protected synchronized void checkSelectedText() {
         Boolean Started = false;
         Boolean Ended = false;
+        //清空之前选择的数据
         mSelectLines.clear();
         IPage currentPage = readerContext.getPageData().MidPage();
-        if (currentPage == null || !currentPage.HasData() || FirstSelectedChar == null || LastSelectedChar == null)
+        //当前页面没有数据或者没有选择或者已经释放了长按选择事件，不执行
+        if (currentPage == null || !currentPage.HasData() || FirstSelectedChar == null || LastSelectedChar == null) {
             return;
+        }
+        //获取当前页面行数据
         List<ITxtLine> lines = currentPage.getLines();
         // 找到选择的字符数据，转化为选择的行，然后将行选择背景画出来
         for (ITxtLine l : lines) {
@@ -603,103 +723,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     }
 
 
-    public void loadTxtFile(final String filePath, final ILoadListener listener) {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                initReaderContext();
-                loadFile(filePath, listener);
-            }
-
-        });
-    }
-
-    public void loadText(final String text, final ILoadListener listener) {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                initReaderContext();
-                loadTextStr(text, listener);
-            }
-        });
-    }
-
-    private void initReaderContext() {
-        PageChangeMinMoveDistance = getWidth() / 5;
-        PageParam param = new PageParam();
-        param.PageWidth = getWidth();
-        param.PageHeight = getHeight();
-        readerContext.setPageParam(param);
-    }
-
-    private void loadFile(final String filePath, final ILoadListener listener) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                TxtFileLoader loader = new TxtFileLoader();
-                loader.load(filePath, readerContext, new ILoadListener() {
-                    @Override
-                    public void onSuccess() {
-                        checkMoveState();
-                        postInvalidate();
-                        post(new Runnable() {
-                            @Override
-                            public void run() {
-                                onPageProgress(readerContext.getPageData().MidPage());
-                                listener.onSuccess();
-                            }
-                        });
-
-                    }
-
-                    @Override
-                    public void onFail(TxtMsg txtMsg) {
-                        listener.onFail(txtMsg);
-                    }
-
-                    @Override
-                    public void onMessage(String message) {
-                        listener.onMessage(message);
-                    }
-                });
-            }
-        }).start();
-    }
-
-    private void loadTextStr(final String text, final ILoadListener listener) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                TextLoader loader = new TextLoader();
-                loader.load(text, readerContext, new ILoadListener() {
-                    @Override
-                    public void onSuccess() {
-                        checkMoveState();
-                        postInvalidate();
-                        post(new Runnable() {
-                            @Override
-                            public void run() {
-                                onPageProgress(readerContext.getPageData().MidPage());
-                                listener.onSuccess();
-                            }
-                        });
-
-                    }
-
-                    @Override
-                    public void onFail(TxtMsg txtMsg) {
-                        listener.onFail(txtMsg);
-                    }
-
-                    @Override
-                    public void onMessage(String message) {
-                        listener.onMessage(message);
-                    }
-                });
-            }
-        }).start();
-    }
-
     protected Boolean isPageNext() {
         //是否是执行下一页
         return getMoveDistance() < -10;
@@ -710,6 +733,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         return getMoveDistance() > 10;
     }
 
+    /**
+     * @return 获取当前滑动距离
+     */
     protected synchronized float getMoveDistance() {
         return mTouch.x - mDown.x;
     }
@@ -773,6 +799,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         }
     }
 
+    /**
+     * 释放触摸事件
+     */
     protected void releaseTouch() {
         mTouch.x = 0;
         mDown.x = 0;
@@ -787,6 +816,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         SelectMoveForward, //向前滑动选中文字
         SelectMoveBack//向后滑动选中文字
     }
+
+
+    //---------------------------获取上一页、获取下一页数据--------------------------------------
 
     protected final ITxtTask pageNextTask = new PageNextTask();
     protected final ITxtTask pagePreTask = new PagePreTask();
@@ -829,9 +861,10 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         }
 
         private void getPageNextData() {
+
             IPage nextMidPage = readerContext.getPageData().LastPage();
             IPage nextFirstPage = readerContext.getPageData().MidPage();
-            readerContext.getPageData().setLastPage(null);
+
             IPage firstPage = null;
             IPage midPage;
             IPage nextPage = null;
@@ -839,14 +872,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             int lineNum = readerContext.getPageParam().PageLineNum;
 
             if (nextFirstPage != null && nextFirstPage.HasData()) {
-
                 if (nextFirstPage.getLineNum() == lineNum) { //说明,nextFirstPage是完整的页数据，直接获取
                     firstPage = nextFirstPage;
-                } else {
-                    //说明MidPage完整的页数据，nextPage已经没有数据了firstPage也应该为null
-                    firstPage = null;
                 }
-
             }
 
             if (nextMidPage != null && nextMidPage.getLineNum() == lineNum) {//说明之前的LastPage是完整的数据，直接获取
@@ -862,42 +890,16 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
 
             if (firstPage != null && nextFirstPage != null) {
-                if (firstPage.HasData() && nextFirstPage.HasData()) {
+                readerContext.getBitmapData().setFirstPage(readerContext.getBitmapData().MidPage());
+                readerContext.getPageData().refreshTag[0] = 0;
 
-                    TxtChar midF = firstPage.getFirstChar();
-                    TxtChar midL = firstPage.getLastChar();
-
-                    TxtChar nextF = nextFirstPage.getFirstChar();
-                    TxtChar nextL = nextFirstPage.
-
-
-                            getLastChar();
-
-                    int needRefresh = 1;
-                    if (midF.equals(nextF) && midL.equals(nextL)) {
-                        needRefresh = 0;
-                        readerContext.getBitmapData().setFirstPage(readerContext.getBitmapData().MidPage());
-                    }
-                    readerContext.getPageData().refreshTag[0] = needRefresh;
-                }
             }
 
-            if (midPage != null && nextMidPage != null) {
-                if (midPage.HasData() && nextMidPage.HasData()) {
-                    TxtChar midF = midPage.getFirstChar();
-                    TxtChar midL = midPage.getLastChar();
-
-                    TxtChar nextF = midPage.getFirstChar();
-                    TxtChar nextL = midPage.getLastChar();
-
-                    int needRefresh = 1;
-                    if (midF.equals(nextF) && midL.equals(nextL)) {
-                        needRefresh = 0;
-                        readerContext.getBitmapData().setMidPage(readerContext.getBitmapData().LastPage());
-                    }
-                    readerContext.getPageData().refreshTag[1] = needRefresh;
-                }
+            if (midPage != null && midPage.HasData()) {
+                readerContext.getBitmapData().setMidPage(readerContext.getBitmapData().LastPage());
+                readerContext.getPageData().refreshTag[1] = 0;
             }
+
             readerContext.getBitmapData().setLastPage(null);
             readerContext.getPageData().refreshTag[2] = 1;
             readerContext.getPageData().setFirstPage(firstPage);
@@ -945,7 +947,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         private void getPagePreData() {
             IPage nextMayMidPage = readerContext.getPageData().FirstPage();
             IPage nextMayLastPage = readerContext.getPageData().MidPage();
-            readerContext.getPageData().setFirstPage(null);
+
             IPage firstPage = null;
             IPage midPage = null;
             IPage nextPage = null;
@@ -964,48 +966,48 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                 if (midPage.getFirstChar().ParagraphIndex == 0 && midPage.getFirstChar().CharIndex == 0) {
                     firstPage = null;//之前的FirstPage不是是满页的，直接从头开始获取，没有firstPage
                 } else {
+
                     firstPage = readerContext.getPageDataPipeline().getPageEndToProgress(midPage.getFirstChar().ParagraphIndex, midPage.getFirstChar().CharIndex);
                 }
                 nextPage = readerContext.getPageDataPipeline().getPageStartFromProgress(midPage.getLastChar().ParagraphIndex, midPage.getLastChar().CharIndex + 1);
             }
 
 
-            if (nextPage != null && nextPage.HasData() && nextMayLastPage != null && nextMayLastPage.HasData()) {
-
-                TxtChar midF = nextPage.getFirstChar();
-                TxtChar midL = nextPage.getLastChar();
-
-                TxtChar nextF = nextMayLastPage.getFirstChar();
-                TxtChar nextL = nextMayLastPage.getLastChar();
-
-                int needRefresh = 1;
-                if (midF.equals(nextF) && midL.equals(nextL)) {
-                    needRefresh = 0;
-                    readerContext.getBitmapData().setLastPage(readerContext.getBitmapData().MidPage());
-                }
-                readerContext.getPageData().refreshTag[2] = needRefresh;
+            //判断是否是相同数据然后进行判断是否需要进行刷新
+            int needRefresh = 1;
+            if (isSamePageData(nextPage, nextMayLastPage)) {
+                needRefresh = 0;
+                readerContext.getBitmapData().setLastPage(readerContext.getBitmapData().MidPage());
+                nextPage = nextMayLastPage;
             }
+            readerContext.getPageData().refreshTag[2] = needRefresh;
 
-            if (midPage != null && midPage.HasData() && nextMayMidPage != null && nextMayMidPage.HasData()) {
-                TxtChar midF = midPage.getFirstChar();
-                TxtChar midL = midPage.getLastChar();
-                TxtChar nextF = nextMayMidPage.getFirstChar();
-                TxtChar nextL = nextMayMidPage.getLastChar();
-
-                int needRefresh = 1;
-                if (midF.equals(nextF) && midL.equals(nextL)) {
-                    needRefresh = 0;
-                    readerContext.getBitmapData().setMidPage(readerContext.getBitmapData().FirstPage());
-                }
-                readerContext.getPageData().refreshTag[1] = needRefresh;
+            //判断是否是相同数据然后进行判断是否需要进行刷新
+            needRefresh = 1;
+            if (isSamePageData(midPage, nextMayMidPage)) {
+                needRefresh = 0;
+                readerContext.getBitmapData().setMidPage(readerContext.getBitmapData().FirstPage());
+                midPage = nextMayMidPage;
             }
-
+            readerContext.getPageData().refreshTag[1] = needRefresh;
             readerContext.getBitmapData().setFirstPage(null);
             readerContext.getPageData().refreshTag[0] = 1;
             readerContext.getPageData().setFirstPage(firstPage);
             readerContext.getPageData().setMidPage(midPage);
             readerContext.getPageData().setLastPage(nextPage);
         }
+    }
+
+
+    private boolean isSamePageData(IPage f, IPage to) {
+        if (f != null && to != null && f.HasData() && to.HasData()) {
+            TxtChar fF = f.getFirstChar();
+            TxtChar fL = f.getLastChar();
+            TxtChar toF = to.getFirstChar();
+            TxtChar toL = to.getLastChar();
+            return fF.equals(toF) && fL.equals(toL);
+        }
+        return false;
     }
 
     protected void onPageProgress(IPage page) {
@@ -1052,8 +1054,97 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         }
     }
 
+    /**
+     * 刷新数据标签，int r1, int r2, int r3决定了页面数据是否出现刷新
+     * ，不需要的话直接使用缓存bitmap
+     *
+     * @param r1
+     * @param r2
+     * @param r3
+     */
+    protected void refreshTag(int r1, int r2, int r3) {
+        readerContext.getPageData().refreshTag[0] = r1;
+        readerContext.getPageData().refreshTag[1] = r2;
+        readerContext.getPageData().refreshTag[2] = r3;
+    }
+
+
+    /**
+     * @param filePath
+     * @param listener
+     */
+    private void loadFile(final String filePath, final ILoadListener listener) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                TxtFileLoader loader = new TxtFileLoader();
+                loader.load(filePath, readerContext, new DataLoadListener(listener));
+            }
+        }).start();
+    }
+
+    /**
+     * @param text
+     * @param listener
+     */
+    private void loadTextStr(final String text, final ILoadListener listener) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                TextLoader loader = new TextLoader();
+                loader.load(text, readerContext, new DataLoadListener(listener));
+            }
+        }).start();
+    }
+
+    /**
+     * 数据加载监听
+     */
+    private class DataLoadListener implements ILoadListener {
+        ILoadListener listener;
+
+        public DataLoadListener(ILoadListener listener) {
+            this.listener = listener;
+        }
+
+        @Override
+        public void onSuccess() {
+            checkMoveState();
+            postInvalidate();
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    onPageProgress(readerContext.getPageData().MidPage());
+                    listener.onSuccess();
+                }
+            });
+
+        }
+
+        @Override
+        public void onFail(TxtMsg txtMsg) {
+            listener.onFail(txtMsg);
+        }
+
+        @Override
+        public void onMessage(String message) {
+            listener.onMessage(message);
+        }
+    }
+
+    private void initReaderContext() {
+        PageChangeMinMoveDistance = getWidth() / 5;
+        PageParam param = new PageParam();
+        param.PageWidth = getWidth();
+        param.PageHeight = getHeight();
+        readerContext.setPageParam(param);
+    }
+
+
+    //-------------------------------------------------------------
     private IPageChangeListener pageChangeListener;
     private ISliderListener sliderListener;
+    private ICenterAreaClickListener centerAreaClickListener;
 
     /**
      * @param pageChangeListener 页面进度改变监听
@@ -1069,18 +1160,78 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         this.sliderListener = sliderListener;
     }
 
-    protected void refreshTag(int r1, int r2, int r3) {
-        readerContext.getPageData().refreshTag[0] = r1;
-        readerContext.getPageData().refreshTag[1] = r2;
-        readerContext.getPageData().refreshTag[2] = r3;
+    /**
+     * @param centerAreaClickListener 中间区域点击监听
+     */
+    public void setOnCenterAreaClickListener(ICenterAreaClickListener centerAreaClickListener) {
+        this.centerAreaClickListener = centerAreaClickListener;
     }
 
+    /**
+     * 通过文件路径加载文件
+     *
+     * @param filePath 文件路径
+     * @param listener 监听
+     */
+    public void loadTxtFile(final String filePath, final ILoadListener listener) {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                initReaderContext();
+                loadFile(filePath, listener);
+            }
+
+        });
+    }
+
+    /**
+     * 通过字符串加载
+     *
+     * @param text     文本字符串数据
+     * @param listener 监听
+     */
+    public void loadText(final String text, final ILoadListener listener) {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                initReaderContext();
+                loadTextStr(text, listener);
+            }
+        });
+    }
+
+    /**
+     * @return 获取当前页的第一个字符, 当前页每页数据，返回null
+     */
+    public TxtChar getCurrentFirstChar() {
+        IPage page = readerContext.getPageData().MidPage();
+        //当前页面有数据才执行查找
+        if (page != null && page.HasData()) {
+            return page.getFirstChar();
+        }
+        return null;
+    }
+
+
+    /**
+     * @return 获取当前页的第一行, 当前页每页数据，返回null
+     */
+    public ITxtLine getCurrentFirstLines() {
+        IPage page = readerContext.getPageData().MidPage();
+        //当前页面有数据才执行查找
+        if (page != null && page.HasData()) {
+            return page.getFirstLine();
+        }
+        return null;
+    }
 
     /**
      * 调用该方法释放长按选择模式
      */
     public void releaseSelectedState() {
-            CurrentMode = Mode.Normal;
-            postInvalidate();
+        CurrentMode = Mode.Normal;
+        postInvalidate();
     }
+
+
 }

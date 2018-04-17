@@ -38,7 +38,7 @@ public class NormalTextSelectDrawer implements ITextSelectDrawer {
     public void drawSelectedLines(List<ITxtLine> selectedLines, Canvas canvas, Paint paint) {
 
         for (ITxtLine line : selectedLines) {
-             ELogger.log("onPressSelectText3",line.getLineStr());
+             ELogger.log("onPressSelectText",line.getLineStr());
             if (line.getTxtChars() != null && line.getTxtChars().size() > 0) {
 
                 TxtChar fistChar = line.getTxtChars().get(0);

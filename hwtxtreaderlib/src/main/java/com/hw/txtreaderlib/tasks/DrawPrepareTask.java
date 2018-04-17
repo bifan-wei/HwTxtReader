@@ -1,7 +1,6 @@
 package com.hw.txtreaderlib.tasks;
 
 import android.graphics.Color;
-import android.graphics.Paint;
 
 import com.hw.txtreaderlib.interfaces.ILoadListener;
 import com.hw.txtreaderlib.interfaces.ITxtTask;
@@ -26,7 +25,6 @@ public class DrawPrepareTask implements ITxtTask {
         readerContext.getPaintContext().textPaint.setColor(Color.WHITE);
         ITxtTask txtTask = new BitmapProduceTask();
         txtTask.Run(callBack, readerContext);
-
     }
 
     private void initPainContext(PaintContext paintContext, TxtConfig txtConfig) {

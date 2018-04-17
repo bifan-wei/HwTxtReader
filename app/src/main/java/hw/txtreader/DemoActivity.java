@@ -27,13 +27,14 @@ public class DemoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mEditText = (EditText) findViewById(R.id.editext);
+        mEditText = (EditText) findViewById(R.id.editText);
         mEditText.setText(FilePath);
         if (CheckPermission()) {
             Permit = true;
         } else {
 
         }
+
     }
 
     public void loadFile(View view) {
@@ -46,6 +47,7 @@ public class DemoActivity extends AppCompatActivity {
             }
         }
     }
+
 
     private Boolean CheckPermission() {
         if (ContextCompat.checkSelfPermission(this,

@@ -1,11 +1,14 @@
 package com.hw.txtreaderlib.tasks;
 
+import com.hw.txtreaderlib.bean.FileReadRecordBean;
 import com.hw.txtreaderlib.bean.TxtFileMsg;
 import com.hw.txtreaderlib.bean.TxtMsg;
 import com.hw.txtreaderlib.interfaces.ILoadListener;
 import com.hw.txtreaderlib.interfaces.ITxtTask;
+import com.hw.txtreaderlib.main.FileReadRecordDB;
 import com.hw.txtreaderlib.main.TxtReaderContext;
 import com.hw.txtreaderlib.utils.ELogger;
+import com.hw.txtreaderlib.utils.FileHashUtil;
 import com.hw.txtreaderlib.utils.FileUtil;
 
 import java.io.File;
@@ -47,10 +50,23 @@ public class TxtFileLoader {
         fileMsg.CurrentParagraphIndex = 0;
         fileMsg.PreParagraphIndex = 0;
         fileMsg.PreCharIndex = 0;
-        if (fileName == null||fileName.trim().length()==0) {
+        if (fileName == null || fileName.trim().length() == 0) {
             fileName = file.getName();
         }
         fileMsg.FileName = fileName;
+
+        //获取之前的播放进度记录
+        FileReadRecordDB readRecordDB = new FileReadRecordDB(readerContext.getContext());
+        readRecordDB.createTable();
+        try {
+            FileReadRecordBean r = readRecordDB.getRecordByHashName(FileHashUtil.getMD5Checksum(filePath));
+            if (r != null) {
+                fileMsg.PreParagraphIndex = r.paragraphIndex;
+                fileMsg.PreCharIndex = r.chartIndex;
+            }
+        } catch (Exception e) {
+        }
+        readRecordDB.createTable();
         readerContext.setFileMsg(fileMsg);
     }
 }

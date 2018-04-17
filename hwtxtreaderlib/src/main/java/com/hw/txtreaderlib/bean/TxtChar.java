@@ -65,7 +65,7 @@ public class TxtChar {
     public boolean equals(Object obj) {
         TxtChar to = (TxtChar) obj;
         if (to != null) {
-            return ParagraphIndex == to.ParagraphIndex && CharIndex == to.CharIndex && Char == to.Char;
+            return ParagraphIndex == to.ParagraphIndex && CharIndex == to.CharIndex && Char == to.Char && Top == to.Top;
         }
         return false;
     }

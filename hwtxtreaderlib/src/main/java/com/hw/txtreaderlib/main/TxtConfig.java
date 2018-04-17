@@ -10,32 +10,34 @@ import android.graphics.Color;
 
 public class TxtConfig {
     private static final String SAVE_NAME = "TxtConfig";
-    public static final String C_TEXT_SIZE = "TEXT_SIZE ";
-    public static final String C_TEXT_COLOR = "TEXT_COLOR";
-    public static final String C_NOTE_TEXT_COLOR = "TEXT_COLOR";
-    public static final String C_SLIDER_COLOR = "SLIDER_COLOR";
-    public static final String C_SELECT_TEXT_COLOR = "SELECTED_TEXT_COLOR";
-    public static final String C_BACKGROUND_COLOR = "BACKGROUND_COLOR";
-    public static final String C_IS_SHOW_NOTE = "IS_SHOW_NOTE";
-    public static final String C_CAN_PRESS_SELECT = "CAN_PRESS_SELECT";
-    public static final String C_SWITCH_BY_TRANSLATE = "SWITCH_BY_TRANSLATE";
-    public static final String C_BOLD = "BOLD ";
+    private static final String C_TEXT_SIZE = "TEXT_SIZE ";
+    private static final String C_TEXT_COLOR = "TEXT_COLOR";
+    private static final String C_NOTE_TEXT_COLOR = "TEXT_COLOR";
+    private static final String C_SLIDER_COLOR = "SLIDER_COLOR";
+    private static final String C_SELECT_TEXT_COLOR = "SELECTED_TEXT_COLOR";
+    private static final String C_BACKGROUND_COLOR = "BACKGROUND_COLOR";
+    private static final String C_IS_SHOW_NOTE = "IS_SHOW_NOTE";
+    private static final String C_CAN_PRESS_SELECT = "CAN_PRESS_SELECT";
+    private static final String C_SWITCH_BY_TRANSLATE = "SWITCH_BY_TRANSLATE";
+    private static final String C_BOLD = "BOLD ";
+    private static final String C_CENTER_CLICK_AREA = "CENTER_CLICK_AREA";
 
 
-    public static final int MAX_TEXT_SIZE = 90;//in px
-    public static final int MIN_TEXT_SIZE = 40;//in px
+    public static final int MAX_TEXT_SIZE = 120;//in px
+    public static final int MIN_TEXT_SIZE = 60;//in px
     public static final int DEFAULT_SELECT_TEXT_COLOR = Color.parseColor("#44f6950b");
     public static final int DEFAULT_SLIDER_COLOR = Color.parseColor("#1f4cf5");
-    public  int textSize = MIN_TEXT_SIZE;
-    public int textColor = Color.BLACK;
-    public int backgroundColor = Color.WHITE;
-    public int NoteColor = Color.RED;
-    public int SelectTextColor = DEFAULT_SELECT_TEXT_COLOR;
-    public int SliderColor = DEFAULT_SLIDER_COLOR;
-    public Boolean showNote = true;
-    public Boolean canPressSelect = true;
-    public Boolean SwitchByTranslate = true;
-    public Boolean Bold = false;
+    public  int textSize = MIN_TEXT_SIZE;//字体大小
+    public int textColor = Color.BLACK;//字体颜色
+    public int backgroundColor = Color.WHITE;//背景颜色
+    public int NoteColor = Color.RED;//笔记颜色
+    public int SelectTextColor = DEFAULT_SELECT_TEXT_COLOR;//选中颜色
+    public int SliderColor = DEFAULT_SLIDER_COLOR;//滑动条颜色
+    public Boolean showNote = true;//是否显示笔记
+    public Boolean canPressSelect = true;//是否能长按选中
+    public Boolean SwitchByTranslate = true;//是否平移切换
+    public Boolean Bold = false;//是否加粗
+    public float CenterClickArea = 0.35f;//0~1,中间点击区域占View宽度的百分比，区域为高为宽两倍的矩形，如果为1f，说明点击翻页将不起效果
 
 
     private static final SharedPreferences getS(Context context) {
@@ -110,10 +112,23 @@ public class TxtConfig {
         return share.getInt(C_BACKGROUND_COLOR, Color.WHITE);
     }
 
-    public static void saveSliderColor(Context context, int BackgroundColor) {
+    public static void saveCenterClickArea(Context context, float CenterClickArea) {
         SharedPreferences share = getS(context);
         SharedPreferences.Editor editor = share.edit();
-        editor.putInt(C_SLIDER_COLOR, BackgroundColor);
+        editor.putFloat(C_CENTER_CLICK_AREA, CenterClickArea);
+        editor.apply();
+        editor.commit();
+    }
+
+    public static float getCenterClickArea(Context context) {
+        SharedPreferences share = getS(context);
+        return share.getFloat(C_CENTER_CLICK_AREA, 0.3f);
+    }
+
+    public static void saveSliderColor(Context context, float CenterClickArea) {
+        SharedPreferences share = getS(context);
+        SharedPreferences.Editor editor = share.edit();
+        editor.putFloat(C_SLIDER_COLOR, CenterClickArea);
         editor.apply();
         editor.commit();
     }

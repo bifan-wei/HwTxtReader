@@ -11,12 +11,10 @@ import com.hw.txtreaderlib.interfaces.IPage;
 import com.hw.txtreaderlib.interfaces.IPageDataPipeline;
 import com.hw.txtreaderlib.interfaces.IParagraphData;
 import com.hw.txtreaderlib.interfaces.ITxtLine;
-import com.hw.txtreaderlib.utils.ELogger;
 import com.hw.txtreaderlib.utils.FormatUtil;
 import com.hw.txtreaderlib.utils.TextBreakUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,7 +61,6 @@ public class PageDataPipeline implements IPageDataPipeline {
 
     @Override
     public IPage getPageEndToProgress(int paragraphIndex, int charIndex) {
-
         IParagraphData data = readerContext.getParagraphData();
         int PageLineNum = readerContext.getPageParam().PageLineNum;
         int CurrentPaIndex = paragraphIndex;
@@ -71,15 +68,19 @@ public class PageDataPipeline implements IPageDataPipeline {
         int ParagraphNum = data.getParagraphNum();
         float lineWidth = readerContext.getPageParam().LineWidth;
         float textPadding = readerContext.getPageParam().TextPadding;
+
         if (charIndex == 0) {//说明上页开始是段落开始位置，段落左移
             CurrentPaIndex--;//
+            startIndex = 0;
         }
         if (CurrentPaIndex >= ParagraphNum || CurrentPaIndex < 0) return null;//超过返回null
+
         IPage page = new Page();
         while (page.getLineNum() < PageLineNum && CurrentPaIndex >= 0) {
             String paragraphStr = data.getParagraphStr(CurrentPaIndex);
+
             if (paragraphStr != null && paragraphStr.length() > 0) {
-                if(charIndex==0){//说明上页开始是段落开始位置
+                if (startIndex == 0) {//说明上页开始是段落开始位置
                     startIndex = paragraphStr.length();
                 }
                 List<ITxtLine> lines = getLineFromParagraphOnEnd(paragraphStr, CurrentPaIndex, startIndex, lineWidth, textPadding, readerContext.getPaintContext().textPaint);
@@ -94,6 +95,7 @@ public class PageDataPipeline implements IPageDataPipeline {
                 }
             }
             CurrentPaIndex--;
+            startIndex = 0;
         }
 
         if (page.HasData()) {
@@ -124,7 +126,6 @@ public class PageDataPipeline implements IPageDataPipeline {
 
         if (paragraphData != null && paragraphData.length() > 0) {
             String s = paragraphData.substring(startIndex);//截取要的数据
-
             while (s.length() > 0) {// is[0] 为个数 is[1] 为是否满一行
                 float[] is = TextBreakUtil.BreakText(s, lineWidth, textPadding, paint);
                 ITxtLine line;
@@ -160,11 +161,12 @@ public class PageDataPipeline implements IPageDataPipeline {
                                                      float lineWidth, float textPadding, Paint paint) {
         List<ITxtLine> lines = new ArrayList<>();
         int startIndex = 0;
-        if (paragraphData == null || endCharIndex <= 0) {
+        if (paragraphData == null || paragraphData.length() == 0 || endCharIndex <= 0) {
             return lines;
         }
 
         endCharIndex = endCharIndex >= paragraphData.length() ? paragraphData.length() : endCharIndex;
+
 
         if (endCharIndex > 0) {
             String s = paragraphData.substring(startIndex, endCharIndex);//截取要的数据

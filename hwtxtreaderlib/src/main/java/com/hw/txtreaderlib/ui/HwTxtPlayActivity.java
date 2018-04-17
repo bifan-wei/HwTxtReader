@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.hw.txtreaderlib.R;
 import com.hw.txtreaderlib.bean.TxtMsg;
+import com.hw.txtreaderlib.interfaces.ICenterAreaClickListener;
 import com.hw.txtreaderlib.interfaces.IChapter;
 import com.hw.txtreaderlib.interfaces.ILoadListener;
 import com.hw.txtreaderlib.interfaces.IPageChangeListener;
@@ -39,18 +40,21 @@ import java.io.File;
 
 public class HwTxtPlayActivity extends AppCompatActivity {
     private Handler mHandler;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hwtxtpaly);
+        setContentView(getContentViewLayout());
         getIntentData();
         init();
         loadFile();
         registerListener();
     }
 
-    private void getIntentData() {
+    protected int getContentViewLayout(){
+        return R.layout.activity_hwtxtpaly;
+    }
+
+    protected void getIntentData() {
         FilePath = getIntent().getStringExtra("FilePath");
         FileName = getIntent().getStringExtra("FileName");
     }
@@ -86,13 +90,13 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     private View mTopMenu;
     private View mBottomMenu;
     private View mCoverView;
-    private View ClipboarView;
+    private View ClipboardView;
     private String CurrentSelectedText;
 
     private ChapterList mChapterListPop;
     private MenuHolder mMenuHolder = new MenuHolder();
 
-    private void init() {
+    protected void init() {
         mHandler = new Handler();
         mTopDecoration = findViewById(R.id.activity_hwtxtplay_top);
         mBottomDecoration = findViewById(R.id.activity_hwtxtplay_bottom);
@@ -104,7 +108,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mTopMenu = findViewById(R.id.activity_hwtxtplay_menu_top);
         mBottomMenu = findViewById(R.id.activity_hwtxtplay_menu_bottom);
         mCoverView = findViewById(R.id.activity_hwtxtplay_cover);
-        ClipboarView = findViewById(R.id.activity_hwtxtplay_Clipboar);
+        ClipboardView = findViewById(R.id.activity_hwtxtplay_Clipboar);
         mSelectedText = (TextView) findViewById(R.id.activity_hwtxtplay_selected_text);
 
         mMenuHolder.mTitle = (TextView) findViewById(R.id.txtreadr_menu_title);
@@ -139,10 +143,10 @@ public class HwTxtPlayActivity extends AppCompatActivity {
             Color.parseColor("#27576c")
     };
 
-    private String FilePath = null;
-    private String FileName = null;
+    protected String FilePath = null;
+    protected String FileName = null;
 
-    private void loadFile() {
+    protected void loadFile() {
         if (TextUtils.isEmpty(FilePath) || !(new File(FilePath).exists())) {
             toast("文件不存在");
             return;
@@ -157,17 +161,13 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() {
             @Override
             public void onSuccess() {
-                if (TextUtils.isEmpty(FileName)) {//没有显示的名称，获取文件名显示
-                    FileName = mTxtReaderView.getTxtReaderContext().getFileMsg().FileName;
-                }
-                setBookName(FileName);
-                initWhenLoadDone();
+                onLoadDataSuccess();
+
             }
 
             @Override
             public void onFail(TxtMsg txtMsg) {
-                //加载失败信息
-                toast(txtMsg + "");
+                onLoadDataFail(txtMsg);
             }
 
             @Override
@@ -175,6 +175,25 @@ public class HwTxtPlayActivity extends AppCompatActivity {
                 //加载过程信息
             }
         });
+    }
+
+    /**
+     * @param txtMsg
+     */
+    protected void onLoadDataFail(TxtMsg txtMsg) {
+        //加载失败信息
+        toast(txtMsg + "");
+    }
+
+    /**
+     *
+     */
+    protected void onLoadDataSuccess() {
+        if (TextUtils.isEmpty(FileName)) {//没有显示的名称，获取文件名显示
+            FileName = mTxtReaderView.getTxtReaderContext().getFileMsg().FileName;
+        }
+        setBookName(FileName);
+        initWhenLoadDone();
     }
 
     private void loadStr() {
@@ -225,13 +244,14 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         onTextSettingUi(mTxtReaderView.getTxtReaderContext().getTxtConfig().Bold);
         //翻页初始化
         onPageSwitchSettingUi(mTxtReaderView.getTxtReaderContext().getTxtConfig().SwitchByTranslate);
+        //保存的翻页模式
         if (mTxtReaderView.getTxtReaderContext().getTxtConfig().SwitchByTranslate) {
             mTxtReaderView.setPageSwitchByTranslate();
         } else {
             mTxtReaderView.setPageSwitchByCover();
         }
         //章节初始化
-        if (mTxtReaderView.getChapters() != null) {
+        if (mTxtReaderView.getChapters() != null && mTxtReaderView.getChapters().size() > 0) {
             WindowManager m = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             DisplayMetrics metrics = new DisplayMetrics();
             m.getDefaultDisplay().getMetrics(metrics);
@@ -246,10 +266,12 @@ public class HwTxtPlayActivity extends AppCompatActivity {
                 }
             });
             mChapterListPop.setBackGroundColor(mTxtReaderView.getBackgroundColor());
+        } else {
+            Gone(mChapterMenuText);
         }
     }
 
-    private void registerListener() {
+    protected void registerListener() {
         mTopMenu.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -307,6 +329,22 @@ public class HwTxtPlayActivity extends AppCompatActivity {
                 return false;
             }
         });
+        mTxtReaderView.setOnCenterAreaClickListener(new ICenterAreaClickListener() {
+            @Override
+            public boolean onCenterClick(float widthPercentInView) {
+                mSettingText.performClick();
+                return true;
+            }
+
+            @Override
+            public boolean onOutSideCenterClick(float widthPercentInView) {
+                if (mBottomMenu.getVisibility() == View.VISIBLE) {
+                    mSettingText.performClick();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         mTxtReaderView.setPageChangeListener(new IPageChangeListener() {
             @Override
@@ -340,12 +378,12 @@ public class HwTxtPlayActivity extends AppCompatActivity {
             @Override
             public void onShowSlider(String currentSelectedText) {
                 onCurrentSelectedText(currentSelectedText);
-                Show(ClipboarView);
+                Show(ClipboardView);
             }
 
             @Override
             public void onReleaseSlider() {
-                Gone(ClipboarView);
+                Gone(ClipboardView);
             }
         });
 
@@ -515,7 +553,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
 
     private Toast t;
 
-    private void toast(final String msg) {
+    protected void toast(final String msg) {
         if (t != null) {
             t.cancel();
         }
@@ -548,17 +586,8 @@ public class HwTxtPlayActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        mTxtReaderView.getTxtReaderContext().Clear();
-        mHandler.removeCallbacksAndMessages(null);
-        if (mChapterListPop != null) {
-            if (mChapterListPop.isShowing()) {
-                mChapterListPop.dismiss();
-            }
-            mChapterListPop.onDestroy();
-        }
-        mMenuHolder = null;
-
         super.onDestroy();
+        exist();
     }
 
     public void BackClick(View view) {
@@ -573,12 +602,38 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         }
         onCurrentSelectedText("");
         mTxtReaderView.releaseSelectedState();
-        Gone(ClipboarView);
+        Gone(ClipboardView);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        exist();
+    }
+
+    protected void exist(){
+        if(mTxtReaderView!=null) {
+            mTxtReaderView.saveCurrentProgress();
+            mTxtReaderView.getTxtReaderContext().Clear();
+            mTxtReaderView = null;
+        }
+        if(mHandler!=null) {
+            mHandler.removeCallbacksAndMessages(null);
+            mHandler = null;
+        }
+        if (mChapterListPop != null) {
+            if (mChapterListPop.isShowing()) {
+                mChapterListPop.dismiss();
+            }
+            mChapterListPop.onDestroy();
+            mChapterListPop = null;
+        }
+        mMenuHolder = null;
     }
 }

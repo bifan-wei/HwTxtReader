@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="hw.txtreader.DemoActivity">
 
     <EditText
-        android:id="@+id/editext"
+        android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp" />
 
     <Button
-        android:onClick="loadFile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editext"
-        android:text="laodFile"/>
+        android:onClick="loadFile"
+        android:text="loadFile" />
 
-</RelativeLayout>
+
+</LinearLayout>
