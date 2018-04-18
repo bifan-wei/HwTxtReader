@@ -12,9 +12,10 @@
 2.页面风格设置，夜间模式等。<br> 
 3.进度跳转与当前进度获取。<br> 
 4.章节获取与章节跳转。<br> 
-5.可以滑盖翻页与平移翻页切换。<br> 
+5.可以滑盖翻页与平移翻页切换，支持轻击翻页。<br> 
 6.可以进行长按滑动选择复制文字。<br> 
 7.数字与英文字符显示特点颜色。<br> 
+8.自动跳转到上次阅读进度。<br> 
 <br>
 
 ## 更新日志请查看 updateLog.txt文件
@@ -53,7 +54,7 @@
 
  
   dependencies {
-	        compile 'com.github.bifan-wei:HwTxtReader:V1.1'
+	        compile 'com.github.bifan-wei:HwTxtReader:V1.2'
 	}
 	
 ```
