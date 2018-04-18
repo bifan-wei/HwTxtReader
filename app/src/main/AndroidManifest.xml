@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.hw.txtreaderlib.ui.HwTxtPlayActivity"
+            android:name="com.bifan.txtreaderlib.ui.HwTxtPlayActivity"
             android:theme="@style/HwTxtFullScreen"></activity>
     </application>
 

@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.hw.txtreaderlib.ui.HwTxtPlayActivity;
+import com.bifan.txtreaderlib.ui.HwTxtPlayActivity;
 
 import java.io.File;
 

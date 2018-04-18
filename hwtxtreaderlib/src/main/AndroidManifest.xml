@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.hw.txtreaderlib"
+          package="com.bifan.txtreaderlib"
     >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         >
         <activity
-            android:name="com.hw.txtreaderlib.ui.HwTxtPlayActivity"
+            android:name="com.bifan.txtreaderlib.ui.HwTxtPlayActivity"
             android:theme="@style/HwTxtFullScreen"></activity>
     </application>
 
