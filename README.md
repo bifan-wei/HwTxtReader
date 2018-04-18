@@ -65,7 +65,7 @@
  ```
 <br>
 
-## 使用自定义view的话，直接使用TxtReaderView 
+## 使用自定义view的话，直接使用TxtReaderView (详细请看Wiki)
 ### xml中：
 ```xml
   <com.bifan.txtreaderlib.main.TxtReaderView 
