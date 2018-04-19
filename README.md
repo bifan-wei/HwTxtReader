@@ -54,7 +54,7 @@
 
  
   dependencies {
-	        compile 'com.github.bifan-wei:HwTxtReader:V1.2'
+	        compile 'com.github.bifan-wei:HwTxtReader:V1.3'
 	}
 	
 ```
@@ -65,10 +65,10 @@
  ```
 <br>
 
-## 使用自定义view的话，直接使用TxtReaderView 
+## 使用自定义view的话，直接使用TxtReaderView (详细请看Wiki)
 ### xml中：
 ```xml
-  <com.hw.txtreaderlib.main.TxtReaderView 
+  <com.bifan.txtreaderlib.main.TxtReaderView 
         android:id="@+id/activity_hwtxtplay_readerView" 
         android:layout_width="match_parent"  
         android:layout_height="match_parent" 
