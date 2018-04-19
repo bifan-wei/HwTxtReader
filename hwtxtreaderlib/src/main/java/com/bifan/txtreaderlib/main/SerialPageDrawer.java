@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.widget.Scroller;
 
 import com.bifan.txtreaderlib.interfaces.IReaderViewDrawer;
+import com.bifan.txtreaderlib.utils.ELogger;
 
 /**
  * Created by bifan-wei
@@ -128,6 +129,7 @@ public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawe
     public void startPageNextAnimation() {
         scroller.startScroll(getWidth() + (int) getMoveDistance(), 0, -(getWidth() + (int) getMoveDistance()), 0, PageSwitchTime);
         readerView.mDown.x = getWidth();//从getWidth()开始
+        readerView.CurrentMode = TxtReaderBaseView.Mode.PageNextIng;
         postInvalidate();
     }
 
@@ -135,6 +137,7 @@ public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawe
     public void startPagePreAnimation() {
         scroller.startScroll((int) getMoveDistance(), 0, getWidth() - (int) getMoveDistance(), 0, PageSwitchTime);
         readerView.mDown.x = 0;
+        readerView.CurrentMode = TxtReaderBaseView.Mode.PagePreIng;
         postInvalidate();
     }
 
@@ -199,6 +202,7 @@ public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawe
     @Override
     public void computeScroll() {
         if (scroller.computeScrollOffset()) {
+            ELogger.log(tag,"computeScroll");
             readerView.mTouch.x = scroller.getCurrX();
             readerView.invalidate();
             checkPageData();
@@ -206,9 +210,8 @@ public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawe
     }
 
     private synchronized void checkPageData() {
-
         if (onPageStateBackAnimation) {
-            if (getMoveDistance() <= 1 && getMoveDistance() >= -1) {
+            if ((getMoveDistance()>0&&getMoveDistance() <= 3) || (getMoveDistance()<0&&getMoveDistance() >= -3) ) {
                 scroller.abortAnimation();
                 readerView.releaseTouch();
                 readerView.invalidate();

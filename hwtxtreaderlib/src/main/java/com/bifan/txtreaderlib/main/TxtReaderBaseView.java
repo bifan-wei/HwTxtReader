@@ -116,7 +116,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (mScroller.computeScrollOffset()) {
+        if (mScroller.computeScrollOffset()
+                ||CurrentMode==Mode.PageNextIng
+                ||CurrentMode==Mode.PagePreIng) {
             return true;
         }
         //手势处理完成，捕捉了的话，拦截它
@@ -201,7 +203,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      * @param event
      */
     protected void startPageUpAnimation(MotionEvent event) {
+        ELogger.log(tag,"getMoveDistance:"+getMoveDistance()+"/PageChangeMinMoveDistance:"+PageChangeMinMoveDistance);
         if (getMoveDistance() < -PageChangeMinMoveDistance || getMoveDistance() > PageChangeMinMoveDistance) {
+            ELogger.log(tag,"getMoveDistance:111");
             if (isPagePre()) {
                 if (!isFirstPage()) {
                     startPagePreAnimation();
@@ -223,10 +227,10 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                 //这种情况不执行
             } else {
                 //如果只是移动一点点，释放即可，不需要恢复
-                if(getMoveDistance()<5||getMoveDistance()>-5){
+                if((getMoveDistance()>0&&getMoveDistance()<5)||(getMoveDistance()<=0&&getMoveDistance()>-5)){
                     releaseTouch();
                     invalidate();
-                }else {
+                }else {//ss
                     startPageStateBackAnimation();
                 }
             }
