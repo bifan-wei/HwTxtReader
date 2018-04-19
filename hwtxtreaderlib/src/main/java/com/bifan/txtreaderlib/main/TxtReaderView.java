@@ -146,6 +146,7 @@ public class TxtReaderView extends TxtReaderBaseView {
         mTouch.x = event.getX();
         mTouch.y = event.getY();
 
+
         checkMoveState();
 
         if (getMoveDistance() > 0 && isFirstPage()) {

@@ -151,7 +151,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      * @param event onActionMove
      */
     protected void onActionMove(MotionEvent event) {
-        ELogger.log(tag, "onActionMove CurrentMode:" + CurrentMode);
 
         if (CurrentMode == Mode.Normal) {
             //正常模式，执行页面滑动
@@ -223,7 +222,13 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             if ((getMoveDistance() > 0 && isFirstPage()) || (getMoveDistance() < 0 && isLastPage())) {
                 //这种情况不执行
             } else {
-                startPageStateBackAnimation();
+                //如果只是移动一点点，释放即可，不需要恢复
+                if(getMoveDistance()<5||getMoveDistance()>-5){
+                    releaseTouch();
+                    invalidate();
+                }else {
+                    startPageStateBackAnimation();
+                }
             }
 
         }
@@ -283,7 +288,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         mTouch.x = motionEvent.getX();
         mTouch.y = motionEvent.getY();
 
-        if (CurrentMode == Mode.PressSelectText
+        if (       CurrentMode == Mode.PressSelectText
                 || CurrentMode == Mode.SelectMoveForward
                 || CurrentMode == Mode.SelectMoveBack) {
 
@@ -402,6 +407,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                     deal = centerAreaClickListener.onOutSideCenterClick(widthPercent);
                 }
             }
+            //getMoveDistance() < -PageChangeMinMoveDistance || getMoveDistance() > PageChangeMinMoveDistance
+           // if ((getMoveDistance() > 0 && isFirstPage()) || (getMoveDistance() < 0 && isLastPage())) {} 这样的情况才不执行
+
             //如果这个事件没有被处理，将可能会执行翻页事件
             if (!deal) {
                 if (needPagePre && !isFirstPage()) {
@@ -418,8 +426,8 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                 if (needPageNext && !isLastPage()) {
                     //mTouch.x - mDown.x<-10
                     ///模拟滑动执行翻下一页手势
-                    mTouch.x = getWidth() - 15;
                     mDown.x = getWidth();
+                    mTouch.x = mDown.x - 15;
                     tryDoPageNext();
                     startPageNextAnimation();
                     return true;
@@ -437,7 +445,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      */
     @Override
     public void onLongPress(MotionEvent e) {
-        ELogger.log(tag, "onLongPress ,CurrentMode:" + CurrentMode);
         if (CurrentMode == Mode.Normal) {
             onPressSelectText(e);
         }
@@ -775,7 +782,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         //执行获取下一页数据
         IPage lastPage = readerContext.getPageData().LastPage();
         if (lastPage == null) {//没有下一页数据了
-            ELogger.log(tag, "没有下一页数据了");
             CurrentMode = Mode.Normal;
             return;
         }

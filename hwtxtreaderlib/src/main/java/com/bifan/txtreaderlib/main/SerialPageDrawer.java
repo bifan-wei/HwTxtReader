@@ -221,7 +221,6 @@ public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawe
                 scroller.abortAnimation();
 
             } else if (readerView.mTouch.x == getWidth()) {//执行上一页数据获取
-
                 readerView.doPagePreDone();
                 scroller.abortAnimation();
 
