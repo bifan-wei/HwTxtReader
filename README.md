@@ -54,7 +54,7 @@
 
  
   dependencies {
-	        compile 'com.github.bifan-wei:HwTxtReader:V1.3'
+	        compile 'com.github.bifan-wei:HwTxtReader:V1.3.2'
 	}
 	
 ```
