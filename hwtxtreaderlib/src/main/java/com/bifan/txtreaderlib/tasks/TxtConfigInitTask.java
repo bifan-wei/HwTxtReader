@@ -69,6 +69,7 @@ public class TxtConfigInitTask implements ITxtTask {
         config.SelectTextColor = TxtConfig.getSelectTextColor(readerContext.context);
         config.SliderColor = TxtConfig.getSliderColor(readerContext.context);
         config.Bold = TxtConfig.isBold(readerContext.context);
+        config.SwitchByTranslate = TxtConfig.isSwitchByTranslate(readerContext.context);
     }
 
     /**

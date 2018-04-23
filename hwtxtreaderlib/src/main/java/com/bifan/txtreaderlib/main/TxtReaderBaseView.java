@@ -43,7 +43,7 @@ import java.util.List;
 public abstract class TxtReaderBaseView extends View implements GestureDetector.OnGestureListener {
     private String tag = "TxtReaderBaseView";
 
-    protected static final int SliderWidth = 40;//滑动条宽度
+    protected static int SliderWidth = 40;//滑动条宽度
     protected static int PageChangeMinMoveDistance = 40;//页面切换需要的最小滑动距离
     protected TxtReaderContext readerContext;//阅读器上下文
     protected Scroller mScroller;//滑动器
@@ -69,6 +69,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     }
 
     protected void init() {
+        SliderWidth = DisPlayUtil.dip2px(getContext(), 13);
         setLayerType(View.LAYER_TYPE_HARDWARE, null);
         readerContext = new TxtReaderContext(getContext());
         mScroller = new TxtReaderScroller(getContext());
@@ -117,8 +118,8 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (mScroller.computeScrollOffset()
-                ||CurrentMode==Mode.PageNextIng
-                ||CurrentMode==Mode.PagePreIng) {
+                || CurrentMode == Mode.PageNextIng
+                || CurrentMode == Mode.PagePreIng) {
             return true;
         }
         //手势处理完成，捕捉了的话，拦截它
@@ -203,9 +204,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      * @param event
      */
     protected void startPageUpAnimation(MotionEvent event) {
-        ELogger.log(tag,"getMoveDistance:"+getMoveDistance()+"/PageChangeMinMoveDistance:"+PageChangeMinMoveDistance);
+        ELogger.log(tag, "getMoveDistance:" + getMoveDistance() + "/PageChangeMinMoveDistance:" + PageChangeMinMoveDistance);
         if (getMoveDistance() < -PageChangeMinMoveDistance || getMoveDistance() > PageChangeMinMoveDistance) {
-            ELogger.log(tag,"getMoveDistance:111");
+            ELogger.log(tag, "getMoveDistance:111");
             if (isPagePre()) {
                 if (!isFirstPage()) {
                     startPagePreAnimation();
@@ -227,10 +228,10 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                 //这种情况不执行
             } else {
                 //如果只是移动一点点，释放即可，不需要恢复
-                if((getMoveDistance()>0&&getMoveDistance()<5)||(getMoveDistance()<=0&&getMoveDistance()>-5)){
+                if ((getMoveDistance() > 0 && getMoveDistance() < 5) || (getMoveDistance() <= 0 && getMoveDistance() > -5)) {
                     releaseTouch();
                     invalidate();
-                }else {//ss
+                } else {//ss
                     startPageStateBackAnimation();
                 }
             }
@@ -292,10 +293,10 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         mTouch.x = motionEvent.getX();
         mTouch.y = motionEvent.getY();
 
-        if (       CurrentMode == Mode.PressSelectText
+        if (CurrentMode == Mode.PressSelectText
                 || CurrentMode == Mode.SelectMoveForward
                 || CurrentMode == Mode.SelectMoveBack) {
-
+            CurrentMode = Mode.PressSelectText;
             Path leftSliderPath = getLeftSliderPath();
             Path rightSliderPath = getRightSliderPath();
 
@@ -412,7 +413,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                 }
             }
             //getMoveDistance() < -PageChangeMinMoveDistance || getMoveDistance() > PageChangeMinMoveDistance
-           // if ((getMoveDistance() > 0 && isFirstPage()) || (getMoveDistance() < 0 && isLastPage())) {} 这样的情况才不执行
+            // if ((getMoveDistance() > 0 && isFirstPage()) || (getMoveDistance() < 0 && isLastPage())) {} 这样的情况才不执行
 
             //如果这个事件没有被处理，将可能会执行翻页事件
             if (!deal) {
@@ -748,7 +749,12 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      * @return 获取当前滑动距离
      */
     protected synchronized float getMoveDistance() {
-        return mTouch.x - mDown.x;
+        int i = (int) (mTouch.x - mDown.x);
+        float m = mTouch.x - mDown.x;
+        if (i < m) {
+            return i + 1;
+        }
+        return m;
     }
 
     protected void tryDoPagePre() {
@@ -794,10 +800,16 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     }
 
     protected Bitmap getTopPage() {
+        if (TopPage != null && TopPage.isRecycled()) {
+            TopPage = null;
+        }
         return TopPage;
     }
 
     protected Bitmap getBottomPage() {
+        if (BottomPage != null && BottomPage.isRecycled()) {
+            BottomPage = null;
+        }
         return BottomPage;
     }
 

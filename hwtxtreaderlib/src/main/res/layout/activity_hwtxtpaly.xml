@@ -7,7 +7,7 @@
         android:id="@+id/activity_hwtxtplay_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#f9fbdf"
+        android:background="#ffffff"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
@@ -61,14 +61,14 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/activity_hwtxtplay_bottom"
         android:layout_below="@+id/activity_hwtxtplay_top"
-        android:background="#f9fbdf" />
+        android:background="#ffffff" />
 
     <RelativeLayout
         android:id="@+id/activity_hwtxtplay_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#f9fbdf"
+        android:background="#ffffff"
         android:paddingTop="5dp">
 
         <TextView

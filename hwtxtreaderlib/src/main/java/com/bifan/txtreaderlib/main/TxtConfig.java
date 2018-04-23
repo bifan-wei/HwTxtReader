@@ -24,7 +24,7 @@ public class TxtConfig {
 
 
     public static final int MAX_TEXT_SIZE = 150;//in px
-    public static final int MIN_TEXT_SIZE = 60;//in px
+    public static final int MIN_TEXT_SIZE = 50;//in px
     public static final int DEFAULT_SELECT_TEXT_COLOR = Color.parseColor("#44f6950b");
     public static final int DEFAULT_SLIDER_COLOR = Color.parseColor("#1f4cf5");
     public  int textSize = MIN_TEXT_SIZE;//字体大小
@@ -174,7 +174,7 @@ public class TxtConfig {
 
     public static Boolean isSwitchByTranslate(Context context) {
         SharedPreferences share = getS(context);
-        return share.getBoolean(C_SWITCH_BY_TRANSLATE, false);
+        return share.getBoolean(C_SWITCH_BY_TRANSLATE, true);
     }
 
     public static void saveIsBold(Context context, Boolean bold) {

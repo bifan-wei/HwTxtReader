@@ -40,6 +40,7 @@ import java.io.File;
 
 public class HwTxtPlayActivity extends AppCompatActivity {
     private Handler mHandler;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         registerListener();
     }
 
-    protected int getContentViewLayout(){
+    protected int getContentViewLayout() {
         return R.layout.activity_hwtxtpaly;
     }
 
@@ -80,21 +81,21 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    private View mTopDecoration, mBottomDecoration;
-    private TextView mChapterNameText;
-    private TextView mChapterMenuText;
-    private TextView mProgressText;
-    private TextView mSettingText;
-    private TextView mSelectedText;
-    private TxtReaderView mTxtReaderView;
-    private View mTopMenu;
-    private View mBottomMenu;
-    private View mCoverView;
-    private View ClipboardView;
-    private String CurrentSelectedText;
+    protected View mTopDecoration, mBottomDecoration;
+    protected TextView mChapterNameText;
+    protected TextView mChapterMenuText;
+    protected TextView mProgressText;
+    protected TextView mSettingText;
+    protected TextView mSelectedText;
+    protected TxtReaderView mTxtReaderView;
+    protected View mTopMenu;
+    protected View mBottomMenu;
+    protected View mCoverView;
+    protected View ClipboardView;
+    protected String CurrentSelectedText;
 
-    private ChapterList mChapterListPop;
-    private MenuHolder mMenuHolder = new MenuHolder();
+    protected ChapterList mChapterListPop;
+    protected MenuHolder mMenuHolder = new MenuHolder();
 
     protected void init() {
         mHandler = new Handler();
@@ -151,23 +152,33 @@ public class HwTxtPlayActivity extends AppCompatActivity {
             toast("文件不存在");
             return;
         }
-
-        loadOurFile();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //延迟加载避免闪一下的情况出现
+                loadOurFile();
+            }
+        }, 300);
         //you can load with textStr
         //loadStr();
     }
 
-    private void loadOurFile() {
+    protected void loadOurFile() {
         mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() {
             @Override
             public void onSuccess() {
                 onLoadDataSuccess();
-
             }
 
             @Override
-            public void onFail(TxtMsg txtMsg) {
-                onLoadDataFail(txtMsg);
+            public void onFail(final TxtMsg txtMsg) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onLoadDataFail(txtMsg);
+                    }
+                });
+
             }
 
             @Override
@@ -534,17 +545,17 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         }
     }
 
-    private void setBookName(String name) {
+    protected void setBookName(String name) {
         mMenuHolder.mTitle.setText(name + "");
     }
 
-    private void Show(View... views) {
+    protected void Show(View... views) {
         for (View v : views) {
             v.setVisibility(View.VISIBLE);
         }
     }
 
-    private void Gone(View... views) {
+    protected void Gone(View... views) {
         for (View v : views) {
             v.setVisibility(View.GONE);
         }
@@ -561,27 +572,27 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         t.show();
     }
 
-    private class MenuHolder {
-        TextView mTitle;
-        TextView mPreChapter;
-        TextView mNextChapter;
-        SeekBar mSeekBar;
-        TextView mTextSizeDel;
-        TextView mTextSizeAdd;
-        TextView mTextSize;
-        View mBoldSelectedLayout;
-        ImageView mBoldSelectedPic;
-        View mNormalSelectedLayout;
-        ImageView mNormalSelectedPic;
-        View mCoverSelectedLayout;
-        ImageView mCoverSelectedPic;
-        View mTranslateSelectedLayout;
-        ImageView mTranslateSelectedPc;
-        View mStyle1;
-        View mStyle2;
-        View mStyle3;
-        View mStyle4;
-        View mStyle5;
+    protected class MenuHolder {
+        public TextView mTitle;
+        public TextView mPreChapter;
+        public TextView mNextChapter;
+        public SeekBar mSeekBar;
+        public TextView mTextSizeDel;
+        public TextView mTextSizeAdd;
+        public TextView mTextSize;
+        public View mBoldSelectedLayout;
+        public ImageView mBoldSelectedPic;
+        public View mNormalSelectedLayout;
+        public ImageView mNormalSelectedPic;
+        public View mCoverSelectedLayout;
+        public ImageView mCoverSelectedPic;
+        public View mTranslateSelectedLayout;
+        public ImageView mTranslateSelectedPc;
+        public View mStyle1;
+        public View mStyle2;
+        public View mStyle3;
+        public View mStyle4;
+        public View mStyle5;
     }
 
     @Override
@@ -617,23 +628,34 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         exist();
     }
 
-    protected void exist(){
-        if(mTxtReaderView!=null) {
-            mTxtReaderView.saveCurrentProgress();
-            mTxtReaderView.getTxtReaderContext().Clear();
-            mTxtReaderView = null;
+    boolean hasExisted = false;
+
+    protected void exist() {
+        if (!hasExisted) {
+            hasExisted = true;
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mTxtReaderView != null) {
+                        mTxtReaderView.saveCurrentProgress();
+                        mTxtReaderView.getTxtReaderContext().Clear();
+                        mTxtReaderView = null;
+                    }
+                    if (mHandler != null) {
+                        mHandler.removeCallbacksAndMessages(null);
+                        mHandler = null;
+                    }
+                    if (mChapterListPop != null) {
+                        if (mChapterListPop.isShowing()) {
+                            mChapterListPop.dismiss();
+                        }
+                        mChapterListPop.onDestroy();
+                        mChapterListPop = null;
+                    }
+                    mMenuHolder = null;
+                }
+            }, 300);
+
         }
-        if(mHandler!=null) {
-            mHandler.removeCallbacksAndMessages(null);
-            mHandler = null;
-        }
-        if (mChapterListPop != null) {
-            if (mChapterListPop.isShowing()) {
-                mChapterListPop.dismiss();
-            }
-            mChapterListPop.onDestroy();
-            mChapterListPop = null;
-        }
-        mMenuHolder = null;
     }
 }

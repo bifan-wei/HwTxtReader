@@ -22,16 +22,16 @@ public class FileUtil {
             if (read == -1)
                 return charset;
             if (first3Bytes[0] == (byte) 0xFF && first3Bytes[1] == (byte) 0xFE) {
-                charset = "UTF - 16L E";
+                charset = "UTF-16LE";
                 checked = true;
             } else if (first3Bytes[0] == (byte) 0xFE
                     && first3Bytes[1] == (byte) 0xFF) {
-                charset = "UTF - 16 BE";
+                charset = "UTF-16BE";
                 checked = true;
             } else if (first3Bytes[0] == (byte) 0xEF
                     && first3Bytes[1] == (byte) 0xBB
                     && first3Bytes[2] == (byte) 0xBF) {
-                charset = "UTF - 8";
+                charset = "UTF-8";
                 checked = true;
             }
             bis.mark(0);
@@ -53,7 +53,7 @@ public class FileUtil {
                         if (0x80 <= read && read <= 0xBF) {
                             read = bis.read();
                             if (0x80 <= read && read <= 0xBF) {
-                                charset = "UTF - 8";
+                                charset = "UTF-8";
                                 break;
                             } else
                                 break;

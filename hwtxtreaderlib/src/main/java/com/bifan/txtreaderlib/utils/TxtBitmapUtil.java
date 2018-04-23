@@ -24,7 +24,7 @@ import java.util.List;
 
 public class TxtBitmapUtil {
     public static final Bitmap createHorizontalPage(Bitmap bg, PaintContext paintContext, PageParam pageParam, TxtConfig txtConfig, IPage page) {
-        if (page == null || !page.HasData()) {
+        if (page == null || !page.HasData()|| bg == null || bg.isRecycled()) {
             return null;
         }
         Bitmap bitmap = bg.copy(Bitmap.Config.RGB_565, true);
