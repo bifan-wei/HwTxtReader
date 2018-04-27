@@ -20,6 +20,7 @@ public class TxtConfig {
     private static final String C_CAN_PRESS_SELECT = "CAN_PRESS_SELECT";
     private static final String C_SWITCH_BY_TRANSLATE = "SWITCH_BY_TRANSLATE";
     private static final String C_BOLD = "BOLD ";
+    private static final String C_SHOW_SPECIAL_CHAR = "SHOW_SPECIAL_CHAR ";
     private static final String C_CENTER_CLICK_AREA = "CENTER_CLICK_AREA";
 
 
@@ -37,6 +38,7 @@ public class TxtConfig {
     public Boolean canPressSelect = true;//是否能长按选中
     public Boolean SwitchByTranslate = true;//是否平移切换
     public Boolean Bold = false;//是否加粗
+    public Boolean ShowSpecialChar = true;//是否显示特殊符号，对于数字、英文，可以显示特定颜色
     public float CenterClickArea = 0.35f;//0~1,中间点击区域占View宽度的百分比，区域为高为宽两倍的矩形，如果为1f，说明点击翻页将不起效果
 
 
@@ -188,5 +190,18 @@ public class TxtConfig {
     public static Boolean isBold(Context context) {
         SharedPreferences share = getS(context);
         return share.getBoolean(C_BOLD, false);
+    }
+
+    public static void saveIsShowSpecialChar(Context context, Boolean showSpecialChar) {
+        SharedPreferences share = getS(context);
+        SharedPreferences.Editor editor = share.edit();
+        editor.putBoolean(C_SHOW_SPECIAL_CHAR, showSpecialChar);
+        editor.apply();
+        editor.commit();
+    }
+
+    public static Boolean IsShowSpecilaChar(Context context) {
+        SharedPreferences share = getS(context);
+        return share.getBoolean(C_SHOW_SPECIAL_CHAR, true);
     }
 }

@@ -24,7 +24,7 @@ import java.util.List;
 
 public class TxtBitmapUtil {
     public static final Bitmap createHorizontalPage(Bitmap bg, PaintContext paintContext, PageParam pageParam, TxtConfig txtConfig, IPage page) {
-        if (page == null || !page.HasData()|| bg == null || bg.isRecycled()) {
+        if (page == null || !page.HasData() || bg == null || bg.isRecycled()) {
             return null;
         }
         Bitmap bitmap = bg.copy(Bitmap.Config.RGB_565, true);
@@ -41,13 +41,18 @@ public class TxtBitmapUtil {
         float x = topL;
         float y = bottom;
 
+        if (!txtConfig.ShowSpecialChar) {
+            paint.setColor(defaultColor);
+        }
         for (ITxtLine line : lines) {
             if (line.HasData()) {
                 for (TxtChar txtChar : line.getTxtChars()) {
-                    if (txtChar instanceof NumChar || txtChar instanceof EnChar) {
-                        paint.setColor(txtChar.getTextColor());
-                    } else {
-                        paint.setColor(defaultColor);
+                    if (txtConfig.ShowSpecialChar) {
+                        if (txtChar instanceof NumChar || txtChar instanceof EnChar) {
+                            paint.setColor(txtChar.getTextColor());
+                        } else {
+                            paint.setColor(defaultColor);
+                        }
                     }
                     canvas.drawText(txtChar.getValueStr(), x, y, paint);
                     txtChar.Left = (int) x;
