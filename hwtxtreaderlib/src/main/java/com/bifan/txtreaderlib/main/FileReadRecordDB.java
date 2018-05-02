@@ -91,16 +91,19 @@ public class FileReadRecordDB extends SQLiteOpenHelper {
     /**
      * @param fileHashName
      * @return 如果没有记录，返回null
-     * --------------------
      */
     public FileReadRecordBean getRecordByHashName(String fileHashName) {
         if (TextUtils.isEmpty(fileHashName) || !IsHasData(FileHashName, fileHashName))
             return null;
         Cursor cursor = getCursorByKeyValue(FileHashName, fileHashName);
-        if (cursor != null && cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            FileReadRecordBean bean = getRecordBeanFromCursor(cursor);
-            return bean;
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                FileReadRecordBean bean = getRecordBeanFromCursor(cursor);
+                cursor.close();
+                return bean;
+            }
+            cursor.close();
         }
         return null;
     }
@@ -117,14 +120,16 @@ public class FileReadRecordDB extends SQLiteOpenHelper {
         } else {
             cursor = getCursorByKeyValue(FileHashName, userId);
         }
-        if (cursor != null && cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                searchBeans.add(getRecordBeanFromCursor(cursor));
-                cursor.moveToNext();
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    searchBeans.add(getRecordBeanFromCursor(cursor));
+                    cursor.moveToNext();
+                }
             }
+            cursor.close();
         }
-        cursor.close();
         return searchBeans;
 
     }
@@ -154,7 +159,6 @@ public class FileReadRecordDB extends SQLiteOpenHelper {
         int fileNameIndex = cursor.getColumnIndex(FileName);
         bean.fileName = cursor.getString(fileNameIndex);
 
-
         int paragraphIndex = cursor.getColumnIndex(ParagraphIndex);
         bean.paragraphIndex = cursor.getInt(paragraphIndex);
 
@@ -163,7 +167,6 @@ public class FileReadRecordDB extends SQLiteOpenHelper {
 
         return bean;
     }
-
 
 
     /**
@@ -193,8 +196,12 @@ public class FileReadRecordDB extends SQLiteOpenHelper {
      */
     private Boolean IsHasData(String key, String value) {
         Cursor cursor = getCursorByKeyValue(key, value);
-        if (cursor != null && cursor.getCount() > 0) {
-            return true;
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
+                cursor.close();
+                return true;
+            }
+            cursor.close();
         }
         return false;
     }
