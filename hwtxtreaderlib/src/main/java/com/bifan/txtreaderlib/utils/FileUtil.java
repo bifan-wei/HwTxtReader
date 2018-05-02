@@ -34,6 +34,7 @@ public class FileUtil {
                 charset = "UTF-8";
                 checked = true;
             }
+
             bis.mark(0);
             if (!checked) {
                 while ((read = bis.read()) != -1) {
@@ -48,6 +49,7 @@ public class FileUtil {
                             continue;
                         else
                             break;
+
                     } else if (0xE0 <= read && read <= 0xEF) {// 也有可能出错，但是几率较小
                         read = bis.read();
                         if (0x80 <= read && read <= 0xBF) {

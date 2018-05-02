@@ -8,6 +8,7 @@ import com.bifan.txtreaderlib.interfaces.ITxtTask;
 import com.bifan.txtreaderlib.main.FileReadRecordDB;
 import com.bifan.txtreaderlib.main.TxtReaderContext;
 import com.bifan.txtreaderlib.utils.ELogger;
+import com.bifan.txtreaderlib.utils.FileCharsetDetector;
 import com.bifan.txtreaderlib.utils.FileHashUtil;
 import com.bifan.txtreaderlib.utils.FileUtil;
 
@@ -44,7 +45,7 @@ public class TxtFileLoader {
         TxtFileMsg fileMsg = new TxtFileMsg();
         fileMsg.FileSize = file.getTotalSpace();
         fileMsg.FilePath = filePath;
-        fileMsg.FileCode = FileUtil.getCharset(filePath);
+        fileMsg.FileCode = new FileCharsetDetector().getCharset(new File(filePath));
 
         fileMsg.CurrentParagraphIndex = 0;
         fileMsg.CurrentParagraphIndex = 0;

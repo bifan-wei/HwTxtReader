@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="chardet">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/hwtxtreaderlib/libs/chardet.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
