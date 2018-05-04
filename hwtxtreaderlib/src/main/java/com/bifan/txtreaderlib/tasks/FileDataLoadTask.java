@@ -94,16 +94,17 @@ public class FileDataLoadTask implements ITxtTask {
         return false;
     }
 
-    private static final String ChapterPatternStr = "(^\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";
+    private static final String ChapterPatternStr = "(^.{0,5}\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";
+
     /**
      * @param data              文本数据
      * @param chapterStartIndex 开始字符在全文中的位置
      * @param ParagraphIndex    段落位置
      * @param chapterIndex      章节位置
-     * @return                  没有识别到章节数据返回null
+     * @return 没有识别到章节数据返回null
      */
     private IChapter compileChapter(String data, int chapterStartIndex, int ParagraphIndex, int chapterIndex) {
-        if (data.trim().startsWith("第")) {
+        if (data.trim().startsWith("第") || data.contains("第")) {
             Pattern p = Pattern.compile(ChapterPatternStr);
             Matcher matcher = p.matcher(data);
             while (matcher.find()) {

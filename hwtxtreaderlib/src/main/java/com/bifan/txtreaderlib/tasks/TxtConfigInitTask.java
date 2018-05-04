@@ -40,13 +40,15 @@ public class TxtConfigInitTask implements ITxtTask {
         initPageParam(readerContext);
         //start draw prepare
 
+        //get preRead Progress
         int startParagraphIndex = 0;
         int startCharIndex = 0;
+
         if (readerContext.getFileMsg() != null) {
             startParagraphIndex = readerContext.getFileMsg().PreParagraphIndex;
             startCharIndex = readerContext.getFileMsg().PreCharIndex;
         }
-        //初始化一下之前的设置
+        //init  Context
         initPainContext(readerContext.getPaintContext(), readerContext.getTxtConfig());
 
         ITxtTask txtTask = new TxtPageLoadTask(startParagraphIndex, startCharIndex);
@@ -54,8 +56,7 @@ public class TxtConfigInitTask implements ITxtTask {
     }
 
     /**
-     * 初始化获取保存的或者默认的设置
-     *
+     * get pre or default config
      * @param readerContext
      * @param config
      */
@@ -71,6 +72,7 @@ public class TxtConfigInitTask implements ITxtTask {
         config.Bold = TxtConfig.isBold(readerContext.context);
         config.SwitchByTranslate = TxtConfig.isSwitchByTranslate(readerContext.context);
         config.ShowSpecialChar  = TxtConfig.IsShowSpecilaChar(readerContext.context);
+        config.PageSwitchDuration = TxtConfig.getPageSwitchDuration(readerContext.context);
     }
 
     /**

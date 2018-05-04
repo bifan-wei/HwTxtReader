@@ -12,6 +12,7 @@ import com.bifan.txtreaderlib.interfaces.ITextSelectDrawer;
  */
 
 public class PageDrawerBase {
+    protected int PageSwitchTime = 400;
     protected TxtReaderView readerView;
     protected TxtReaderContext readerContext;
     protected Scroller scroller;
@@ -20,10 +21,10 @@ public class PageDrawerBase {
 
 
     public PageDrawerBase(TxtReaderView readerView, TxtReaderContext readerContext, Scroller scroller) {
-
         this.readerView = readerView;
         this.readerContext = readerContext;
         this.scroller = scroller;
+        PageSwitchTime = TxtConfig.getPageSwitchDuration(readerContext.context);
     }
     protected int getWidth() {
         return readerView.getWidth();

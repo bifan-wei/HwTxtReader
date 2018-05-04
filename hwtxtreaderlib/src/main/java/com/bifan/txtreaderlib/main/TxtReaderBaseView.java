@@ -119,7 +119,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //检查是否在滑动中
-        if (mScroller.computeScrollOffset()
+        if (       mScroller.computeScrollOffset()
                 || CurrentMode == Mode.PageNextIng
                 || CurrentMode == Mode.PagePreIng) {
             if(hasDown) {
@@ -215,7 +215,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      * @param event
      */
     protected void startPageUpAnimation(MotionEvent event) {
-        ELogger.log(tag, "getMoveDistance:" + getMoveDistance() + "/PageChangeMinMoveDistance:" + PageChangeMinMoveDistance);
         if (getMoveDistance() < -PageChangeMinMoveDistance || getMoveDistance() > PageChangeMinMoveDistance) {
             if (isPagePre()) {
                 if (!isFirstPage()) {
@@ -304,7 +303,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         mTouch.y = motionEvent.getY();
         hasDown = true;
 
-        if (CurrentMode == Mode.PressSelectText
+        if (       CurrentMode == Mode.PressSelectText
                 || CurrentMode == Mode.SelectMoveForward
                 || CurrentMode == Mode.SelectMoveBack) {
             CurrentMode = Mode.PressSelectText;
@@ -363,9 +362,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
     /**
      * 轻击翻页
-     *
-     * @param e
-     * @return
      */
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
@@ -388,8 +384,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     }
 
     /**
-     * @param e 处理中间区域点击事件并且可能执行点击翻页效果
-     * @return
+     * 处理中间区域点击事件并且可能执行点击翻页效果
      */
     private boolean dealCenterClickAndDoChangePage(MotionEvent e) {
 
@@ -456,7 +451,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     /**
      * 长按事件，执行检测长按文字
      *
-     * @param e e
      */
     @Override
     public void onLongPress(MotionEvent e) {
@@ -511,8 +505,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
     /**
      * 长按获取按着的文字，这时 FirstSelectedChar =  LastSelectedChar
-     *
-     * @param e e
      */
     protected void onPressSelectText(MotionEvent e) {
         TxtChar selectedChar = findCharByPosition(e.getX(), e.getY());
@@ -534,6 +526,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
     }
 
+    /**
+     * @param FirstSelectedChar 设置左滑动条数据
+     */
     private void setLeftSlider(TxtChar FirstSelectedChar) {
         mLeftSlider.Left = FirstSelectedChar.Left - SliderWidth * 2;
         mLeftSlider.Right = FirstSelectedChar.Left;
@@ -541,6 +536,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         mLeftSlider.Bottom = FirstSelectedChar.Bottom + SliderWidth * 2;
     }
 
+    /**
+     * @param LastSelectedChar 设置右滑动条数据
+     */
     private void setRightSlider(TxtChar LastSelectedChar) {
         mRightSlider.Left = LastSelectedChar.Right;
         mRightSlider.Right = LastSelectedChar.Right + SliderWidth * 2;
@@ -573,7 +571,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                 }
             }
         } else {
-            ELogger.log(tag, "page != null && page.HasData()");
+            ELogger.log(tag, "page not null and page hasData()");
         }
         return null;
     }
@@ -1048,7 +1046,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             TxtChar lastChar = page.getLastChar();
             onProgressCallBack(getProgress(lastChar.ParagraphIndex, lastChar.CharIndex));
         } else {
-            ELogger.log(tag, "onPageProgress !page.HasData()");
+            ELogger.log(tag, "onPageProgress ,page data may be empty");
         }
 
 

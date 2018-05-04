@@ -16,7 +16,6 @@ import com.bifan.txtreaderlib.utils.ELogger;
 
 public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawer {
     private String tag = "SerialPageDrawer";
-    private int PageSwitchTime = 500;
     private final static int BorderShadowWith = 5;
 
     public SerialPageDrawer(TxtReaderView readerView, TxtReaderContext readerContext, Scroller scroller) {

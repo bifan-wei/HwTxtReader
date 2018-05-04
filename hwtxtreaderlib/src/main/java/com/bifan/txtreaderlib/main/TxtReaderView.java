@@ -43,7 +43,6 @@ public class TxtReaderView extends TxtReaderBaseView {
 
     private IReaderViewDrawer drawer = null;
 
-
     @Override
     protected void init() {
         super.init();
@@ -272,11 +271,10 @@ public class TxtReaderView extends TxtReaderBaseView {
      */
     public void setStyle(int backgroundColor, int textColor) {
         saveProgress();
-        readerContext.getTxtConfig().saveTextColor(getContext(), textColor);
-        readerContext.getTxtConfig().saveBackgroundColor(getContext(), backgroundColor);
+        TxtConfig.saveTextColor(getContext(), textColor);
+        TxtConfig.saveBackgroundColor(getContext(), backgroundColor);
         readerContext.getTxtConfig().textColor = textColor;
         readerContext.getTxtConfig().backgroundColor = backgroundColor;
-
         if (readerContext.getBitmapData().getBgBitmap() != null) {
             readerContext.getBitmapData().getBgBitmap().recycle();
         }
@@ -312,6 +310,10 @@ public class TxtReaderView extends TxtReaderBaseView {
         loadFromProgress(paragraphIndex, 0);
     }
 
+    /** 根据字符的准确位置跳转进度
+     * @param paragraphIndex
+     * @param charIndex
+     */
     public void loadFromProgress(final int paragraphIndex, final int charIndex) {
         refreshTag(1, 1, 1);
         TxtPageLoadTask txtPageLoadTask = new TxtPageLoadTask(paragraphIndex, charIndex);
@@ -408,14 +410,14 @@ public class TxtReaderView extends TxtReaderBaseView {
         IChapter currentChapter = getCurrentChapter();
         List<IChapter> chapters = getChapters();
         if (chapters == null || currentChapter == null) {
-            ELogger.log(tag, "chapters == null || currentChapter == null");
+            ELogger.log(tag, "chapters == null or currentChapter == null");
             return false;
         }
 
         int index = currentChapter.getIndex();
 
         if (index == 0 || chapters.size() == 0) {
-            ELogger.log(tag, "index == 0 || chapters.size() == 0");
+            ELogger.log(tag, "index == 0 or chapters.size() == 0");
             return false;
         }
         refreshTag(1, 1, 1);
@@ -434,12 +436,12 @@ public class TxtReaderView extends TxtReaderBaseView {
         IChapter currentChapter = getCurrentChapter();
         List<IChapter> chapters = getChapters();
         if (chapters == null || currentChapter == null) {
-            ELogger.log(tag, "chapters == null || currentChapter == null");
+            ELogger.log(tag, "chapters == null or currentChapter == null");
             return false;
         }
         int index = currentChapter.getIndex();
         if (index >= chapters.size() - 1 || chapters.size() == 0) {
-            ELogger.log(tag, "index < chapters.size() - 1 || chapters.size() == 0");
+            ELogger.log(tag, "index < chapters.size() - 1 or chapters.size() == 0");
             return false;
         }
 
@@ -466,10 +468,10 @@ public class TxtReaderView extends TxtReaderBaseView {
 
 
     /**
-     * @param isBold 字体是否加粗
+     * @param isBold 字体否加粗
      */
     public void setTextBold(boolean isBold) {
-        getTxtReaderContext().getTxtConfig().saveIsBold(getContext(), isBold);
+        TxtConfig.saveIsBold(getContext(), isBold);
         getTxtReaderContext().getTxtConfig().Bold = isBold;
         refreshCurrentView();
     }
@@ -478,7 +480,7 @@ public class TxtReaderView extends TxtReaderBaseView {
      * 平移切换页面
      */
     public void setPageSwitchByTranslate() {
-        getTxtReaderContext().getTxtConfig().saveSwitchByTranslate(getContext(), true);
+        TxtConfig.saveSwitchByTranslate(getContext(), true);
         getTxtReaderContext().getTxtConfig().SwitchByTranslate = true;
         drawer = new SerialPageDrawer(this, readerContext, mScroller);
     }
@@ -487,7 +489,7 @@ public class TxtReaderView extends TxtReaderBaseView {
      * 滑盖切换页面
      */
     public void setPageSwitchByCover() {
-        getTxtReaderContext().getTxtConfig().saveSwitchByTranslate(getContext(), false);
+        TxtConfig.saveSwitchByTranslate(getContext(), false);
         getTxtReaderContext().getTxtConfig().SwitchByTranslate = false;
         drawer = new NormalPageDrawer(this, readerContext, mScroller);
     }

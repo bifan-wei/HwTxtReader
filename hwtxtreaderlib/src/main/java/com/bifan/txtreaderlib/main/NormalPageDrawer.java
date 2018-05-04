@@ -16,7 +16,6 @@ import com.bifan.txtreaderlib.interfaces.IReaderViewDrawer;
 
 public class NormalPageDrawer extends PageDrawerBase implements IReaderViewDrawer {
     private String tag = "NormalReaderViewDrawer";
-    private int PageSwitchTime = 500;
     private final static int BorderShadowWith = 20;
 
     public NormalPageDrawer(TxtReaderView readerView, TxtReaderContext readerContext, Scroller scroller) {
@@ -202,22 +201,19 @@ public class NormalPageDrawer extends PageDrawerBase implements IReaderViewDrawe
     }
 
     private synchronized void checkPageData() {
-
         if (onPageStateBackAnimation) {
-            if (getMoveDistance() <= 1 && getMoveDistance() >= -1) {
+            if ((getMoveDistance() > 0 && getMoveDistance() <= 3) || (getMoveDistance() < 0 && getMoveDistance() >= -3)) {
                 scroller.abortAnimation();
                 readerView.releaseTouch();
                 readerView.invalidate();
                 onPageStateBackAnimation = false;
             }
         } else {
-            if (readerView.mTouch.x == 0)//执行下一页数据获取
-            {
+            if (readerView.mTouch.x == 0) {//执行下一页数据获取
                 readerView.doPageNextDone();
                 scroller.abortAnimation();
 
             } else if (readerView.mTouch.x == getWidth()) {//执行上一页数据获取
-
                 readerView.doPagePreDone();
                 scroller.abortAnimation();
 

@@ -13,26 +13,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileReadRecordDB extends SQLiteOpenHelper {
-    public static final int Version_1 = 1;
-    public static final String DB_NAME = "hwTxtReader";
-    protected String TABLE_NAME = "FileReadRecord";
+    private static final int Version_1 = 1;
+    private static final String DB_NAME = "hwTxtReader";
+    private String TABLE_NAME = "FileReadRecord";
 
-    public static final String FileHashName = "fileHashName";
-    public static final String SearchId = "searchId";
-    public static final String FilePath = "filePath";
-    public static final String FileName = "fileName";
-    public static final String ParagraphIndex = "paragraphIndex";
-    public static final String ChartIndex = "chartIndex";
+    private final String FileHashName = "fileHashName";
+    private final String SearchId = "searchId";
+    private final String FilePath = "filePath";
+    private final String FileName = "fileName";
+    private final String ParagraphIndex = "paragraphIndex";
+    private final String ChartIndex = "chartIndex";
 
-    protected String sql = "create table if not exists " + TABLE_NAME + " (" + SearchId
+    private String sql = "create table if not exists " + TABLE_NAME + " (" + SearchId
             + " integer primary key autoincrement," + FileHashName + " varchar(50),"
-            + FilePath + " varchar(100), " + FileName + " varchar(100)," + ParagraphIndex + " integer, " + ChartIndex + " integer)";
+            + FilePath + " varchar(100), " + FileName + " varchar(100),"
+            + ParagraphIndex + " integer, " + ChartIndex + " integer)";
 
     public FileReadRecordDB(Context context) {
         this(context, DB_NAME, null, Version_1);
     }
 
-    public FileReadRecordDB(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    private FileReadRecordDB(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
@@ -61,8 +62,7 @@ public class FileReadRecordDB extends SQLiteOpenHelper {
      * 删除数据表
      */
     public void delectTable() {
-        String sql = "DROP TABLE IF EXISTS " + TABLE_NAME;
-        getWritableDatabase().execSQL(sql);
+        getWritableDatabase().execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
     }
 
     public void insertData(String fileHashName, String path, String fileName, int paragraphIndex, int chartIndex) {
@@ -76,9 +76,6 @@ public class FileReadRecordDB extends SQLiteOpenHelper {
         }
     }
 
-    /**
-     * @param recordBean 确保userId不为null，为null的话，不做插入处理
-     */
     public void insertData(@NonNull FileReadRecordBean recordBean) {
         insertData(
                 recordBean.fileHashName
@@ -89,21 +86,21 @@ public class FileReadRecordDB extends SQLiteOpenHelper {
     }
 
     /**
-     * @param fileHashName
+     * @param fileHashName 文件hash值
      * @return 如果没有记录，返回null
      */
     public FileReadRecordBean getRecordByHashName(String fileHashName) {
-        if (TextUtils.isEmpty(fileHashName) || !IsHasData(FileHashName, fileHashName))
-            return null;
-        Cursor cursor = getCursorByKeyValue(FileHashName, fileHashName);
-        if (cursor != null) {
-            if (cursor.getCount() > 0) {
-                cursor.moveToFirst();
-                FileReadRecordBean bean = getRecordBeanFromCursor(cursor);
+        if (!TextUtils.isEmpty(fileHashName) && IsHasData(FileHashName, fileHashName)) {
+            Cursor cursor = getCursorByKeyValue(FileHashName, fileHashName);
+            if (cursor != null) {
+                if (cursor.getCount() > 0) {
+                    cursor.moveToFirst();
+                    FileReadRecordBean bean = getRecordBeanFromCursor(cursor);
+                    cursor.close();
+                    return bean;
+                }
                 cursor.close();
-                return bean;
             }
-            cursor.close();
         }
         return null;
     }
@@ -112,7 +109,7 @@ public class FileReadRecordDB extends SQLiteOpenHelper {
      * @param userId
      * @return 如果userId 为空，不分用户返回的是所有下载的数据,否则返回指定用户的下载记录,不会返回空
      */
-    public List<FileReadRecordBean> getDownloadRecord(String userId) {
+    public List<FileReadRecordBean> getRecord(String userId) {
         List<FileReadRecordBean> searchBeans = new ArrayList<>();
         Cursor cursor;
         if (TextUtils.isEmpty(userId)) {
@@ -135,16 +132,13 @@ public class FileReadRecordDB extends SQLiteOpenHelper {
     }
 
     /**
-     * @return 获取所有下载记录
+     * @return 获取所有记录
      */
     public List<FileReadRecordBean> getAllFileRecord() {
-        return getDownloadRecord(null);
+        return getRecord(null);
     }
 
-    /**
-     * @param cursor
-     * @return
-     */
+
     private FileReadRecordBean getRecordBeanFromCursor(Cursor cursor) {
         FileReadRecordBean bean = new FileReadRecordBean();
         int userIdIndex = cursor.getColumnIndex(FileHashName);
@@ -170,21 +164,20 @@ public class FileReadRecordDB extends SQLiteOpenHelper {
 
 
     /**
-     * @param recordBean recordBean  删除searchId的搜索记录
+     * @param recordBean 要删除的记录
      */
-    public void deleteOneRecordById(FileReadRecordBean recordBean) {
+    public void deleteRecord(FileReadRecordBean recordBean) {
         if (IsHasData(SearchId, recordBean.id + "")) {
             delete(SearchId, recordBean.id + "");
         }
-
     }
 
     /**
-     * @param fileId 根据fileId删除记录
+     * @param fileHashName fileHashName
      */
-    public void deleteRecordsByFileHashName(String fileId) {
-        if (IsHasData(FileHashName, fileId + "")) {
-            delete(FileHashName, fileId + "");
+    public void deleteRecordsByFileHashName(String fileHashName) {
+        if (IsHasData(FileHashName, fileHashName + "")) {
+            delete(FileHashName, fileHashName + "");
         }
 
     }

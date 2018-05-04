@@ -9,6 +9,7 @@ import android.graphics.Color;
  */
 
 public class TxtConfig {
+
     private static final String SAVE_NAME = "TxtConfig";
     private static final String C_TEXT_SIZE = "TEXT_SIZE ";
     private static final String C_TEXT_COLOR = "TEXT_COLOR";
@@ -22,13 +23,14 @@ public class TxtConfig {
     private static final String C_BOLD = "BOLD ";
     private static final String C_SHOW_SPECIAL_CHAR = "SHOW_SPECIAL_CHAR ";
     private static final String C_CENTER_CLICK_AREA = "CENTER_CLICK_AREA";
+    private static final String C_PAGE_SWITCH_DURATION = "PAGE_SWITCH_DURATION";
 
 
     public static final int MAX_TEXT_SIZE = 150;//in px
     public static final int MIN_TEXT_SIZE = 50;//in px
     public static final int DEFAULT_SELECT_TEXT_COLOR = Color.parseColor("#44f6950b");
     public static final int DEFAULT_SLIDER_COLOR = Color.parseColor("#1f4cf5");
-    public  int textSize = MIN_TEXT_SIZE;//字体大小
+    public int textSize = MIN_TEXT_SIZE;//字体大小
     public int textColor = Color.BLACK;//字体颜色
     public int backgroundColor = Color.WHITE;//背景颜色
     public int NoteColor = Color.RED;//笔记颜色
@@ -40,11 +42,29 @@ public class TxtConfig {
     public Boolean Bold = false;//是否加粗
     public Boolean ShowSpecialChar = true;//是否显示特殊符号，对于数字、英文，可以显示特定颜色
     public float CenterClickArea = 0.35f;//0~1,中间点击区域占View宽度的百分比，区域为高为宽两倍的矩形，如果为1f，说明点击翻页将不起效果
-
+    public int PageSwitchDuration = 400;//页面滑动时间间隔，毫秒，建议不要低于200
 
     private static final SharedPreferences getS(Context context) {
         SharedPreferences share = context.getSharedPreferences(SAVE_NAME, Context.MODE_PRIVATE);
         return share;
+    }
+
+
+    /**
+     * @param context
+     * @param duration 不能低于100，建议200以上
+     */
+    public static void savePageSwitchDuration(Context context, int duration) {
+        duration = duration < 100 ? 100 : duration;
+        SharedPreferences share = getS(context);
+        SharedPreferences.Editor editor = share.edit();
+        editor.putInt(C_PAGE_SWITCH_DURATION, duration);
+        editor.commit();
+    }
+
+    public static int getPageSwitchDuration(Context context) {
+        SharedPreferences share = getS(context);
+        return share.getInt(C_PAGE_SWITCH_DURATION, 400);
     }
 
     public static void saveTextSize(Context context, int textSize) {
@@ -97,7 +117,7 @@ public class TxtConfig {
 
     public static int getSelectTextColor(Context context) {
         SharedPreferences share = getS(context);
-        return share.getInt(C_SELECT_TEXT_COLOR,DEFAULT_SELECT_TEXT_COLOR);
+        return share.getInt(C_SELECT_TEXT_COLOR, DEFAULT_SELECT_TEXT_COLOR);
     }
 
 

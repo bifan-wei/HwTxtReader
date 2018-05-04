@@ -38,10 +38,10 @@ public class FileCharsetDetector {
                 charset = "UTF-8";
                 checked = true;
             }
-            bis.reset();
             if (!checked) {
                 charset = guessFileEncoding(file, new nsDetector());
             }
+            bis.reset();
             bis.close();
         } catch (Exception e) {
             e.printStackTrace();

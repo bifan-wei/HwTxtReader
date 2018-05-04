@@ -19,8 +19,8 @@ public class BitmapProduceTask implements ITxtTask {
 
     @Override
     public void Run(ILoadListener callBack, TxtReaderContext readerContext) {
-        ELogger.log(tag, "Produce Bitmap");
-        callBack.onMessage("start to  Produce Bitmap");
+        ELogger.log(tag, "produce bitmap");
+        callBack.onMessage("start to  produce bitmap");
 
         int[] rs = readerContext.getPageData().refreshTag;
         IPage[] pages = readerContext.getPageData().getPages();
@@ -39,9 +39,8 @@ public class BitmapProduceTask implements ITxtTask {
                         readerContext.getTxtConfig(), page);
 
                 bitmaps[index] = bitmap;
-
             } else {
-                ELogger.log(tag, "page " + index + " not neeRefresh");
+                ELogger.log(tag, "page " + index + " no neeRefresh");
                 //no neeRefresh ,do not change
             }
             index++;
