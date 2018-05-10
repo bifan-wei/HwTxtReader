@@ -23,6 +23,7 @@ import com.bifan.txtreaderlib.interfaces.ICenterAreaClickListener;
 import com.bifan.txtreaderlib.interfaces.ILoadListener;
 import com.bifan.txtreaderlib.interfaces.IPage;
 import com.bifan.txtreaderlib.interfaces.IPageChangeListener;
+import com.bifan.txtreaderlib.interfaces.IPageEdgeListener;
 import com.bifan.txtreaderlib.interfaces.ISliderListener;
 import com.bifan.txtreaderlib.interfaces.ITxtLine;
 import com.bifan.txtreaderlib.interfaces.ITxtTask;
@@ -119,10 +120,10 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //检查是否在滑动中
-        if (       mScroller.computeScrollOffset()
+        if (mScroller.computeScrollOffset()
                 || CurrentMode == Mode.PageNextIng
                 || CurrentMode == Mode.PagePreIng) {
-            if(hasDown) {
+            if (hasDown) {
                 hasDown = false;
             }
             return true;
@@ -303,7 +304,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         mTouch.y = motionEvent.getY();
         hasDown = true;
 
-        if (       CurrentMode == Mode.PressSelectText
+        if (CurrentMode == Mode.PressSelectText
                 || CurrentMode == Mode.SelectMoveForward
                 || CurrentMode == Mode.SelectMoveBack) {
             CurrentMode = Mode.PressSelectText;
@@ -450,7 +451,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
     /**
      * 长按事件，执行检测长按文字
-     *
      */
     @Override
     public void onLongPress(MotionEvent e) {
@@ -468,10 +468,10 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     }
 
     /**
-     * @param motionEvent motionEvent
+     * @param motionEvent  motionEvent
      * @param motionEvent1 motionEvent1
-     * @param v v
-     * @param v1 v1
+     * @param v            v
+     * @param v1           v1
      * @return
      */
     @Override
@@ -482,8 +482,8 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     /**
      * 快速滑动翻页
      *
-     * @param e1 e1
-     * @param e2 e2
+     * @param e1        e1
+     * @param e2        e2
      * @param velocityX velocityX
      * @param velocityY velocityY
      * @return
@@ -1070,6 +1070,14 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         if (pageChangeListener != null) {
             pageChangeListener.onCurrentPage(progress);
         }
+        if (pageEdgeListener != null) {
+            if (isFirstPage()) {
+                pageEdgeListener.onCurrentFirstPage();
+            }
+            if (isLastPage()) {
+                pageEdgeListener.onCurrentLastPage();
+            }
+        }
     }
 
 
@@ -1173,9 +1181,18 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
 
     //-------------------------------------------------------------
+    private IPageEdgeListener pageEdgeListener;
     private IPageChangeListener pageChangeListener;
     private ISliderListener sliderListener;
     private ICenterAreaClickListener centerAreaClickListener;
+
+
+    /**
+     * @param pageEdgeListener 当前页是首页获取尾页监听,注意如果文本只有一页，那边首页与尾页都会回调
+     */
+    public void setOnPageEdgeListener(IPageEdgeListener pageEdgeListener) {
+        this.pageEdgeListener = pageEdgeListener;
+    }
 
     /**
      * @param pageChangeListener 页面进度改变监听

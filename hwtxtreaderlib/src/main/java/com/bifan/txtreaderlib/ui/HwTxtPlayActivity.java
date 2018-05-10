@@ -162,6 +162,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         }, 300);
         //you can load with textStr
         //loadStr();
+       
     }
 
     protected void loadOurFile() {
