@@ -513,13 +513,19 @@ public class TxtReaderView extends TxtReaderBaseView {
                     try {
                         r.fileHashName = FileHashUtil.getMD5Checksum(path);
                     } catch (Exception e) {
+                        ELogger.log(tag,"saveCurrentProgress Exception:"+e.toString());
                         readRecordDB.closeTable();
                         return;
                     }
+
                     r.paragraphIndex = midPage.getFirstChar().ParagraphIndex;
                     r.chartIndex = midPage.getFirstChar().CharIndex;
                     readRecordDB.insertData(r);
                     readRecordDB.closeTable();
+                    ELogger.log(tag,"saveCurrentProgress paragraphIndex:"+r.paragraphIndex);
+                    ELogger.log(tag,"saveCurrentProgress chartIndex:"+  r.chartIndex);
+                }else{
+                    ELogger.log(tag,"saveCurrentProgress midPage is false empty");
                 }
             }
 

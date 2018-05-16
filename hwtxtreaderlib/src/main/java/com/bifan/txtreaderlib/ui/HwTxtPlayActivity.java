@@ -162,7 +162,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         }, 300);
         //you can load with textStr
         //loadStr();
-       
+
     }
 
     protected void loadOurFile() {
@@ -246,13 +246,15 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         });
     }
 
-    private void initWhenLoadDone() {
+    protected void initWhenLoadDone() {
         if (mTxtReaderView.getTxtReaderContext().getFileMsg() != null) {
             FileName = mTxtReaderView.getTxtReaderContext().getFileMsg().FileName;
         }
         mMenuHolder.mTextSize.setText(mTxtReaderView.getTextSize() + "");
         mTopDecoration.setBackgroundColor(mTxtReaderView.getBackgroundColor());
         mBottomDecoration.setBackgroundColor(mTxtReaderView.getBackgroundColor());
+        //mTxtReaderView.setLeftSlider(new MuiLetSlider());//修改左滑动条
+        //mTxtReaderView.setRightSlider(new MuiRightSlider());//修改右滑动条
         //字体初始化
         onTextSettingUi(mTxtReaderView.getTxtReaderContext().getTxtConfig().Bold);
         //翻页初始化
@@ -635,11 +637,13 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     protected void exist() {
         if (!hasExisted) {
             hasExisted = true;
+            if (mTxtReaderView != null) {
+                mTxtReaderView.saveCurrentProgress();
+            }
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if (mTxtReaderView != null) {
-                        mTxtReaderView.saveCurrentProgress();
                         mTxtReaderView.getTxtReaderContext().Clear();
                         mTxtReaderView = null;
                     }

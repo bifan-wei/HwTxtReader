@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.PointF;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.support.annotation.Nullable;
@@ -15,6 +14,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Scroller;
 
+import com.bifan.txtreaderlib.bean.DefaultLeftSlider;
+import com.bifan.txtreaderlib.bean.DefaultRightSlider;
 import com.bifan.txtreaderlib.bean.Slider;
 import com.bifan.txtreaderlib.bean.TxtChar;
 import com.bifan.txtreaderlib.bean.TxtLine;
@@ -53,8 +54,8 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     protected PointF mDown = new PointF();//点下的坐标
     protected TxtChar FirstSelectedChar = null;//第一个选中的字符
     protected TxtChar LastSelectedChar = null;//最后一个选中的字符
-    protected Slider mLeftSlider = new Slider();//左侧滑动条
-    protected Slider mRightSlider = new Slider();//右侧滑动条
+    protected Slider mLeftSlider = null;//左侧滑动条
+    protected Slider mRightSlider = null;//右侧滑动条
     protected Bitmap TopPage = null;//顶部页
     protected Bitmap BottomPage = null;//底部页
     protected Mode CurrentMode = Mode.Normal;//当前页面模式
@@ -71,7 +72,15 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     }
 
     protected void init() {
+        if (mLeftSlider == null) {
+            mLeftSlider = new DefaultLeftSlider();
+        }
+        if (mRightSlider == null) {
+            mRightSlider = new DefaultRightSlider();
+        }
         SliderWidth = DisPlayUtil.dip2px(getContext(), 13);
+        mLeftSlider.SliderWidth = SliderWidth;
+        mRightSlider.SliderWidth = SliderWidth;
         setLayerType(View.LAYER_TYPE_HARDWARE, null);
         readerContext = new TxtReaderContext(getContext());
         mScroller = new TxtReaderScroller(getContext());
@@ -175,16 +184,20 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             if (CurrentMode == Mode.SelectMoveBack) {
                 float dx = event.getX() - mDown.x;
                 float dy = event.getY() - mDown.y;
-                float x = mRightSlider.Left + dx - 5;//为了准确计算到里面，添加5的偏移量
-                float y = mRightSlider.Top + dy - 5;
+                float x = mRightSlider.getX(dx);
+                float y = mRightSlider.getY(dy);
 
                 if (CanMoveBack(x, y)) {
-                    TxtChar moveToChar = findCharByPosition(x, y);
-                    if (moveToChar != null) {
-                        LastSelectedChar = moveToChar;
-                        checkSelectedText();
-                        onTextSelectMoveBack(event);
-                        invalidate();
+                    TxtChar moveToChar = findCharByPositionWhileMove(x, y);
+                    if (FirstSelectedChar != null && moveToChar != null) {
+                        if (moveToChar.Top > FirstSelectedChar.Top
+                                || (moveToChar.Top == FirstSelectedChar.Top
+                                && moveToChar.Left >= FirstSelectedChar.Left)) {
+                            LastSelectedChar = moveToChar;
+                            checkSelectedText();
+                            onTextSelectMoveBack(event);
+                            invalidate();
+                        }
                     }
                 }
 
@@ -192,16 +205,20 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                 float dx = event.getX() - mDown.x;
                 float dy = event.getY() - mDown.y;
 
-                float x = mLeftSlider.Right + dx + 5;//为了准确计算到里面，添加5的偏移量
-                float y = mLeftSlider.Top + dy - 5;
+                float x = mLeftSlider.getX(dx);
+                float y = mLeftSlider.getY(dy);
 
                 if (CanMoveForward(x, y)) {
-                    TxtChar moveToChar = findCharByPosition(x, y);
-                    if (moveToChar != null) {
-                        FirstSelectedChar = moveToChar;
-                        checkSelectedText();
-                        onTextSelectMoveForward(event);
-                        invalidate();
+                    TxtChar moveToChar = findCharByPositionWhileMove(x, y);
+                    if (LastSelectedChar != null && moveToChar != null) {
+                        if (moveToChar.Bottom < LastSelectedChar.Bottom
+                                || (moveToChar.Bottom == LastSelectedChar.Bottom
+                                && moveToChar.Right <= LastSelectedChar.Right)) {
+                            FirstSelectedChar = moveToChar;
+                            checkSelectedText();
+                            onTextSelectMoveForward(event);
+                            invalidate();
+                        }
                     }
                 }
             } else if (CurrentMode == Mode.PressUnSelectText) {
@@ -576,42 +593,58 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         return null;
     }
 
+    /**
+     * @return 找到长按选中的文字，找不到返回null
+     */
+    private TxtChar findCharByPositionWhileMove(float positionX, float positionY) {
+        IPage page = readerContext.getPageData().MidPage();
+        int offset = readerContext.getPageParam().LinePadding / 2;
+        //当前页面有数据才执行查找
+        if (page != null && page.HasData()) {
+            List<ITxtLine> lines = page.getLines();
+            for (ITxtLine line : lines) {
+                List<TxtChar> chars = line.getTxtChars();
+                if (chars != null && chars.size() > 0) {
+                    for (TxtChar c : chars) {
+                        if (positionY > (c.Top - offset) && positionY < (c.Bottom + offset)) {
+                            if (positionX > c.Left && positionX < c.Right) {
+                                return c;
+                            } else {//说明在行的左边或者右边啊
+                                TxtChar first = chars.get(0);
+                                TxtChar last = chars.get(chars.size() - 1);
+                                if (positionX < first.Left) {
+                                    return first;
+                                } else if (positionX > last.Right) {
+                                    return last;
+                                }
+                            }
+                        } else {
+                            break;//说明在下一行
+                        }
+                    }
+                }
+            }
+        } else {
+            ELogger.log(tag, "page not null and page hasData()");
+        }
+        return null;
+    }
+
     private Path mSliderPath = new Path();
 
     /**
      * @return 可能返回null
      */
     protected Path getLeftSliderPath() {
-        if (FirstSelectedChar != null) {
-            Path p = mSliderPath;
-            p.reset();
-            p.moveTo(FirstSelectedChar.Left, FirstSelectedChar.Bottom);
-            p.lineTo(FirstSelectedChar.Left, FirstSelectedChar.Bottom + SliderWidth);
-            Rect rect = new Rect(FirstSelectedChar.Left - SliderWidth * 2, FirstSelectedChar.Bottom, FirstSelectedChar.Left, FirstSelectedChar.Bottom + SliderWidth * 2);
-            p.addArc(new RectF(rect), 0, 270);
-            p.lineTo(FirstSelectedChar.Left, FirstSelectedChar.Bottom);
-            return p;
-        } else {
-            return null;
-        }
+        return mLeftSlider.getPath(FirstSelectedChar, mSliderPath);
+
     }
 
     /**
      * @return 可能返回null
      */
     protected Path getRightSliderPath() {
-        if (LastSelectedChar != null) {
-            Path p = mSliderPath;
-            p.reset();
-            p.moveTo(LastSelectedChar.Right, LastSelectedChar.Bottom + SliderWidth);
-            p.lineTo(LastSelectedChar.Right, LastSelectedChar.Bottom);
-            p.lineTo(LastSelectedChar.Right + SliderWidth, LastSelectedChar.Bottom);
-            Rect rect = new Rect(LastSelectedChar.Right, LastSelectedChar.Bottom, LastSelectedChar.Right + SliderWidth * 2, LastSelectedChar.Bottom + SliderWidth * 2);
-            p.addArc(new RectF(rect), -90, 270);
-            return p;
-        } else {
-            return null;
-        }
+        return mRightSlider.getPath(LastSelectedChar, mSliderPath);
     }
 
     //当前滑动选择的数据
@@ -1271,6 +1304,23 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             return page.getFirstLine();
         }
         return null;
+    }
+
+    /**
+     * @param leftSlider 设置左侧滑动条
+     */
+    public void setLeftSlider(Slider leftSlider) {
+        this.mLeftSlider = leftSlider;
+        this.mLeftSlider.SliderWidth = SliderWidth;
+    }
+
+    /**
+     * @param rightSlider 设置右侧滑动条
+     */
+    public void setRightSlider(Slider rightSlider) {
+        this.mRightSlider = rightSlider;
+        this.mRightSlider.SliderWidth = SliderWidth;
+
     }
 
     /**

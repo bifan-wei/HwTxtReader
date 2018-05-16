@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.bifan.txtreaderlib.bean.TxtFileMsg;
 import com.bifan.txtreaderlib.interfaces.IChapter;
+import com.bifan.txtreaderlib.interfaces.IChapterMatcher;
 import com.bifan.txtreaderlib.interfaces.IPageDataPipeline;
 import com.bifan.txtreaderlib.interfaces.IParagraphData;
 
@@ -23,6 +24,7 @@ public class TxtReaderContext {
     private PaintContext paintContext;
     private TxtConfig txtConfig;
     private Boolean InitDone = false;
+    private IChapterMatcher chapterMatcher;
 
     private final BitmapData bitmapData = new BitmapData();
     private final PageData pageData = new PageData();
@@ -69,6 +71,14 @@ public class TxtReaderContext {
 
     public void setChapters(List<IChapter> chapters) {
         this.chapters = chapters;
+    }
+
+    public IChapterMatcher getChapterMatcher() {
+        return chapterMatcher;
+    }
+
+    public void setChapterMatcher(IChapterMatcher chapterMatcher) {
+        this.chapterMatcher = chapterMatcher;
     }
 
     public PageData getPageData() {
@@ -135,6 +145,7 @@ public class TxtReaderContext {
         }
         bitmapData.onDestroy();
         pageData.onDestroy();
+        chapterMatcher = null;
 
     }
 

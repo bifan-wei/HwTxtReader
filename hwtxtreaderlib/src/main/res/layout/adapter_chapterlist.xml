@@ -29,7 +29,7 @@
         android:maxLines="1"
         android:text="第一章"
         android:textColor="#a86c4d"
-        android:textSize="17sp"/>
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/adapter_chatperlist_progress"
@@ -40,6 +40,6 @@
         android:layout_marginLeft="15dp"
         android:text="23%"
         android:textColor="#7e7e7e"
-        android:textSize="15sp"/>
+        android:textSize="14sp"/>
 
 </RelativeLayout>

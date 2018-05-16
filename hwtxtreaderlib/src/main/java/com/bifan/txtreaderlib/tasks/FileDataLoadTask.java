@@ -3,6 +3,7 @@ package com.bifan.txtreaderlib.tasks;
 import com.bifan.txtreaderlib.bean.Chapter;
 import com.bifan.txtreaderlib.bean.TxtMsg;
 import com.bifan.txtreaderlib.interfaces.IChapter;
+import com.bifan.txtreaderlib.interfaces.IChapterMatcher;
 import com.bifan.txtreaderlib.interfaces.ILoadListener;
 import com.bifan.txtreaderlib.interfaces.IParagraphData;
 import com.bifan.txtreaderlib.interfaces.ITxtTask;
@@ -29,10 +30,12 @@ import java.util.regex.Pattern;
 
 public class FileDataLoadTask implements ITxtTask {
     private String tag = "FileDataLoadTask";
+    private IChapterMatcher chapterMatcher;
 
     @Override
     public void Run(ILoadListener callBack, TxtReaderContext readerContext) {
         IParagraphData paragraphData = new ParagraphData();
+        chapterMatcher = readerContext.getChapterMatcher();
         List<IChapter> chapter = new ArrayList<>();
         callBack.onMessage("start read file data");
         Boolean readSuccess = ReadData(readerContext.getFileMsg().FilePath, readerContext.getFileMsg().FileCode, paragraphData, chapter);
@@ -94,7 +97,7 @@ public class FileDataLoadTask implements ITxtTask {
         return false;
     }
 
-    private static final String ChapterPatternStr = "(^.{0,5}\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";
+    private static final String ChapterPatternStr = "(^.{0,3}\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";
 
     /**
      * @param data              文本数据
@@ -104,16 +107,21 @@ public class FileDataLoadTask implements ITxtTask {
      * @return 没有识别到章节数据返回null
      */
     private IChapter compileChapter(String data, int chapterStartIndex, int ParagraphIndex, int chapterIndex) {
-        if (data.trim().startsWith("第") || data.contains("第")) {
-            Pattern p = Pattern.compile(ChapterPatternStr);
-            Matcher matcher = p.matcher(data);
-            while (matcher.find()) {
-                int startIndex = 0;
-                int endIndex = data.length();
-                IChapter c = new Chapter(chapterStartIndex, chapterIndex, data, ParagraphIndex, ParagraphIndex, startIndex, endIndex);
-                return c;
+        if (chapterMatcher == null) {
+            if (data.trim().startsWith("第") || data.contains("第")) {
+                Pattern p = Pattern.compile(ChapterPatternStr);
+                Matcher matcher = p.matcher(data);
+                while (matcher.find()) {
+                    int startIndex = 0;
+                    int endIndex = data.length();
+                    IChapter c = new Chapter(chapterStartIndex, chapterIndex, data, ParagraphIndex, ParagraphIndex, startIndex, endIndex);
+                    return c;
+                }
             }
+            return null;
+        } else {
+            return chapterMatcher.match(data, ParagraphIndex);
         }
-        return null;
+
     }
 }
