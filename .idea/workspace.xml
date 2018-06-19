@@ -12,69 +12,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b244971b-01c6-47fd-9b42-52a96624fda8" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/HP.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/animated_vector_drawable_26_0_0_alpha1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_26_0_0_alpha1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/chardet.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/constraint_layout_1_0_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/constraint_layout_solver_1_0_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/espresso_core_2_2_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/espresso_idling_resource_2_2_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/exposed_instrumentation_api_publish_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/hamcrest_core_1_3.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/hamcrest_integration_1_3.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/hamcrest_library_1_3.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/javawriter_2_1_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/javax_annotation_api_1_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/javax_inject_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jsr305_2_0_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/junit_4_12.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/rules_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/runner_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_26_0_0_alpha1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/support_compat_26_0_0_alpha1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/support_core_ui_26_0_0_alpha1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/support_core_utils_26_0_0_alpha1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/support_fragment_26_0_0_alpha1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/support_media_compat_26_0_0_alpha1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_26_0_0_alpha1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/support_vector_drawable_26_0_0_alpha1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/HwTxtReader.iml" afterPath="$PROJECT_DIR$/HwTxtReader.iml" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-05-16-16-44-09-453.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/build.gradle" afterPath="$PROJECT_DIR$/hwtxtreaderlib/build.gradle" />
       <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/hwtxtreaderlib.iml" afterPath="$PROJECT_DIR$/hwtxtreaderlib/hwtxtreaderlib.iml" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/bean/Page.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/bean/Page.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/bean/TxtLine.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/bean/TxtLine.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/interfaces/IPage.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/interfaces/IPage.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/interfaces/ITxtLine.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/interfaces/ITxtLine.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/CharpterData.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/LoadListenerAdapter.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/LoadListenerAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/PageDataPipeline.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/PageDataPipeline.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/PageParam.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/PageParam.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/TxtConfig.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/TxtConfig.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/TxtReaderBaseView.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/TxtReaderBaseView.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/TxtReaderView.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/TxtReaderView.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/tasks/FileDataLoadTask.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/tasks/FileDataLoadTask.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/tasks/TxtConfigInitTask.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/tasks/TxtConfigInitTask.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/tasks/TxtPageLoadTask.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/tasks/TxtPageLoadTask.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/ui/HwTxtPlayActivity.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/ui/HwTxtPlayActivity.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/utils/TextBreakUtil.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/utils/TextBreakUtil.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/utils/TxtBitmapUtil.java" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/utils/TxtBitmapUtil.java" />
-      <change beforePath="$PROJECT_DIR$/hwtxtreaderlib/src/main/res/layout/view_menu_bottom.xml" afterPath="$PROJECT_DIR$/hwtxtreaderlib/src/main/res/layout/view_menu_bottom.xml" />
+      <change beforePath="$PROJECT_DIR$/updateLog.txt" afterPath="$PROJECT_DIR$/updateLog.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -108,21 +58,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TxtPageLoadTask.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/tasks/TxtPageLoadTask.java">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-331">
-              <caret line="18" column="11" lean-forward="false" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
+            <state relative-caret-position="532">
+              <caret line="28" column="22" lean-forward="false" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ParagraphData.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/ParagraphData.java">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hwtxtreaderlib/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2">
-              <caret line="65" column="44" lean-forward="false" selection-start-line="65" selection-start-column="44" selection-end-line="65" selection-end-column="44" />
+            <state relative-caret-position="399">
+              <caret line="21" column="14" lean-forward="false" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -133,16 +93,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="248">
               <caret line="164" column="0" lean-forward="false" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Page.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/bean/Page.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="232" column="48" lean-forward="false" selection-start-line="232" selection-start-column="41" selection-end-line="232" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -215,10 +165,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TxtConfig.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TxtConfig.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/TxtConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
+            <state relative-caret-position="97">
               <caret line="32" column="48" lean-forward="false" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
               <folding />
             </state>
@@ -3089,7 +3039,6 @@
       <list>
         <option value="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
         <option value="$PROJECT_DIR$/hwtxtreaderlib/build.gradle" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/tasks/FileDataLoadTask.java" />
         <option value="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/LoadListenerAdapter.java" />
@@ -3109,14 +3058,14 @@
         <option value="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/ui/HwTxtPlayActivity.java" />
         <option value="$PROJECT_DIR$/hwtxtreaderlib/src/main/res/layout/activity_hwtxtpaly.xml" />
         <option value="$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/TxtConfig.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="45" />
     <option name="width" value="1456" />
-    <option name="height" value="876" />
+    <option name="height" value="875" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -3143,45 +3092,12 @@
             <path>
               <item name="HwTxtReader" type="b2602c69:ProjectViewProjectNode" />
               <item name="HwTxtReader" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="hwtxtreaderlib" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="HwTxtReader" type="b2602c69:ProjectViewProjectNode" />
               <item name="HwTxtReader" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="hwtxtreaderlib" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HwTxtReader" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HwTxtReader" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="hwtxtreaderlib" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HwTxtReader" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HwTxtReader" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="hwtxtreaderlib" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HwTxtReader" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HwTxtReader" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="hwtxtreaderlib" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="txtreaderlib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HwTxtReader" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HwTxtReader" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="hwtxtreaderlib" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -3212,7 +3128,7 @@
     <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
-    <property name="device.picker.selection" value="BUTWP7BQAY59HACA" />
+    <property name="device.picker.selection" value="FFKDU17929003650" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -3394,7 +3310,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="7" />
+    <frame x="45" y="0" width="1456" height="875" extended-state="0" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -3407,12 +3323,12 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960895" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12709497" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12709497" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23567335" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16402116" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23567335" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Build" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25034964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -3473,30 +3389,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="28" column="22" lean-forward="false" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hwtxtreaderlib/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="14" lean-forward="false" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="1" lean-forward="false" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -3779,8 +3671,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hwtxtreaderlib/src/main/java/com/bifan/txtreaderlib/main/TxtConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
+        <state relative-caret-position="97">
           <caret line="32" column="48" lean-forward="false" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="28" column="22" lean-forward="false" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hwtxtreaderlib/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="14" lean-forward="false" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
