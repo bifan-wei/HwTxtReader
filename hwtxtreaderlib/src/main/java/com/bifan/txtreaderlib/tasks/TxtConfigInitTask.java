@@ -35,7 +35,7 @@ public class TxtConfigInitTask implements ITxtTask {
         int height = readerContext.getPageParam().PageHeight;
 
         //init the bg bitmap
-        readerContext.getBitmapData().setBgBitmap(TxtBitmapUtil.CreateBitmap(config.backgroundColor, width, height));
+        readerContext.getBitmapData().setBgBitmap(TxtBitmapUtil.createBitmap(config.backgroundColor, width, height));
         //initPageParam
         initPageParam(readerContext);
         //start draw prepare
@@ -57,6 +57,7 @@ public class TxtConfigInitTask implements ITxtTask {
 
     /**
      * get pre or default config
+     *
      * @param readerContext
      * @param config
      */
@@ -71,7 +72,7 @@ public class TxtConfigInitTask implements ITxtTask {
         config.SliderColor = TxtConfig.getSliderColor(readerContext.context);
         config.Bold = TxtConfig.isBold(readerContext.context);
         config.SwitchByTranslate = TxtConfig.isSwitchByTranslate(readerContext.context);
-        config.ShowSpecialChar  = TxtConfig.IsShowSpecilaChar(readerContext.context);
+        config.ShowSpecialChar = TxtConfig.IsShowSpecilaChar(readerContext.context);
         config.PageSwitchDuration = TxtConfig.getPageSwitchDuration(readerContext.context);
     }
 
@@ -101,8 +102,14 @@ public class TxtConfigInitTask implements ITxtTask {
     private void initPageParam(TxtReaderContext readerContext) {
         PageParam param = readerContext.getPageParam();
         param.LineWidth = param.PageWidth - param.PaddingLeft - param.PaddingRight;
-        int lineHeight = readerContext.getTxtConfig().textSize + param.LinePadding;
-        param.PageLineNum = (param.PageHeight - param.PaddingTop - param.PaddingBottom + param.LinePadding) / lineHeight;
+        int lineHeight = readerContext.getTxtConfig().textSize + param.LinePadding  ;
+        param.LineHeight = lineHeight;
+        param.PageLineNum = (param.PageHeight - param.PaddingTop - param.PaddingBottom - readerContext.getTxtConfig().textSize -2) / lineHeight+1;
+        param.PaddingLeft = TxtConfig.Page_PaddingLeft;
+        param.PaddingRight = TxtConfig.Page_PaddingRight;
+        param.PaddingTop = TxtConfig.Page_PaddingTop;
+        param.PaddingBottom = TxtConfig.Page_PaddingBottom;
+        param.ParagraphMargin = TxtConfig.Page_Paragraph_margin;
     }
 
 

@@ -15,6 +15,7 @@ import java.util.List;
 public class Page implements IPage, ICursor<ITxtLine> {
     private int CurrentIndex;
     private List<ITxtLine> lines = null;
+    private boolean fullPage = false;
 
     @Override
     public int CurrentIndex() {
@@ -146,6 +147,16 @@ public class Page implements IPage, ICursor<ITxtLine> {
     @Override
     public boolean isLast() {
         return CurrentIndex == getCount() - 1;
+    }
+
+    @Override
+    public boolean isFullPage() {
+        return fullPage;
+    }
+
+    @Override
+    public void setFullPage(boolean fullPage) {
+        this.fullPage = fullPage;
     }
 
     @Override

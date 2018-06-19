@@ -280,7 +280,7 @@ public class TxtReaderView extends TxtReaderBaseView {
         }
         int width = readerContext.getPageParam().PageWidth;
         int height = readerContext.getPageParam().PageHeight;
-        readerContext.getBitmapData().setBgBitmap(TxtBitmapUtil.CreateBitmap(backgroundColor, width, height));
+        readerContext.getBitmapData().setBgBitmap(TxtBitmapUtil.createBitmap(backgroundColor, width, height));
         refreshCurrentView();
     }
 
@@ -307,6 +307,7 @@ public class TxtReaderView extends TxtReaderBaseView {
             paragraphIndex = 0;
         }
 
+        ELogger.log(tag,"loadFromProgress ,progress:"+progress+"/paragraphIndex:"+paragraphIndex+"/paragraphNum:"+paragraphNum);
         loadFromProgress(paragraphIndex, 0);
     }
 
@@ -340,7 +341,6 @@ public class TxtReaderView extends TxtReaderBaseView {
     private void tryFetchFirstPage() {
         IPage midPage = readerContext.getPageData().MidPage();
         IPage firstPage = null;
-        int lineNum = readerContext.getPageParam().PageLineNum;
         onPageProgress(midPage);
         if (midPage != null && midPage.HasData()) {
             if (midPage.getFirstChar().ParagraphIndex == 0 && midPage.getFirstChar().CharIndex == 0) {
@@ -349,7 +349,7 @@ public class TxtReaderView extends TxtReaderBaseView {
             }
         }
         if (firstPage != null && firstPage.HasData()) {
-            if (firstPage.getLineNum() < lineNum) {
+            if (!firstPage.isFullPage()) {
                 //说明是开始数据，重新刷新界面
                 refreshTag(1, 1, 1);
                 loadFromProgress(0, 0);

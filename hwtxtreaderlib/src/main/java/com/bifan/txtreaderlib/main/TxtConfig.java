@@ -10,32 +10,41 @@ import android.graphics.Color;
 
 public class TxtConfig {
 
-    private static final String SAVE_NAME = "TxtConfig";
-    private static final String C_TEXT_SIZE = "TEXT_SIZE ";
-    private static final String C_TEXT_COLOR = "TEXT_COLOR";
-    private static final String C_NOTE_TEXT_COLOR = "TEXT_COLOR";
-    private static final String C_SLIDER_COLOR = "SLIDER_COLOR";
-    private static final String C_SELECT_TEXT_COLOR = "SELECTED_TEXT_COLOR";
-    private static final String C_BACKGROUND_COLOR = "BACKGROUND_COLOR";
-    private static final String C_IS_SHOW_NOTE = "IS_SHOW_NOTE";
-    private static final String C_CAN_PRESS_SELECT = "CAN_PRESS_SELECT";
-    private static final String C_SWITCH_BY_TRANSLATE = "SWITCH_BY_TRANSLATE";
-    private static final String C_BOLD = "BOLD ";
-    private static final String C_SHOW_SPECIAL_CHAR = "SHOW_SPECIAL_CHAR ";
-    private static final String C_CENTER_CLICK_AREA = "CENTER_CLICK_AREA";
-    private static final String C_PAGE_SWITCH_DURATION = "PAGE_SWITCH_DURATION";
+    public static final String SAVE_NAME = "TxtConfig";
+    public static final String C_TEXT_SIZE = "TEXT_SIZE ";
+    public static final String C_TEXT_COLOR = "TEXT_COLOR";
+    public static final String C_NOTE_TEXT_COLOR = "TEXT_COLOR";
+    public static final String C_SLIDER_COLOR = "SLIDER_COLOR";
+    public static final String C_SELECT_TEXT_COLOR = "SELECTED_TEXT_COLOR";
+    public static final String C_BACKGROUND_COLOR = "BACKGROUND_COLOR";
+    public static final String C_IS_SHOW_NOTE = "IS_SHOW_NOTE";
+    public static final String C_CAN_PRESS_SELECT = "CAN_PRESS_SELECT";
+    public static final String C_SWITCH_BY_TRANSLATE = "SWITCH_BY_TRANSLATE";
+    public static final String C_BOLD = "BOLD ";
+    public static final String C_SHOW_SPECIAL_CHAR = "SHOW_SPECIAL_CHAR ";
+    public static final String C_CENTER_CLICK_AREA = "CENTER_CLICK_AREA";
+    public static final String C_PAGE_SWITCH_DURATION = "PAGE_SWITCH_DURATION";
+
+    public static  int Page_PaddingLeft = 20;//in px
+    public static  int Page_PaddingBottom = 20;//in px
+    public static  int Page_PaddingTop = 20;//in px
+    public static  int Page_PaddingRight = 20;//in px
+    public static  int Page_LinePadding = 30;//in px
+    public static  int Page_Paragraph_margin = 20;//in px,为0，没有间距
 
 
-    public static final int MAX_TEXT_SIZE = 150;//in px
-    public static final int MIN_TEXT_SIZE = 50;//in px
-    public static final int DEFAULT_SELECT_TEXT_COLOR = Color.parseColor("#44f6950b");
-    public static final int DEFAULT_SLIDER_COLOR = Color.parseColor("#1f4cf5");
+    public static  int MAX_TEXT_SIZE = 150;//in px
+    public static  int MIN_TEXT_SIZE = 30;//in px
+    public static  int DEFAULT_SELECT_TEXT_COLOR = Color.parseColor("#44f6950b");
+    public static  int DEFAULT_SLIDER_COLOR = Color.parseColor("#1f4cf5");
+
     public int textSize = MIN_TEXT_SIZE;//字体大小
     public int textColor = Color.BLACK;//字体颜色
     public int backgroundColor = Color.WHITE;//背景颜色
     public int NoteColor = Color.RED;//笔记颜色
     public int SelectTextColor = DEFAULT_SELECT_TEXT_COLOR;//选中颜色
     public int SliderColor = DEFAULT_SLIDER_COLOR;//滑动条颜色
+
     public Boolean showNote = true;//是否显示笔记
     public Boolean canPressSelect = true;//是否能长按选中
     public Boolean SwitchByTranslate = true;//是否平移切换
@@ -44,7 +53,7 @@ public class TxtConfig {
     public float CenterClickArea = 0.35f;//0~1,中间点击区域占View宽度的百分比，区域为高为宽两倍的矩形，如果为1f，说明点击翻页将不起效果
     public int PageSwitchDuration = 400;//页面滑动时间间隔，毫秒，建议不要低于200
 
-    private static final SharedPreferences getS(Context context) {
+    public static final SharedPreferences getS(Context context) {
         SharedPreferences share = context.getSharedPreferences(SAVE_NAME, Context.MODE_PRIVATE);
         return share;
     }

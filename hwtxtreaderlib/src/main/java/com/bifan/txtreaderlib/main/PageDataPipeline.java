@@ -29,17 +29,25 @@ public class PageDataPipeline implements IPageDataPipeline {
     @Override
     public IPage getPageStartFromProgress(int paragraphIndex, int charIndex) {
         IParagraphData data = readerContext.getParagraphData();
-        int PageLineNum = readerContext.getPageParam().PageLineNum;
+        PageParam param = readerContext.getPageParam();
+
+        int PageLineNum = param.PageLineNum;
+        int PageHeight = param.PageHeight;
+        int LineHeight = (int) param.LineHeight;
+
+
         int CurrentPaIndex = paragraphIndex;
         int startIndex = charIndex;
         int ParagraphNum = data.getParagraphNum();
         float lineWidth = readerContext.getPageParam().LineWidth;
         float textPadding = readerContext.getPageParam().TextPadding;
+        int paragraphMargin = param.ParagraphMargin;
 
         if (CurrentPaIndex >= ParagraphNum || CurrentPaIndex < 0) return null;//超过返回null
 
         IPage page = new Page();
 
+        //获取页面数据
         while (page.getLineNum() < PageLineNum && CurrentPaIndex < ParagraphNum) {
             String paragraphStr = data.getParagraphStr(CurrentPaIndex);
             if (paragraphStr != null && paragraphStr.length() > 0) {
@@ -47,6 +55,7 @@ public class PageDataPipeline implements IPageDataPipeline {
                 for (ITxtLine line : lines) {
                     page.addLine(line);
                     if (page.getLineNum() >= PageLineNum) {
+                        page.setFullPage(true);
                         break;
                     }
                 }
@@ -56,18 +65,58 @@ public class PageDataPipeline implements IPageDataPipeline {
             CurrentPaIndex++;
         }
 
+        //尝试识别是否需要加段落间距数据
+        PageHeight = PageHeight - param.PaddingTop - param.PaddingBottom;
+        int textHeight = readerContext.getTxtConfig().textSize;
+        if (paragraphMargin > 0 && LineHeight > 0 && PageHeight > LineHeight && page.getLineNum() > 0) {
+            int height = param.PaddingTop;
+            List<ITxtLine> lines = new ArrayList<>();
+            for (int i = 0; i < page.getLineNum(); i++) {
+                ITxtLine line = page.getLine(i);
+                height = height + LineHeight;
+                if (height > PageHeight) {
+                    page.setFullPage(true);
+                    if (height - LineHeight + textHeight <= PageHeight) {
+                        lines.add(line);
+                    }
+                    break;
+                } else {
+                    lines.add(line);
+                }
+
+                if (line.isParagraphEndLine()) {
+                    if (height + paragraphMargin < PageHeight) {
+                        height = height + paragraphMargin;//说明还有行数据
+                    }
+                }
+
+            }
+            if (height >= PageHeight) {
+                page.setFullPage(true);
+            }
+            page.setLines(lines);
+        }
+
         return page;
     }
+
 
     @Override
     public IPage getPageEndToProgress(int paragraphIndex, int charIndex) {
         IParagraphData data = readerContext.getParagraphData();
-        int PageLineNum = readerContext.getPageParam().PageLineNum;
+        PageParam param = readerContext.getPageParam();
+
+        int PageLineNum = param.PageLineNum;
+        int PageHeight = param.PageHeight;
+        int LineHeight = (int) param.LineHeight;
+
+
         int CurrentPaIndex = paragraphIndex;
         int startIndex = charIndex;
         int ParagraphNum = data.getParagraphNum();
         float lineWidth = readerContext.getPageParam().LineWidth;
         float textPadding = readerContext.getPageParam().TextPadding;
+
 
         if (charIndex == 0) {//说明上页开始是段落开始位置，段落左移
             CurrentPaIndex--;//
@@ -76,6 +125,10 @@ public class PageDataPipeline implements IPageDataPipeline {
         if (CurrentPaIndex >= ParagraphNum || CurrentPaIndex < 0) return null;//超过返回null
 
         IPage page = new Page();
+        PageHeight = PageHeight - param.PaddingTop - param.PaddingBottom;
+        int paragraphMargin = param.ParagraphMargin;
+
+
         while (page.getLineNum() < PageLineNum && CurrentPaIndex >= 0) {
             String paragraphStr = data.getParagraphStr(CurrentPaIndex);
 
@@ -89,6 +142,7 @@ public class PageDataPipeline implements IPageDataPipeline {
                         ITxtLine line = lines.get(i);
                         page.addLine(line);
                         if (page.getLineNum() >= PageLineNum) {
+                            page.setFullPage(true);
                             break;
                         }
                     }
@@ -98,8 +152,52 @@ public class PageDataPipeline implements IPageDataPipeline {
             startIndex = 0;
         }
 
+
         if (page.HasData()) {
             Collections.reverse(page.getLines());
+        }
+
+        //尝试识别是否需要加段落间距数据
+        PageHeight = PageHeight - param.PaddingTop - param.PaddingBottom;
+        if (paragraphMargin > 0 && LineHeight > 0 && PageHeight > LineHeight && page.getLineNum() > 0) {
+            int height = param.PaddingTop;
+            int textHeight = readerContext.getTxtConfig().textSize;
+
+            List<ITxtLine> lines = new ArrayList<>();
+
+            for (int i = page.getLineNum() - 1; i >= 0; i--) {
+                ITxtLine line = page.getLine(i);
+
+                if (i == page.getLineNum() - 1) {//底部那个不添加偏移量
+                    lines.add(line);
+                    height = height + textHeight;
+                } else {
+                    if (height + LineHeight > PageHeight) {
+                        page.setFullPage(true);
+                        if (height + textHeight <= PageHeight) {
+                            lines.add(line);
+                        }
+                        break;
+                    } else {
+                        lines.add(line);
+                        height = height + LineHeight;
+                        if (line.isParagraphEndLine()) {
+                            if (height + paragraphMargin < PageHeight) {
+                                height = height + paragraphMargin;//说明还有行数据
+                            }
+                        }
+                    }
+                }
+
+            }
+            if (height >= PageHeight) {
+                page.setFullPage(true);
+            }
+            page.setLines(lines);
+
+            if (page.HasData()) {
+                Collections.reverse(page.getLines());
+            }
         }
         return page;
     }
@@ -119,11 +217,11 @@ public class PageDataPipeline implements IPageDataPipeline {
         List<ITxtLine> lines = new ArrayList<>();
         int startIndex = startCharIndex;
         startIndex = startIndex < 0 ? 0 : startIndex;
+        int paragraphLength = paragraphData.length();
 
-        if (paragraphData == null || startIndex >= paragraphData.length()) {
+        if (paragraphData == null || startIndex >= paragraphLength) {
             return lines;
         }
-
         if (paragraphData != null && paragraphData.length() > 0) {
             String s = paragraphData.substring(startIndex);//截取要的数据
             while (s.length() > 0) {// is[0] 为个数 is[1] 为是否满一行
@@ -131,6 +229,9 @@ public class PageDataPipeline implements IPageDataPipeline {
                 ITxtLine line;
                 if (is[1] != 1) {//不满一行
                     line = getLineFromString(s, paragraphIndex, startIndex, is);
+                    if (s.length() + startIndex >= paragraphLength) {
+                        line.setParagraphEndLine(true);
+                    }
                     lines.add(line);
                     break;
                 }
@@ -161,12 +262,11 @@ public class PageDataPipeline implements IPageDataPipeline {
                                                      float lineWidth, float textPadding, Paint paint) {
         List<ITxtLine> lines = new ArrayList<>();
         int startIndex = 0;
-        if (paragraphData == null || paragraphData.length() == 0 || endCharIndex <= 0) {
+        int paragraphLength = paragraphData.length();
+        if (paragraphData == null || paragraphLength == 0 || endCharIndex <= 0) {
             return lines;
         }
-
         endCharIndex = endCharIndex >= paragraphData.length() ? paragraphData.length() : endCharIndex;
-
 
         if (endCharIndex > 0) {
             String s = paragraphData.substring(startIndex, endCharIndex);//截取要的数据
@@ -176,6 +276,10 @@ public class PageDataPipeline implements IPageDataPipeline {
                 int num = (int) is[0];
                 if (is[1] != 1) {//不满一行
                     line = getLineFromString(s, paragraphIndex, startIndex, is);
+                    // ELogger.log("isParagraphEndLine11",endCharIndex+"/"+startIndex+"/"+paragraphLength+"/"+s.length()+"/"+s);
+                    if (endCharIndex == paragraphLength && s.length() + startIndex >= paragraphLength) {
+                        line.setParagraphEndLine(true);
+                    }
                     lines.add(line);
                     return lines;
                 }

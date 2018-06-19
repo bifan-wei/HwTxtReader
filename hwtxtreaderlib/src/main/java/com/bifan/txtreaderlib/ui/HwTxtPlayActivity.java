@@ -39,7 +39,7 @@ import java.io.File;
  */
 
 public class HwTxtPlayActivity extends AppCompatActivity {
-    private Handler mHandler;
+    protected Handler mHandler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -488,7 +488,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
 
 
     private class ChapterChangeClickListener implements View.OnClickListener {
-        private Boolean Pre = false;
+        private Boolean Pre;
 
         public ChapterChangeClickListener(Boolean pre) {
             Pre = pre;

@@ -15,22 +15,23 @@ public class TextBreakUtil {
     public static float[] BreakText(char[] cs, float measureWidth, float textPadding, Paint paint) {
         float width = 0;
         int index = 2;
-        float[] is = new float[index+cs.length];
+        float[] is = new float[index + cs.length];
 
         for (int i = 0, size = cs.length; i < size; i++) {
             String measureStr = String.valueOf(cs[i]);
             float charWidth = paint.measureText(measureStr);
-            if (width <= measureWidth && (width + textPadding + charWidth) > measureWidth) {
+            if ((width + textPadding + charWidth) >= measureWidth) {
                 is[0] = i;
                 is[1] = 1;
                 return is;
-            }else{
+            } else {
                 is[index++] = charWidth;
             }
 
             width += charWidth + textPadding;
         }
         is[0] = cs.length;
+        is[1] = 0;
         return is;
     }
 

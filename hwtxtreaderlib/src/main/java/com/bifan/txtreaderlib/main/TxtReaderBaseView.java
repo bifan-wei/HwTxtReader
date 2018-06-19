@@ -936,18 +936,18 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             int lineNum = readerContext.getPageParam().PageLineNum;
 
             if (nextFirstPage != null && nextFirstPage.HasData()) {
-                if (nextFirstPage.getLineNum() == lineNum) { //说明,nextFirstPage是完整的页数据，直接获取
+                if (nextFirstPage.isFullPage()) { //说明,nextFirstPage是完整的页数据，直接获取
                     firstPage = nextFirstPage;
                 }
             }
 
-            if (nextMidPage != null && nextMidPage.getLineNum() == lineNum) {//说明之前的LastPage是完整的数据，直接获取
+            if (nextMidPage != null && nextMidPage.isFullPage()) {//说明之前的LastPage是完整的数据，直接获取
                 midPage = nextMidPage;
             } else {
                 midPage = nextMidPage;//说明之前的LastPage不是完整的数据，也直接获取
             }
 
-            if (midPage != null && midPage.getLineNum() == lineNum) {
+            if (midPage != null && midPage.isFullPage()) {
                 //midPage是完整页，说明可能有下一页数据，否则没有下一页数据了
                 nextPage = readerContext.getPageDataPipeline().getPageStartFromProgress(midPage.getLastChar().ParagraphIndex, midPage.getLastChar().CharIndex + 1);
             }
@@ -1016,17 +1016,17 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             IPage midPage = null;
             IPage nextPage = null;
 
-            int lineNum = readerContext.getPageParam().PageLineNum;
+           // int lineNum = readerContext.getPageParam().PageLineNum;
 
             if (nextMayMidPage != null && nextMayMidPage.HasData()) {
-                if (nextMayMidPage.getLineNum() == lineNum) {//之前的FirstPage是满页的，直接获取
+                if (nextMayMidPage.isFullPage()) {//之前的FirstPage是满页的，直接获取
                     midPage = nextMayMidPage;
                 } else {//之前的FirstPage不是是满页的，直接从头开始获取
                     midPage = readerContext.getPageDataPipeline().getPageStartFromProgress(0, 0);
                 }
             }
 
-            if (midPage != null && midPage.getLineNum() == lineNum) {//现在说明midPage是满页的，可能有上一页数据与下一页数据
+            if (midPage != null && midPage.isFullPage()) {//现在说明midPage是满页的，可能有上一页数据与下一页数据
                 if (midPage.getFirstChar().ParagraphIndex == 0 && midPage.getFirstChar().CharIndex == 0) {
                     firstPage = null;//之前的FirstPage不是是满页的，直接从头开始获取，没有firstPage
                 } else {

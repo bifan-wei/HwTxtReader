@@ -32,6 +32,10 @@ public interface IPage {
 
     int getLineNum();
 
+    boolean isFullPage();//是否满页了
+
+    void setFullPage(boolean fullPage);
+
     int CurrentIndex();
 
     Boolean HasData();

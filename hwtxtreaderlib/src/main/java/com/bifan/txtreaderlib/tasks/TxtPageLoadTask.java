@@ -36,7 +36,7 @@ public class TxtPageLoadTask implements ITxtTask {
             firstPage = readerContext.getPageDataPipeline().getPageEndToProgress(midPage.getFirstChar().ParagraphIndex, midPage.getFirstChar().CharIndex - 1);
         }
 
-        if (midPage != null && midPage.getLineNum() == lineNum) {
+        if (midPage != null && midPage.isFullPage()) {
             nextPage = readerContext.getPageDataPipeline().getPageStartFromProgress(midPage.getLastChar().ParagraphIndex, midPage.getLastChar().CharIndex + 1);
         }
 

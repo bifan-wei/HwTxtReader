@@ -35,9 +35,11 @@ public class TxtBitmapUtil {
         int topL = (int) (pageParam.PaddingLeft + pageParam.TextPadding) + 3;
         int bottom = pageParam.PaddingTop + textHeight;
         int bomL = bottom;
+        int paraMargin = pageParam.ParagraphMargin;
         float CharPadding = pageParam.TextPadding;
         Paint paint = paintContext.textPaint;
         int defaultColor = txtConfig.textColor;
+
         float x = topL;
         float y = bottom;
 
@@ -64,18 +66,23 @@ public class TxtBitmapUtil {
 
                 x = topL;
                 y = y + lineHeight;
+
+                if (line.isParagraphEndLine()) {
+                    y = y + paraMargin;
+
+                }
             }
         }
 
         return bitmap;
     }
 
-    public static Bitmap CreateBitmap(int bitmapStyleColor, int bitmapWidth, int bitmapHeight) {
+    public static Bitmap createBitmap(int bitmapStyleColor, int bitmapWidth, int bitmapHeight) {
         int[] BitmapColor = getBitmapColor(bitmapStyleColor, bitmapWidth, bitmapHeight);
         return Bitmap.createBitmap(BitmapColor, bitmapWidth, bitmapHeight, Bitmap.Config.RGB_565);
     }
 
-    public static Bitmap CreateBitmap(Resources res, int backgroundResource, int bitmapWidth, int bitmapHeight) {
+    public static Bitmap createBitmap(Resources res, int backgroundResource, int bitmapWidth, int bitmapHeight) {
         Bitmap bgBitmap = BitmapFactory.decodeResource(res, backgroundResource);
         int width = bgBitmap.getWidth();
         int height = bgBitmap.getHeight();

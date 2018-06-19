@@ -89,7 +89,6 @@ public class FileDataLoadTask implements ITxtTask {
                 try {
                     bufferedReader.close();
                 } catch (IOException e) {
-
                     e.printStackTrace();
                 }
             }

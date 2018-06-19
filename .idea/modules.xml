@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/HwTxtReader.iml" filepath="$PROJECT_DIR$/HwTxtReader.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/hwtxtreaderlib/hwtxtreaderlib.iml" filepath="$PROJECT_DIR$/hwtxtreaderlib/hwtxtreaderlib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/javaunittest/javaunittest.iml" filepath="$PROJECT_DIR$/javaunittest/javaunittest.iml" />
     </modules>
   </component>
 </project>

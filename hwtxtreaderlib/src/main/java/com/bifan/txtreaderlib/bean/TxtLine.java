@@ -14,6 +14,7 @@ import java.util.List;
 public class TxtLine implements ITxtLine, ICursor<TxtChar> {
     private int CurrentIndex;
     private List<TxtChar> chars = null;
+    private boolean isParagraphEndLine = false;
 
     public TxtLine() {
     }
@@ -200,6 +201,15 @@ public class TxtLine implements ITxtLine, ICursor<TxtChar> {
             BeforeFirst = false;
         }
         return chars == null ? null : getChar(CurrentIndex);
+    }
+
+    @Override
+    public boolean isParagraphEndLine() {
+        return isParagraphEndLine;
+    }
+
+    public void setParagraphEndLine(boolean paragraphEndLine) {
+        isParagraphEndLine = paragraphEndLine;
     }
 
     @Override

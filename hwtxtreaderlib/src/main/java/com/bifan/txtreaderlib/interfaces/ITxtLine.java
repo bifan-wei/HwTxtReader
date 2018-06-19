@@ -33,4 +33,7 @@ public interface ITxtLine {
     void Clear();
 
     int CurrentIndex();
+
+    boolean isParagraphEndLine();//判断是否是段落最后一句
+    void setParagraphEndLine(boolean isParagraphEndLine);
 }
