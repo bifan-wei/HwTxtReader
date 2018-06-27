@@ -8,8 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
+        >
 
         <TextView
             android:id="@+id/activity_hwtxtplay_chaptername"
@@ -20,6 +19,8 @@
             android:layout_toLeftOf="@+id/activity_hwtxtplay_chpatermenu"
             android:ellipsize="end"
             android:maxLines="1"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="第一章"
             android:textColor="#666666" />
 
@@ -46,7 +47,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:clickable="true"
                 android:text="章节"
                 android:textColor="#858582" />
