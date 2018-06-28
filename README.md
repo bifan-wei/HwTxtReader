@@ -16,6 +16,7 @@
 6.可以进行长按滑动选择复制文字。<br> 
 7.数字与英文字符显示特点颜色。<br> 
 8.自动跳转到上次阅读进度。<br> 
+9.支持设置段落间距。<br> 
 <br>
 
 ## 更新日志请查看 updateLog.txt文件
@@ -54,7 +55,7 @@
 
  
   dependencies {
-	        compile 'com.github.bifan-wei:HwTxtReader:V1.3.4'
+	        compile 'com.github.bifan-wei:HwTxtReader:V1.3.9'
 	}
 	
 ```
