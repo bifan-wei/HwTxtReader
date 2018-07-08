@@ -317,6 +317,10 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mChapterMenuText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mChapterListPop == null) {
+                    return;
+                }
+
                 if (!mChapterListPop.isShowing()) {
                     mChapterListPop.showAsDropDown(mTopDecoration);
                     mHandler.postDelayed(new Runnable() {
@@ -405,7 +409,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mTopMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mChapterListPop.isShowing()) {
+                if (null != mChapterListPop && mChapterListPop.isShowing()) {
                     mChapterListPop.dismiss();
                 }
             }
@@ -638,7 +642,11 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         if (!hasExisted) {
             hasExisted = true;
             if (mTxtReaderView != null) {
-                mTxtReaderView.saveCurrentProgress();
+                try {
+                    mTxtReaderView.saveCurrentProgress();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             mHandler.postDelayed(new Runnable() {
                 @Override
