@@ -169,11 +169,17 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() {
             @Override
             public void onSuccess() {
+                if (isFinishing()){
+                    return;
+                }
                 onLoadDataSuccess();
             }
 
             @Override
             public void onFail(final TxtMsg txtMsg) {
+                if (isFinishing()){
+                    return;
+                }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
