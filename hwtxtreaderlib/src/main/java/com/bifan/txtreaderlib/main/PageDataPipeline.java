@@ -31,6 +31,8 @@ public class PageDataPipeline implements IPageDataPipeline {
         IParagraphData data = readerContext.getParagraphData();
         PageParam param = readerContext.getPageParam();
 
+        if(data==null) return null;
+
         int PageLineNum = param.PageLineNum;
         int PageHeight = param.PageHeight;
         int LineHeight = (int) param.LineHeight;
@@ -105,6 +107,8 @@ public class PageDataPipeline implements IPageDataPipeline {
     public IPage getPageEndToProgress(int paragraphIndex, int charIndex) {
         IParagraphData data = readerContext.getParagraphData();
         PageParam param = readerContext.getPageParam();
+
+        if(data==null) return null;
 
         int PageLineNum = param.PageLineNum;
         int PageHeight = param.PageHeight;

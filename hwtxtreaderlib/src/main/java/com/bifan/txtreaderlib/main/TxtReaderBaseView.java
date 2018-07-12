@@ -1016,7 +1016,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             IPage midPage = null;
             IPage nextPage = null;
 
-           // int lineNum = readerContext.getPageParam().PageLineNum;
+            // int lineNum = readerContext.getPageParam().PageLineNum;
 
             if (nextMayMidPage != null && nextMayMidPage.HasData()) {
                 if (nextMayMidPage.isFullPage()) {//之前的FirstPage是满页的，直接获取
@@ -1087,13 +1087,16 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
     protected float getProgress(int ParagraphIndex, int chartIndex) {
         float progress = 0;
-        int index = readerContext.getParagraphData().getParaStartCharIndex(ParagraphIndex) + chartIndex;
-        int num = readerContext.getParagraphData().getCharNum();
-        if (num > 0) {
-            if (index > num) {
-                progress = 1;
-            } else {
-                progress = (float) index / (float) num;
+        int pN = readerContext.getParagraphData().getParagraphNum();
+        if (pN > 0 && pN > ParagraphIndex) {
+            int index = readerContext.getParagraphData().getParaStartCharIndex(ParagraphIndex) + chartIndex;
+            int num = readerContext.getParagraphData().getCharNum();
+            if (num > 0) {
+                if (index > num) {
+                    progress = 1;
+                } else {
+                    progress = (float) index / (float) num;
+                }
             }
         }
         return progress;

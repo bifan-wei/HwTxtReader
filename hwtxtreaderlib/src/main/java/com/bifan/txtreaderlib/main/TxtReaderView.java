@@ -291,6 +291,7 @@ public class TxtReaderView extends TxtReaderBaseView {
      * @param progress 0~100
      */
     public void loadFromProgress(float progress) {
+        if (readerContext == null || readerContext.getParagraphData() == null) return;
         if (progress < 0) progress = 0;
         if (progress > 100) progress = 100;
         float p = progress / 100;
@@ -307,11 +308,13 @@ public class TxtReaderView extends TxtReaderBaseView {
             paragraphIndex = 0;
         }
 
-        ELogger.log(tag,"loadFromProgress ,progress:"+progress+"/paragraphIndex:"+paragraphIndex+"/paragraphNum:"+paragraphNum);
+        ELogger.log(tag, "loadFromProgress ,progress:" + progress + "/paragraphIndex:" + paragraphIndex + "/paragraphNum:" + paragraphNum);
         loadFromProgress(paragraphIndex, 0);
     }
 
-    /** 根据字符的准确位置跳转进度
+    /**
+     * 根据字符的准确位置跳转进度
+     *
      * @param paragraphIndex
      * @param charIndex
      */
@@ -321,18 +324,19 @@ public class TxtReaderView extends TxtReaderBaseView {
         txtPageLoadTask.Run(new LoadListenerAdapter() {
             @Override
             public void onSuccess() {
-                checkMoveState();
-                postInvalidate();
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //IPage midPage = readerContext.getPageData().MidPage();
-                        //onPageProgress(midPage);
-                        onProgressCallBack(getProgress(paragraphIndex, charIndex));
-                        tryFetchFirstPage();
-                    }
-                });
-
+                if (readerContext != null) {
+                    checkMoveState();
+                    postInvalidate();
+                    post(new Runnable() {
+                        @Override
+                        public void run() {
+                            //IPage midPage = readerContext.getPageData().MidPage();
+                            //onPageProgress(midPage);
+                            onProgressCallBack(getProgress(paragraphIndex, charIndex));
+                            tryFetchFirstPage();
+                        }
+                    });
+                }
             }
         }, readerContext);
     }
@@ -513,7 +517,7 @@ public class TxtReaderView extends TxtReaderBaseView {
                     try {
                         r.fileHashName = FileHashUtil.getMD5Checksum(path);
                     } catch (Exception e) {
-                        ELogger.log(tag,"saveCurrentProgress Exception:"+e.toString());
+                        ELogger.log(tag, "saveCurrentProgress Exception:" + e.toString());
                         readRecordDB.closeTable();
                         return;
                     }
@@ -522,10 +526,8 @@ public class TxtReaderView extends TxtReaderBaseView {
                     r.chartIndex = midPage.getFirstChar().CharIndex;
                     readRecordDB.insertData(r);
                     readRecordDB.closeTable();
-                    ELogger.log(tag,"saveCurrentProgress paragraphIndex:"+r.paragraphIndex);
-                    ELogger.log(tag,"saveCurrentProgress chartIndex:"+  r.chartIndex);
-                }else{
-                    ELogger.log(tag,"saveCurrentProgress midPage is false empty");
+                } else {
+                    ELogger.log(tag, "saveCurrentProgress midPage is false empty");
                 }
             }
 

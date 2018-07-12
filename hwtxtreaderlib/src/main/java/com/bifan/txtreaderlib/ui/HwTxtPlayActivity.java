@@ -61,7 +61,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     }
 
     /**
-     * @param context 上下文
+     * @param context  上下文
      * @param FilePath 文本文件路径
      */
     public static void loadTxtFile(Context context, String FilePath) {
@@ -69,7 +69,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     }
 
     /**
-     * @param context 上下文
+     * @param context  上下文
      * @param FilePath 文本文件路径
      * @param FileName 显示的书籍或者文件名称
      */
@@ -148,7 +148,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     protected String FileName = null;
 
     protected void loadFile() {
-        TxtConfig.savePageSwitchDuration(this,400);
+        TxtConfig.savePageSwitchDuration(this, 400);
         if (TextUtils.isEmpty(FilePath) || !(new File(FilePath).exists())) {
             toast("文件不存在");
             return;
@@ -169,17 +169,21 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() {
             @Override
             public void onSuccess() {
-                onLoadDataSuccess();
+                if (!hasExisted) {
+                    onLoadDataSuccess();
+                }
             }
 
             @Override
             public void onFail(final TxtMsg txtMsg) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        onLoadDataFail(txtMsg);
-                    }
-                });
+                if (!hasExisted) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            onLoadDataFail(txtMsg);
+                        }
+                    });
+                }
 
             }
 
@@ -632,7 +636,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         exist();
     }
 
-    boolean hasExisted = false;
+    protected boolean hasExisted = false;
 
     protected void exist() {
         if (!hasExisted) {
