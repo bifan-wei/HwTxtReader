@@ -35,8 +35,8 @@
 <br>
 <br>
 
-**添加hwtxtreaderlib依赖 **
- <br> 
+ **添加hwtxtreaderlib依赖**
+<br> 
 <br> 
  ```java
  allprojects {
@@ -51,30 +51,34 @@ dependencies {
 ```
 <br>
 <br> 
-**使用默认界面使用的话，只需要一句代码：**
+**使用默认界面使用的话，只需要一句代码:**
 <br> 
 <br> 
  ```java
+ 
  HwTxtPlayActivity.loadTxtFile(this, FilePath);
+ 
  ```
 <br>
 <br>
 **使用自定义view的话，直接使用TxtReaderView (详细请看Wiki)**
 <br>
 <br>
-**xml中：**
-<br> 
-<br> 
+**xml中:**
+
 ```java
+
   <com.bifan.txtreaderlib.main.TxtReaderView 
         android:id="@+id/activity_hwtxtplay_readerView" 
         android:layout_width="match_parent"  
         android:layout_height="match_parent" 
        />
+       
 ```
 **代码中调用loadTxtFile方法直接加载文件：**<br>
  
  ```java
+ 
  mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() { 
             @Override 
             public void onSuccess() { 
@@ -92,6 +96,7 @@ dependencies {
             //加载过程信息回调 
             } 
         }); 
+	
 ```
 <br> 
 <br> 
