@@ -87,7 +87,11 @@ public class TxtReaderContext {
 
     public IPageDataPipeline getPageDataPipeline() {
         if (pageDataPipeline == null) {
-            pageDataPipeline = new PageDataPipeline(this);
+            if (getTxtConfig().VerticalPageMode) {
+                pageDataPipeline = new VerticalPageDataPipeline(this);
+            }else{
+                pageDataPipeline = new PageDataPipeline(this);
+            }
         }
         return pageDataPipeline;
     }

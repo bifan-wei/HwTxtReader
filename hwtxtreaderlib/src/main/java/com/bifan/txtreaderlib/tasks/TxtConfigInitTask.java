@@ -72,7 +72,8 @@ public class TxtConfigInitTask implements ITxtTask {
         config.SliderColor = TxtConfig.getSliderColor(readerContext.context);
         config.Bold = TxtConfig.isBold(readerContext.context);
         config.SwitchByTranslate = TxtConfig.isSwitchByTranslate(readerContext.context);
-        config.ShowSpecialChar = TxtConfig.IsShowSpecilaChar(readerContext.context);
+        config.ShowSpecialChar = TxtConfig.IsShowSpecialChar(readerContext.context);
+        config.VerticalPageMode = TxtConfig.IsOnVerticalPageMode(readerContext.context);
         config.PageSwitchDuration = TxtConfig.getPageSwitchDuration(readerContext.context);
     }
 
@@ -101,11 +102,19 @@ public class TxtConfigInitTask implements ITxtTask {
 
     private void initPageParam(TxtReaderContext readerContext) {
         PageParam param = readerContext.getPageParam();
-        param.LineWidth = param.PageWidth - param.PaddingLeft - param.PaddingRight;
-        int lineHeight = readerContext.getTxtConfig().textSize + param.LinePadding  ;
+        int lineHeight = readerContext.getTxtConfig().textSize + param.LinePadding;
         param.LineHeight = lineHeight;
-        param.PageLineNum = (param.PageHeight - param.PaddingTop - param.PaddingBottom - readerContext.getTxtConfig().textSize -2) / lineHeight+1;
+        if (!readerContext.getTxtConfig().VerticalPageMode) {
+            param.LineWidth = param.PageWidth - param.PaddingLeft - param.PaddingRight;
+            param.LineHeight = lineHeight;
+            param.PageLineNum = (param.PageHeight - param.PaddingTop - param.PaddingBottom - readerContext.getTxtConfig().textSize - 2) / lineHeight + 1;
+        } else {
+            param.LineWidth = lineHeight;
+            param.LineHeight = param.PageHeight - param.PaddingTop - param.PaddingBottom;
+            param.PageLineNum = (param.PageWidth - param.PaddingLeft - param.PaddingRight - readerContext.getTxtConfig().textSize - 2) / lineHeight + 1;
+        }
         param.PaddingLeft = TxtConfig.Page_PaddingLeft;
+        param.LinePadding = TxtConfig.Page_LinePadding;
         param.PaddingRight = TxtConfig.Page_PaddingRight;
         param.PaddingTop = TxtConfig.Page_PaddingTop;
         param.PaddingBottom = TxtConfig.Page_PaddingBottom;

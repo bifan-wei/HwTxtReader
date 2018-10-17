@@ -9,8 +9,6 @@ import com.bifan.txtreaderlib.bean.TxtMsg;
 */
 public interface ILoadListener {
     void onSuccess();
-
     void onFail(TxtMsg txtMsg);
-
     void onMessage(String message);
 }

@@ -77,6 +77,57 @@ public class TxtBitmapUtil {
         return bitmap;
     }
 
+    public static final Bitmap createVerticalPage(Bitmap bg, PaintContext paintContext, PageParam pageParam, TxtConfig txtConfig, IPage page) {
+        if (page == null || !page.HasData() || bg == null || bg.isRecycled()) {
+            return null;
+        }
+        Bitmap bitmap = bg.copy(Bitmap.Config.RGB_565, true);
+        Canvas canvas = new Canvas(bitmap);
+        List<ITxtLine> lines = page.getLines();
+        int textHeight = txtConfig.textSize;
+        int lineWidth = (int) pageParam.LineWidth;
+        int topL = (int) (pageParam.PaddingLeft + pageParam.TextPadding) + 3;
+        int bottom = pageParam.PaddingTop + textHeight;
+        int bomL = bottom;
+        int paraMargin = pageParam.ParagraphMargin;
+        float CharPadding = pageParam.TextPadding;
+        Paint paint = paintContext.textPaint;
+        int defaultColor = txtConfig.textColor;
+
+        float x = topL;
+        float y = bottom;
+
+        if (!txtConfig.ShowSpecialChar) {
+            paint.setColor(defaultColor);
+        }
+        for (ITxtLine line : lines) {
+            if (line.HasData()) {
+                for (TxtChar txtChar : line.getTxtChars()) {
+                    if (txtConfig.ShowSpecialChar) {
+                        if (txtChar instanceof NumChar || txtChar instanceof EnChar) {
+                            paint.setColor(txtChar.getTextColor());
+                        } else {
+                            paint.setColor(defaultColor);
+                        }
+                    }
+                    canvas.drawText(txtChar.getValueStr(), x, y, paint);
+                    txtChar.Left = (int) x;
+                    txtChar.Right = (int) (x + textHeight+5);
+                    txtChar.Bottom =  (int) (y + 5);
+                    txtChar.Top = (int) (txtChar.Bottom - txtChar.CharWidth);
+                    y = y + CharPadding+textHeight;
+                }
+                x = x + lineWidth;
+                y = bottom;
+                if (line.isParagraphEndLine()) {
+                    x = x + paraMargin;
+                }
+            }
+        }
+
+        return bitmap;
+    }
+
     public static Bitmap createBitmap(int bitmapStyleColor, int bitmapWidth, int bitmapHeight) {
         int[] BitmapColor = getBitmapColor(bitmapStyleColor, bitmapWidth, bitmapHeight);
         return Bitmap.createBitmap(BitmapColor, bitmapWidth, bitmapHeight, Bitmap.Config.RGB_565);

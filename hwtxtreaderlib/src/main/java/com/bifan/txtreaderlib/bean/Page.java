@@ -9,9 +9,9 @@ import java.util.List;
 
 
 /*
-* create by bifan-wei
-* 2017-11-13
-*/
+ * create by bifan-wei
+ * 2017-11-13
+ */
 public class Page implements IPage, ICursor<ITxtLine> {
     private int CurrentIndex;
     private List<ITxtLine> lines = null;
@@ -30,7 +30,7 @@ public class Page implements IPage, ICursor<ITxtLine> {
         if (lines == null) {
             lines = new ArrayList<>();
         }
-        lines.add(index,line);
+        lines.add(index, line);
     }
 
     @Override
@@ -56,15 +56,15 @@ public class Page implements IPage, ICursor<ITxtLine> {
 
     @Override
     public void moveToPosition(int index) {
-        if(!HasData()){
-            return;
+        if (HasData()) {
+            if (index < 0 || index >= getCount()) {
+                throw new ArrayIndexOutOfBoundsException
+                        (" moveToPosition index OutOfBoundsException from page");
+            }
+            CurrentIndex = index;
+            Current();
         }
-        if (index < 0 || index >= getCount()) {
-            throw new ArrayIndexOutOfBoundsException
-                    (" moveToPosition index OutOfBoundsException from page");
-        }
-        CurrentIndex = index;
-        Current();
+
     }
 
     @Override
@@ -163,6 +163,7 @@ public class Page implements IPage, ICursor<ITxtLine> {
     public int getLineNum() {
         return getCount();
     }
+
     private Boolean AfterLast = false;
     private Boolean BeforeFirst = false;
 
@@ -207,16 +208,8 @@ public class Page implements IPage, ICursor<ITxtLine> {
 
     @Override
     public ITxtLine Current() {
-        if(isLast()){
-            AfterLast = true;
-        }else{
-            AfterLast = false;
-        }
-        if(isFirst()){
-            BeforeFirst = true;
-        }else{
-            BeforeFirst = false;
-        }
+        AfterLast = isLast();
+        BeforeFirst = isFirst();
         return lines == null ? null : getLine(CurrentIndex);
     }
 
@@ -228,16 +221,16 @@ public class Page implements IPage, ICursor<ITxtLine> {
     @Override
     public String toString() {
         String str = "";
-        if(HasData()) {
-            for (ITxtLine l:lines) {
-                str = str+l.getLineStr()+"\r\n";
+        if (HasData()) {
+            for (ITxtLine l : lines) {
+                str = str + l.getLineStr() + "\r\n";
             }
         }
         return str;
     }
 
     @Override
-    public List<ITxtLine>  getLines() {
+    public List<ITxtLine> getLines() {
         return lines;
     }
 }

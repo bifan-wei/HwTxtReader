@@ -87,9 +87,9 @@ public class PageDataPipeline implements IPageDataPipeline {
                 }
 
                 if (line.isParagraphEndLine()) {
-                    if (height + paragraphMargin < PageHeight) {
+                 //   if (height + paragraphMargin < PageHeight) {
                         height = height + paragraphMargin;//说明还有行数据
-                    }
+                  //  }
                 }
 
             }
@@ -186,9 +186,9 @@ public class PageDataPipeline implements IPageDataPipeline {
                         lines.add(line);
                         height = height + LineHeight;
                         if (line.isParagraphEndLine()) {
-                            if (height + paragraphMargin < PageHeight) {
+                         //   if (height + paragraphMargin < PageHeight) {
                                 height = height + paragraphMargin;//说明还有行数据
-                            }
+                          //  }
                         }
                     }
                 }
@@ -223,10 +223,10 @@ public class PageDataPipeline implements IPageDataPipeline {
         startIndex = startIndex < 0 ? 0 : startIndex;
         int paragraphLength = paragraphData.length();
 
-        if (paragraphData == null || startIndex >= paragraphLength) {
+        if (startIndex >= paragraphLength) {
             return lines;
         }
-        if (paragraphData != null && paragraphData.length() > 0) {
+        if ( paragraphData.length() > 0) {
             String s = paragraphData.substring(startIndex);//截取要的数据
             while (s.length() > 0) {// is[0] 为个数 is[1] 为是否满一行
                 float[] is = TextBreakUtil.BreakText(s, lineWidth, textPadding, paint);
@@ -267,7 +267,7 @@ public class PageDataPipeline implements IPageDataPipeline {
         List<ITxtLine> lines = new ArrayList<>();
         int startIndex = 0;
         int paragraphLength = paragraphData.length();
-        if (paragraphData == null || paragraphLength == 0 || endCharIndex <= 0) {
+        if (paragraphLength == 0 || endCharIndex <= 0) {
             return lines;
         }
         endCharIndex = endCharIndex >= paragraphData.length() ? paragraphData.length() : endCharIndex;

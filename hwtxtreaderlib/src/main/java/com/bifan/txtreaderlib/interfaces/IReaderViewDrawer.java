@@ -54,7 +54,7 @@ public interface IReaderViewDrawer {
    //绘制笔记
 
     void drawSelectedText(Canvas canvas);
-  //文字选中
+    //文字选中
 
     void computeScroll();
     //完成移动

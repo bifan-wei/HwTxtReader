@@ -29,7 +29,7 @@ public class ChapterList extends PopupWindow {
     private MyAdapter mAdapter;
     private List<IChapter> mChapters;
     private int CurrentIndex = -1;
-    private int AllCharNum = 0;
+    private int AllCharNum ;
     private int ViewHeight;
 
     public ChapterList(Context mContext, int ViewHeight, List<IChapter> mChapters, int allCharNum) {
@@ -39,6 +39,10 @@ public class ChapterList extends PopupWindow {
         this.mChapters = mChapters;
         this.AllCharNum = allCharNum;
         initRootView();
+    }
+
+    public int getAllCharNum() {
+        return AllCharNum;
     }
 
     public void setCurrentIndex(int currentIndex) {

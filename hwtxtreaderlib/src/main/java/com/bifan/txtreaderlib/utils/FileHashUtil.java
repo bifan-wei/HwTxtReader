@@ -5,13 +5,11 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 
 public class FileHashUtil {
-	public static byte[] createChecksum(String filename) throws Exception {
+	private static byte[] createChecksum(String filename) throws Exception {
         InputStream fis =  new FileInputStream(filename);
-
         byte[] buffer = new byte[1024];
         MessageDigest complete = MessageDigest.getInstance("MD5");
         int numRead;
-
         do {
             numRead = fis.read(buffer);
             if (numRead > 0) {

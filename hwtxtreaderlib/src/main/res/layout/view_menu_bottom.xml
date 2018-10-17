@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
     android:background="#000000"
     android:orientation="vertical"
-    android:layout_alignParentBottom="true"
-    android:padding="10dp"
-  >
+    android:padding="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,7 +18,7 @@
             android:layout_centerVertical="true"
             android:text="上一章"
             android:textColor="@color/hwtxtreader_bottom_menu_textclor"
-            android:textSize="@dimen/hwtxtreader_menu_textsize_normal"/>
+            android:textSize="@dimen/hwtxtreader_menu_textsize_normal" />
 
         <SeekBar
             android:id="@+id/txtreadr_menu_seekbar"
@@ -36,7 +34,7 @@
             android:progress="30"
             android:progressDrawable="@drawable/txtview_po_seekbar"
             android:thumb="@drawable/shape_seekbar_thumb"
-            android:thumbOffset="0dip"/>
+            android:thumbOffset="0dip" />
 
         <TextView
             android:id="@+id/txtreadr_menu_chapter_next"
@@ -46,33 +44,38 @@
             android:layout_centerVertical="true"
             android:text="下一章"
             android:textColor="@color/hwtxtreader_bottom_menu_textclor"
-            android:textSize="@dimen/hwtxtreader_menu_textsize_normal"/>
+            android:textSize="@dimen/hwtxtreader_menu_textsize_normal" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="15dp"
+        android:orientation="horizontal"
         android:weightSum="6">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="50px"
             android:layout_weight="2"
             android:orientation="horizontal">
 
-            <TextView
+            <RelativeLayout
                 android:id="@+id/txtreadr_menu_textsize_del"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Aa-"
-                android:textColor="@color/hwtxtreader_bottom_menu_textclor"
-                android:textSize="@dimen/hwtxtreader_menu_textsize_normal"/>
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_key_del" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/txtreadr_menu_textsize"
@@ -80,21 +83,25 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
-                android:gravity="center|top"
+                android:gravity="center"
                 android:text="25"
-                android:textColor="#616060"
-                android:textSize="@dimen/hwtxtreader_menu_textsize_min"/>
+                android:textColor="@color/hwtxtreader_bottom_menu_textclor"
+                android:textSize="@dimen/hwtxtreader_menu_textsize_max" />
 
-            <TextView
+            <RelativeLayout
                 android:id="@+id/txtreadr_menu_textsize_add"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Aa+"
-                android:textColor="@color/hwtxtreader_bottom_menu_textclor"
-                android:textSize="@dimen/hwtxtreader_menu_textsize_normal"/>
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_key_add" />
+            </RelativeLayout>
         </LinearLayout>
 
         <RelativeLayout
@@ -114,7 +121,11 @@
                     android:id="@+id/txtreadr_menu_textsetting1_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/hwtxtreader_menu_textsetting_padding_topbottom"
+                    android:paddingLeft="@dimen/hwtxtreader_menu_textsetting_padding_leftright"
+                    android:paddingRight="@dimen/hwtxtreader_menu_textsetting_padding_leftright"
+                    android:paddingTop="@dimen/hwtxtreader_menu_textsetting_padding_topbottom">
 
                     <TextView
                         android:layout_width="0dp"
@@ -123,16 +134,9 @@
                         android:layout_weight="1"
                         android:gravity="center|top"
                         android:text="加粗"
-                        android:textColor="#616060"
-                        android:textSize="@dimen/hwtxtreader_menu_textsize_max"/>
+                        android:textColor="@color/hwtxtreader_bottom_menu_textclor"
+                        android:textSize="@dimen/hwtxtreader_menu_textsize_max" />
 
-                    <ImageView
-                        android:id="@+id/txtreadr_menu_textsetting1_boldpic"
-                        android:layout_width="@dimen/hwtxtreader_ic_selector"
-                        android:layout_height="@dimen/hwtxtreader_ic_selector"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/ic_selected"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -140,7 +144,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/hwtxtreader_menu_textsetting_padding_topbottom"
+                    android:paddingLeft="@dimen/hwtxtreader_menu_textsetting_padding_leftright"
+                    android:paddingRight="@dimen/hwtxtreader_menu_textsetting_padding_leftright"
+                    android:paddingTop="@dimen/hwtxtreader_menu_textsetting_padding_topbottom">
 
                     <TextView
                         android:layout_width="0dp"
@@ -149,16 +157,9 @@
                         android:layout_weight="1"
                         android:gravity="center|top"
                         android:text="普通"
-                        android:textColor="#616060"
-                        android:textSize="@dimen/hwtxtreader_menu_textsize_max"/>
+                        android:textColor="@color/hwtxtreader_bottom_menu_textclor"
+                        android:textSize="@dimen/hwtxtreader_menu_textsize_max" />
 
-                    <ImageView
-                        android:id="@+id/txtreadr_menu_textsetting1_normalpic"
-                        android:layout_width="@dimen/hwtxtreader_ic_selector"
-                        android:layout_height="@dimen/hwtxtreader_ic_selector"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/ic_selected"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -177,7 +178,11 @@
                     android:id="@+id/txtreadr_menu_textsetting2_cover"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/hwtxtreader_menu_textsetting_padding_topbottom"
+                    android:paddingLeft="@dimen/hwtxtreader_menu_textsetting_padding_leftright"
+                    android:paddingRight="@dimen/hwtxtreader_menu_textsetting_padding_leftright"
+                    android:paddingTop="@dimen/hwtxtreader_menu_textsetting_padding_topbottom">
 
                     <TextView
                         android:layout_width="0dp"
@@ -186,16 +191,9 @@
                         android:layout_weight="1"
                         android:gravity="center|top"
                         android:text="滑盖"
-                        android:textColor="#616060"
-                        android:textSize="@dimen/hwtxtreader_menu_textsize_max"/>
+                        android:textColor="@color/hwtxtreader_bottom_menu_textclor"
+                        android:textSize="@dimen/hwtxtreader_menu_textsize_max" />
 
-                    <ImageView
-                        android:id="@+id/txtreadr_menu_textsetting2_coverpic"
-                        android:layout_width="@dimen/hwtxtreader_ic_selector"
-                        android:layout_height="@dimen/hwtxtreader_ic_selector"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/ic_selected"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -203,7 +201,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/hwtxtreader_menu_textsetting_padding_topbottom"
+                    android:paddingLeft="@dimen/hwtxtreader_menu_textsetting_padding_leftright"
+                    android:paddingRight="@dimen/hwtxtreader_menu_textsetting_padding_leftright"
+                    android:paddingTop="@dimen/hwtxtreader_menu_textsetting_padding_topbottom">
 
                     <TextView
                         android:layout_width="0dp"
@@ -212,16 +214,9 @@
                         android:layout_weight="1"
                         android:gravity="center|top"
                         android:text="平移"
-                        android:textColor="#616060"
-                        android:textSize="@dimen/hwtxtreader_menu_textsize_max"/>
+                        android:textColor="@color/hwtxtreader_bottom_menu_textclor"
+                        android:textSize="@dimen/hwtxtreader_menu_textsize_max" />
 
-                    <ImageView
-                        android:id="@+id/txtreadr_menu_textsetting2_translatepic"
-                        android:layout_width="@dimen/hwtxtreader_ic_selector"
-                        android:layout_height="@dimen/hwtxtreader_ic_selector"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/ic_selected"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -229,73 +224,104 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="5">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tag_1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="上一"
+            android:textSize="@dimen/hwtxtreader_menu_textsize_normal"
+            android:visibility="invisible" />
 
-            <View
-                android:id="@+id/hwtxtreader_menu_style1"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:background="@color/hwtxtreader_styleclor1"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tag_2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="下一"
+            android:textSize="@dimen/hwtxtreader_menu_textsize_normal"
+            android:visibility="invisible" />
 
-            <View
-                android:id="@+id/hwtxtreader_menu_style2"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:background="@color/hwtxtreader_styleclor2"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_toLeftOf="@+id/tag_2"
+            android:layout_toRightOf="@+id/tag_1"
+            android:orientation="horizontal"
+            android:weightSum="5">
 
-            <View
-                android:id="@+id/hwtxtreader_menu_style3"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:background="@color/hwtxtreader_styleclor3"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
-            <View
-                android:id="@+id/hwtxtreader_menu_style4"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:background="@color/hwtxtreader_styleclor4"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+                <View
+                    android:id="@+id/hwtxtreader_menu_style1"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/hwtxtreader_styleclor1" />
+            </RelativeLayout>
 
-            <View
-                android:id="@+id/hwtxtreader_menu_style5"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:background="@color/hwtxtreader_styleclor5"/>
-        </RelativeLayout>
-    </LinearLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/hwtxtreader_menu_style2"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/hwtxtreader_styleclor2" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/hwtxtreader_menu_style3"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/hwtxtreader_styleclor3" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/hwtxtreader_menu_style4"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/hwtxtreader_styleclor4" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/hwtxtreader_menu_style5"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/hwtxtreader_styleclor5" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

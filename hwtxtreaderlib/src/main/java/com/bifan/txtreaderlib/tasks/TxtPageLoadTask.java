@@ -26,11 +26,10 @@ public class TxtPageLoadTask implements ITxtTask {
         callBack.onMessage("start load pageData");
 
         IPage firstPage = null;
-        IPage midPage = null;
+        IPage midPage ;
         IPage nextPage = null;
 
         midPage = readerContext.getPageDataPipeline().getPageStartFromProgress(startParagraphIndex, startCharIndex);
-        int lineNum = readerContext.getPageParam().PageLineNum;
 
         if (midPage != null && midPage.HasData()) {
             firstPage = readerContext.getPageDataPipeline().getPageEndToProgress(midPage.getFirstChar().ParagraphIndex, midPage.getFirstChar().CharIndex - 1);

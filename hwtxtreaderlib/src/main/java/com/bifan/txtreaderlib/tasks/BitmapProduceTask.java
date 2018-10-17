@@ -31,12 +31,20 @@ public class BitmapProduceTask implements ITxtTask {
             IPage page = pages[index];
             if (neeRefresh == 1) {
                 ELogger.log(tag, "page " + index + " neeRefresh");
-
-                Bitmap bitmap = TxtBitmapUtil.createHorizontalPage(
-                        readerContext.getBitmapData().getBgBitmap(),
-                        readerContext.getPaintContext(),
-                        readerContext.getPageParam(),
-                        readerContext.getTxtConfig(), page);
+                Bitmap bitmap ;
+                if(readerContext.getTxtConfig().VerticalPageMode){
+                    bitmap = TxtBitmapUtil.createVerticalPage(
+                            readerContext.getBitmapData().getBgBitmap(),
+                            readerContext.getPaintContext(),
+                            readerContext.getPageParam(),
+                            readerContext.getTxtConfig(), page);
+                }else {
+                    bitmap =  TxtBitmapUtil.createHorizontalPage(
+                            readerContext.getBitmapData().getBgBitmap(),
+                            readerContext.getPaintContext(),
+                            readerContext.getPageParam(),
+                            readerContext.getTxtConfig(), page);
+                }
 
                 bitmaps[index] = bitmap;
             } else {

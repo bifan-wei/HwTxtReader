@@ -64,7 +64,7 @@ public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawe
         mPath.lineTo(0, getHeight());
         mPath.lineTo(0, 0);
         canvas.clipPath(mPath);
-        canvas.drawBitmap(getTopPage(), getMoveDistance(), 0, null);
+        canvas.drawBitmap(getTopPage(), getMoveDistance()+1, 0, null);
     }
 
     @Override

@@ -373,6 +373,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     protected void onShownSlider() {
         //开始显示滑动选择
         if (sliderListener != null) {
+            sliderListener.onShowSlider(FirstSelectedChar);
             sliderListener.onShowSlider(FirstSelectedChar.getValueStr());
         }
     }
@@ -525,6 +526,10 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      */
     protected void onPressSelectText(MotionEvent e) {
         TxtChar selectedChar = findCharByPosition(e.getX(), e.getY());
+        if(selectedChar!=null)
+        ELogger.log("onPressSelectText",selectedChar.toString());
+        else
+            ELogger.log("onPressSelectText","is null"+e.getX()+","+e.getY());
         if (selectedChar != null) {
             FirstSelectedChar = selectedChar;
             LastSelectedChar = selectedChar;
@@ -568,6 +573,44 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      * @return 找到长按选中的文字，找不到返回null
      */
     private TxtChar findCharByPosition(float positionX, float positionY) {
+        boolean isVerticalMode = false;
+        if(readerContext!=null&&readerContext.getTxtConfig()!=null){
+            isVerticalMode = readerContext.getTxtConfig().VerticalPageMode;
+        }
+       if(isVerticalMode){
+            return  findCharByPositionOfVerticalMode(positionX,positionY);
+       }else{
+           return  findCharByPositionOfHorizontalMode(positionX,positionY);
+       }
+    }
+
+    private TxtChar findCharByPositionOfVerticalMode(float positionX, float positionY) {
+        IPage page = readerContext.getPageData().MidPage();
+        int offset = readerContext.getPageParam().LinePadding / 2;
+        //当前页面有数据才执行查找
+        if (page != null && page.HasData()) {
+            List<ITxtLine> lines = page.getLines();
+            for (ITxtLine line : lines) {
+                List<TxtChar> chars = line.getTxtChars();
+                if (chars != null && chars.size() > 0) {
+                    for (TxtChar c : chars) {
+                        if (positionX > (c.Left - offset) && positionX < (c.Right + offset)) {
+                            if (positionY > c.Top && positionY <= c.Bottom) {
+                                return c;
+                            }
+                        } else {
+                            break;//说明在下一行
+                        }
+                    }
+                }
+            }
+        } else {
+            ELogger.log(tag, "page not null and page hasData()");
+        }
+        return null;
+    }
+
+    private TxtChar findCharByPositionOfHorizontalMode(float positionX, float positionY) {
         IPage page = readerContext.getPageData().MidPage();
         int offset = readerContext.getPageParam().LinePadding / 2;
         //当前页面有数据才执行查找
@@ -933,8 +976,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             IPage midPage;
             IPage nextPage = null;
 
-            int lineNum = readerContext.getPageParam().PageLineNum;
-
             if (nextFirstPage != null && nextFirstPage.HasData()) {
                 if (nextFirstPage.isFullPage()) { //说明,nextFirstPage是完整的页数据，直接获取
                     firstPage = nextFirstPage;
@@ -1016,8 +1057,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
             IPage midPage = null;
             IPage nextPage = null;
 
-            // int lineNum = readerContext.getPageParam().PageLineNum;
-
             if (nextMayMidPage != null && nextMayMidPage.HasData()) {
                 if (nextMayMidPage.isFullPage()) {//之前的FirstPage是满页的，直接获取
                     midPage = nextMayMidPage;
@@ -1081,7 +1120,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         } else {
             ELogger.log(tag, "onPageProgress ,page data may be empty");
         }
-
 
     }
 
@@ -1190,7 +1228,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                 @Override
                 public void run() {
                     onPageProgress(readerContext.getPageData().MidPage());
-                    listener.onSuccess();
+                    if(listener!=null) {
+                        listener.onSuccess();
+                    }
                 }
             });
 
@@ -1198,12 +1238,16 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
         @Override
         public void onFail(TxtMsg txtMsg) {
-            listener.onFail(txtMsg);
+            if(listener!=null) {
+                listener.onFail(txtMsg);
+            }
         }
 
         @Override
         public void onMessage(String message) {
-            listener.onMessage(message);
+            if(listener!=null) {
+                listener.onMessage(message);
+            }
         }
     }
 

@@ -76,6 +76,7 @@ public class FileDataLoadTask implements ITxtTask {
                         index++;
                     }
                 }
+                initChapterEndIndex(chapters, paragraphData.getParagraphNum());
                 return true;
             } catch (IOException e) {
                 ELogger.log(tag, "IOException:" + e.toString());
@@ -94,6 +95,31 @@ public class FileDataLoadTask implements ITxtTask {
             }
         }
         return false;
+    }
+
+    /**
+     * @param chapters
+     * @param paragraphNum
+     */
+    private void initChapterEndIndex(List<IChapter> chapters, int paragraphNum) {
+        if (chapters != null && chapters.size() > 0) {
+            for (int i = 0, sum = chapters.size(); i < sum; i++) {
+                int nextIndex = i + 1;
+                IChapter chapter = chapters.get(i);
+                if (nextIndex < sum) {
+                    int startIndex = chapter.getStartParagraphIndex();
+                    int endIndex = chapters.get(nextIndex).getEndParagraphIndex()- 1;
+                    if (endIndex < startIndex) {
+                        endIndex = startIndex;
+                    }
+                    chapter.setEndParagraphIndex(endIndex);
+                } else {
+                    int endIndex = paragraphNum - 1;
+                    endIndex = endIndex < 0 ? 0 : endIndex;
+                    chapter.setEndParagraphIndex(endIndex);
+                }
+            }
+        }
     }
 
     private static final String ChapterPatternStr = "(^.{0,3}\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";

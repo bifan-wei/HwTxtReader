@@ -24,6 +24,7 @@ public class TxtConfig {
     public static final String C_SHOW_SPECIAL_CHAR = "SHOW_SPECIAL_CHAR ";
     public static final String C_CENTER_CLICK_AREA = "CENTER_CLICK_AREA";
     public static final String C_PAGE_SWITCH_DURATION = "PAGE_SWITCH_DURATION";
+    public static final String C_PAGE_VERTICAL_MODE = "PAGE_VERTICAL_MODE ";
 
     public static  int Page_PaddingLeft = 20;//in px
     public static  int Page_PaddingBottom = 20;//in px
@@ -45,9 +46,11 @@ public class TxtConfig {
     public int SelectTextColor = DEFAULT_SELECT_TEXT_COLOR;//选中颜色
     public int SliderColor = DEFAULT_SLIDER_COLOR;//滑动条颜色
 
+
     public Boolean showNote = true;//是否显示笔记
     public Boolean canPressSelect = true;//是否能长按选中
     public Boolean SwitchByTranslate = true;//是否平移切换
+    public Boolean VerticalPageMode = false;
     public Boolean Bold = false;//是否加粗
     public Boolean ShowSpecialChar = true;//是否显示特殊符号，对于数字、英文，可以显示特定颜色
     public float CenterClickArea = 0.35f;//0~1,中间点击区域占View宽度的百分比，区域为高为宽两倍的矩形，如果为1f，说明点击翻页将不起效果
@@ -229,8 +232,21 @@ public class TxtConfig {
         editor.commit();
     }
 
-    public static Boolean IsShowSpecilaChar(Context context) {
+    public static Boolean IsShowSpecialChar(Context context) {
         SharedPreferences share = getS(context);
         return share.getBoolean(C_SHOW_SPECIAL_CHAR, true);
+    }
+
+    public static void saveIsOnVerticalPageMode(Context context, Boolean IsOnVerticalPageMode) {
+        SharedPreferences share = getS(context);
+        SharedPreferences.Editor editor = share.edit();
+        editor.putBoolean(C_PAGE_VERTICAL_MODE, IsOnVerticalPageMode);
+        editor.apply();
+        editor.commit();
+    }
+
+    public static Boolean IsOnVerticalPageMode(Context context) {
+        SharedPreferences share = getS(context);
+        return share.getBoolean(C_PAGE_VERTICAL_MODE, true);
     }
 }

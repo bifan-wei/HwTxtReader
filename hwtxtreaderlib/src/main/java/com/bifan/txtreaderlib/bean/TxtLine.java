@@ -18,8 +18,6 @@ public class TxtLine implements ITxtLine, ICursor<TxtChar> {
 
     public TxtLine() {
     }
-
-
     @Override
     public int CurrentIndex() {
         return CurrentIndex;

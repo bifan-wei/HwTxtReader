@@ -1,9 +1,14 @@
 package hw.txtreader;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +17,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bifan.txtreaderlib.main.TxtConfig;
 import com.bifan.txtreaderlib.ui.HwTxtPlayActivity;
 
 import java.io.File;
@@ -37,8 +43,33 @@ public class DemoActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {//是否选择，没选择就不会继续
+            Uri uri = data.getData();//得到uri，后面就是将uri转化成file的过程。
+            String[] pros = {MediaStore.Files.FileColumns.DATA};
+            try {
+                Cursor cursor = managedQuery(uri, pros, null, null, null);
+                int actual_txt_column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                cursor.moveToFirst();
+                String path = cursor.getString(actual_txt_column_index);
+                mEditText.setText(path);
+            } catch (Exception e) {
+                toast("选择出错了");
+            }
+        }
+    }
+
+    public void chooseFile(View view) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("text/plain");//设置类型
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intent, 3);
+    }
+
     public void loadFile(View view) {
         if (Permit) {
+            TxtConfig.saveIsOnVerticalPageMode(this,false);
             FilePath = mEditText.getText().toString().trim();
             if (TextUtils.isEmpty(FilePath) || !(new File(FilePath)).exists()) {
                 toast("文件不存在");
@@ -48,6 +79,42 @@ public class DemoActivity extends AppCompatActivity {
         }
     }
 
+    public void onVerticalMode(View view) {
+        if (Permit) {
+            FilePath = mEditText.getText().toString().trim();
+            if (TextUtils.isEmpty(FilePath) || !(new File(FilePath)).exists()) {
+                toast("文件不存在");
+            } else {
+                TxtConfig.saveIsOnVerticalPageMode(this,true);
+                HwTxtPlayActivity.loadTxtFile(this, FilePath);
+            }
+        }
+    }
+
+    public void loadStr(View view) {
+        if (Permit) {
+            String str = mEditText.getText().toString();
+            if (TextUtils.isEmpty(str)) {
+                toast("输入为空字符");
+            } else {
+                HwTxtPlayActivity.loadStr(this, str);
+            }
+        }
+    }
+
+
+    public void displayMore(View view) {
+        if (Permit) {
+            FilePath = mEditText.getText().toString().trim();
+            if (TextUtils.isEmpty(FilePath) || !(new File(FilePath)).exists()) {
+                toast("文件不存在");
+            } else {
+                Intent intent = new Intent(this, MoreDisplayActivity.class);
+                intent.putExtra("filePath", FilePath);
+                startActivity(intent);
+            }
+        }
+    }
 
     private Boolean CheckPermission() {
         if (ContextCompat.checkSelfPermission(this,

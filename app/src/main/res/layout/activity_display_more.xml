@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#00000000"
+    android:weightSum="10">
+
+    <com.bifan.txtreaderlib.main.TxtReaderView
+        android:id="@+id/txtReaderView_g_1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.bifan.txtreaderlib.main.TxtReaderView
+        android:id="@+id/txtReaderView_g_2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+
+    <com.bifan.txtreaderlib.main.TxtReaderView
+        android:id="@+id/txtReaderView_g_3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3" />
+    <com.bifan.txtreaderlib.main.TxtReaderView
+        android:id="@+id/txtReaderView_g_4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4" />
+</LinearLayout>

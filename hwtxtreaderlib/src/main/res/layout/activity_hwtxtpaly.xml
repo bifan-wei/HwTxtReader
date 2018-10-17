@@ -161,5 +161,11 @@
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone" />
-
+    <include
+        android:id="@+id/activity_hwtxtplay_chapter_msg"
+        layout="@layout/view_charpter_msg"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 </RelativeLayout>

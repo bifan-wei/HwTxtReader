@@ -28,5 +28,4 @@ public interface IParagraphData {
 
     void Clear();
 
-
 }

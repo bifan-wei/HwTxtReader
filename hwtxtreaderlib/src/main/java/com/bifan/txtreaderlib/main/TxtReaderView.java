@@ -188,6 +188,7 @@ public class TxtReaderView extends TxtReaderBaseView {
     protected void onTextSelectMoveForward(MotionEvent event) {
         getDrawer().onTextSelectMoveForward(event);
         if (textSelectListener != null) {
+            textSelectListener.onTextChanging(FirstSelectedChar,LastSelectedChar);
             textSelectListener.onTextChanging(getCurrentSelectedText());
         }
     }
@@ -196,6 +197,7 @@ public class TxtReaderView extends TxtReaderBaseView {
     protected void onTextSelectMoveBack(MotionEvent event) {
         getDrawer().onTextSelectMoveBack(event);
         if (textSelectListener != null) {
+            textSelectListener.onTextChanging(FirstSelectedChar,LastSelectedChar);
             textSelectListener.onTextChanging(getCurrentSelectedText());
         }
     }
@@ -414,14 +416,14 @@ public class TxtReaderView extends TxtReaderBaseView {
         IChapter currentChapter = getCurrentChapter();
         List<IChapter> chapters = getChapters();
         if (chapters == null || currentChapter == null) {
-            ELogger.log(tag, "chapters == null or currentChapter == null");
+            ELogger.log(tag, "jumpToPreChapter false chapters == null or currentChapter == null");
             return false;
         }
 
         int index = currentChapter.getIndex();
 
         if (index == 0 || chapters.size() == 0) {
-            ELogger.log(tag, "index == 0 or chapters.size() == 0");
+            ELogger.log(tag, "jumpToPreChapter false index == 0 or chapters.size() == 0");
             return false;
         }
         refreshTag(1, 1, 1);
@@ -440,12 +442,12 @@ public class TxtReaderView extends TxtReaderBaseView {
         IChapter currentChapter = getCurrentChapter();
         List<IChapter> chapters = getChapters();
         if (chapters == null || currentChapter == null) {
-            ELogger.log(tag, "chapters == null or currentChapter == null");
+            ELogger.log(tag, "jumpToNextChapter false chapters == null or currentChapter == null");
             return false;
         }
         int index = currentChapter.getIndex();
         if (index >= chapters.size() - 1 || chapters.size() == 0) {
-            ELogger.log(tag, "index < chapters.size() - 1 or chapters.size() == 0");
+            ELogger.log(tag, "jumpToNextChapter false  < chapters.size() - 1 or chapters.size() == 0");
             return false;
         }
 
@@ -545,6 +547,32 @@ public class TxtReaderView extends TxtReaderBaseView {
      */
     public List<IChapter> getChapters() {
         return readerContext.getChapters();
+    }
+
+
+    /**
+     * @param progress 获取指定进度的章节信息
+     * @return
+     */
+    public IChapter getChapterFromProgress(int progress) {
+        List<IChapter> chapters = getChapters();
+        if (chapters != null && chapters.size() > 0) {
+            int paragraphNum = getTxtReaderContext().getParagraphData().getParagraphNum();
+            int terminalParagraphIndex = progress * paragraphNum / 100;
+
+            if (terminalParagraphIndex == 0) {
+                return chapters.get(0);
+            }
+            for (IChapter chapter : chapters) {
+                int startIndex = chapter.getStartParagraphIndex();
+                int endIndex = chapter.getEndParagraphIndex();
+                ELogger.log("getChapterFromProgress",startIndex+","+endIndex);
+                if (terminalParagraphIndex >= startIndex && terminalParagraphIndex < endIndex) {
+                    return chapter;
+                }
+            }
+        }
+        return null;
     }
 
     private ILoadListener actionLoadListener = new LoadListenerAdapter() {
