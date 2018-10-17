@@ -15,6 +15,10 @@
 
 <br>
 
+##演示demo
+<br><br>
+**[apk下载](https://github.com/bifan-wei/HwTxtReader/tree/master/demoapk)**
+
 ## 更新日志请查看 updateLog.txt文件
 <br>
 
