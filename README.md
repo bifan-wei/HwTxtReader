@@ -51,23 +51,21 @@ dependencies {
 ```
 <br>
 <br> 
- **使用默认界面使用的话，只需要一句代码:**
+ ** 使用默认界面使用的话，只需要一句代码: **
 <br> 
 <br> 
  ```java
- 
  HwTxtPlayActivity.loadTxtFile(this, FilePath);
- 
- ```
+  ```
 <br>
 <br>
-  **使用自定义view的话，直接使用TxtReaderView (详细请看Wiki)**
+**使用自定义view的话，直接使用TxtReaderView (详细请看Wiki)**
   **xml中:**
 <br>
 <br>
 ```java
 
-  <com.bifan.txtreaderlib.main.TxtReaderView 
+      <com.bifan.txtreaderlib.main.TxtReaderView 
         android:id="@+id/activity_hwtxtplay_readerView" 
         android:layout_width="match_parent"  
         android:layout_height="match_parent" 
