@@ -1,8 +1,6 @@
-![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_txt_logo.png)
+![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_txt_logo.png) <br> 
 **HwTxtReader 是一个轻量级text文本播放控件，能帮助你快速集成加载播放text文本文件功能，同时内置默认的播放页面，能让你快速集成一个简洁漂亮的text阅读器**
-
-
-## 目前实现了的功能：
+**目前实现了的功能：**
 1. 字体设置与调节。包括大小、颜色、是否加粗。<br> 
 2.页面风格设置，夜间模式等。<br> 
 3. 进度跳转与当前进度获取。<br> 
@@ -18,25 +16,24 @@
 ## 更新日志请查看 updateLog.txt文件
 <br>
 
-## 目前demo效果图：
+**目前demo效果图：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)
-
-## 章节列表效果图：
+<br>
+**章节列表效果图：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_chaper.png)
-
-## 覆盖翻页效果：
+<br>
+**覆盖翻页效果：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_cover.png)
-
-
-## 文字复制效果：
+<br>
+**文字复制效果：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_copy.png)
-
+<br>
 
 # 使用方法：
 <br>
 <br>
 
-## 添加hwtxtreaderlib依赖 
+**添加hwtxtreaderlib依赖 
 
 ```java
 
@@ -54,14 +51,14 @@
 	
 ```
 
-##  使用默认界面使用的话，只需要一句代码： 
+**使用默认界面使用的话，只需要一句代码： 
  ```java
  HwTxtPlayActivity.loadTxtFile(this, FilePath);
  ```
 <br>
 
-## 使用自定义view的话，直接使用TxtReaderView (详细请看Wiki)
-### xml中：
+**使用自定义view的话，直接使用TxtReaderView (详细请看Wiki)
+**xml中：
 ```xml
   <com.bifan.txtreaderlib.main.TxtReaderView 
         android:id="@+id/activity_hwtxtplay_readerView" 
@@ -69,8 +66,7 @@
         android:layout_height="match_parent" 
        />
 ```
-
-### 代码中调用loadTxtFile方法直接加载文件：
+**代码中调用loadTxtFile方法直接加载文件：
  
  ```java
  mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() { 
