@@ -35,25 +35,27 @@
 <br>
 <br>
 
-**添加hwtxtreaderlib依赖 **<br>
+**添加hwtxtreaderlib依赖 **
+<br> 
  ```java
-    allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+ allprojects {
+repositories {
+	...
+	maven { url 'https://jitpack.io' }
+}
  
-  dependencies {
+dependencies {
 	        compile 'com.github.bifan-wei:HwTxtReader:V1.3.9'
-	}
+		}
 ```
 <br>
-**使用默认界面使用的话，只需要一句代码：**<br> 
+
+**使用默认界面使用的话，只需要一句代码：**
+<br> 
  ```java
  HwTxtPlayActivity.loadTxtFile(this, FilePath);
  ```
 <br>
-
 **使用自定义view的话，直接使用TxtReaderView (详细请看Wiki)**<br>
 **xml中：**<br>
 ```xml
