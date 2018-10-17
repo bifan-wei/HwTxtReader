@@ -34,24 +34,22 @@
 # 使用方法：
 <br>
 <br>
-**添加hwtxtreaderlib依赖 **
-<br>
-```java
 
+**添加hwtxtreaderlib依赖 **<br>
+
+```java
     allprojects {
 		repositories {
 			...
 			maven { url 'https://jitpack.io' }
 		}
-  
-
  
   dependencies {
 	        compile 'com.github.bifan-wei:HwTxtReader:V1.3.9'
 	}
-	
 ```
 
+<br>
 **使用默认界面使用的话，只需要一句代码：**<br> 
  ```java
  HwTxtPlayActivity.loadTxtFile(this, FilePath);
