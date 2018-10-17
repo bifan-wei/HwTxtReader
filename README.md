@@ -48,7 +48,9 @@ repositories {
 dependencies {
 	        compile 'com.github.bifan-wei:HwTxtReader:V1.3.9'
 		}
+		
 ```
+
 **使用默认界面使用的话，只需要一句代码: **
  ```java
  HwTxtPlayActivity.loadTxtFile(this, FilePath);
