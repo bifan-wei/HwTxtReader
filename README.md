@@ -36,8 +36,7 @@
 <br>
 
 **添加hwtxtreaderlib依赖 **<br>
-
-```java
+ ```java
     allprojects {
 		repositories {
 			...
@@ -48,7 +47,6 @@
 	        compile 'com.github.bifan-wei:HwTxtReader:V1.3.9'
 	}
 ```
-
 <br>
 **使用默认界面使用的话，只需要一句代码：**<br> 
  ```java
