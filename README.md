@@ -1,5 +1,5 @@
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_txt_logo.png) <br> 
-**想要快速实现文本播放显示功能么？HwTxtReader 是一个轻量级text文本播放控件，能帮助你快速集成加载播放text文本文件功能，同时内置默认的播放页面，能让你快速集成一个简洁漂亮的text阅读器**<br> 
+**想要快速实现文本播放显示功能么？HwTxtReader 是一个轻量级文本播放控件，能帮助你快速集成加载播放小说文本文件功能，同时内置默认的播放页面，能让你快速集成一个简洁漂亮的小说阅读器**<br> 
 <br> <br> 
 **目前实现了的功能：**
 1. 字体设置与调节。包括大小、颜色、是否加粗。<br> 
