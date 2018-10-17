@@ -1,9 +1,9 @@
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_txt_logo.png) <br> 
-**HwTxtReader 是一个轻量级text文本播放控件，能帮助你快速集成加载播放text文本文件功能，同时内置默认的播放页面，能让你快速集成一个简洁漂亮的text阅读器**
-<br> 
+**想要快速实现文本播放显示功能么？HwTxtReader 是一个轻量级text文本播放控件，能帮助你快速集成加载播放text文本文件功能，同时内置默认的播放页面，能让你快速集成一个简洁漂亮的text阅读器**<br> 
+<br> <br> 
 **目前实现了的功能：**
 1. 字体设置与调节。包括大小、颜色、是否加粗。<br> 
-2.页面风格设置，夜间模式等。<br> 
+2. 页面风格设置，夜间模式等。<br> 
 3. 进度跳转与当前进度获取。<br> 
 4. 章节获取与章节跳转。<br> 
 5. 可以滑盖翻页与平移翻页切换，支持轻击翻页。<br> 
@@ -12,6 +12,7 @@
 8. 自动跳转到上次阅读进度。<br> 
 9. 支持设置段落间距。<br> 
 10. 支持竖向排版
+
 <br>
 
 ## 更新日志请查看 updateLog.txt文件
@@ -19,23 +20,22 @@
 
 **目前demo效果图：**<br>
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)
-<br>
+<br><br>
 **章节列表效果图：**<br>
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_chaper.png)
-<br>
+<br><br>
 **覆盖翻页效果：**<br>
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_cover.png)
-<br>
+<br><br>
 **文字复制效果：**<br>
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_copy.png)
-<br>
+<br><br>
 
 # 使用方法：
 <br>
 <br>
-
-**添加hwtxtreaderlib依赖 **<br>
-
+**添加hwtxtreaderlib依赖 **
+<br>
 ```java
 
     allprojects {
