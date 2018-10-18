@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'//this
-group='com.github.bifan-wei'//this
 
 android {
     compileSdkVersion 27
@@ -22,6 +20,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27+'
     implementation files('libs/chardet.jar')
 }
