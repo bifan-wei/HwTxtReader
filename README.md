@@ -17,8 +17,8 @@
 
 **演示demo**
 <br><br>
-**[apk下载](https://github.com/bifan-wei/HwTxtReader/tree/master/demoapk)**
-
+**[apk下载](https://github.com/bifan-wei/HwTxtReader/tree/master/demoapk)** <br>
+![image](https://github.com/bifan-wei/bifanResource/blob/master/videos/demo_video.gif)
 ## 更新日志请查看 updateLog.txt文件
 <br>
 
@@ -50,7 +50,8 @@ repositories {
 }
  
 dependencies {
-	        compile 'com.github.bifan-wei:HwTxtReader:V1.3.9'
+	        compile 'com.github.bifan-wei:HwTxtReader:V2.1.1'
+	        //注意Android support 版本请使用27+
 		}
 		
 ```
