@@ -25,14 +25,7 @@
 **目前demo效果图：**<br>
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)
 <br><br>
-**章节列表效果图：**<br>
-![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_chaper.png)
-<br><br>
-**覆盖翻页效果：**<br>
-![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_cover.png)
-<br><br>
-**文字复制效果：**<br>
-![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_copy.png)
+![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_show.png)
 <br><br>
 
 # 使用方法：
