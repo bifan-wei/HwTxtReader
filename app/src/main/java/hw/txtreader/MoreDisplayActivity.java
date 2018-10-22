@@ -2,6 +2,7 @@ package hw.txtreader;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
@@ -25,24 +26,43 @@ public class MoreDisplayActivity extends AppCompatActivity {
             Color.parseColor("#27576c")
     };
 
+    private Handler handler;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        handler = new Handler();
         setContentView(R.layout.activity_display_more);
-        setReaderView((TxtReaderView) findViewById(R.id.txtReaderView_g_1), backgroundColors[0], textColors[0]);
-        setReaderView((TxtReaderView) findViewById(R.id.txtReaderView_g_2), backgroundColors[1], textColors[1]);
-        setReaderView((TxtReaderView) findViewById(R.id.txtReaderView_g_3), backgroundColors[2], textColors[2]);
-        setReaderView((TxtReaderView) findViewById(R.id.txtReaderView_g_4), backgroundColors[3], textColors[3]);
+        setReaderView((TxtReaderView) findViewById(R.id.txtReaderView_g_1), backgroundColors[0], textColors[0], 20);
+        setReaderView((TxtReaderView) findViewById(R.id.txtReaderView_g_2), backgroundColors[1], textColors[1], 200);
+        setReaderView((TxtReaderView) findViewById(R.id.txtReaderView_g_3), backgroundColors[2], textColors[2], 400);
+        setReaderView((TxtReaderView) findViewById(R.id.txtReaderView_g_4), backgroundColors[3], textColors[3], 600);
     }
 
-    private void setReaderView(final TxtReaderView readerView, final int background, final int textColor) {
-        String path = getIntent().getStringExtra("filePath");
-        readerView.loadTxtFile(path, new LoadListenerAdapter() {
+    private void setReaderView(final TxtReaderView readerView, final int background, final int textColor, long delatLoadTime) {
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onSuccess() {
-                readerView.setStyle(background, textColor);
-                //readerView.setPageSwitchByTranslate();
+            public void run() {
+                String path = getIntent().getStringExtra("filePath");
+                readerView.loadTxtFile(path, new LoadListenerAdapter() {
+                    @Override
+                    public void onSuccess() {
+                        readerView.setStyle(background, textColor);
+                        //readerView.setPageSwitchByTranslate();
+                    }
+                });
             }
-        });
+        }, delatLoadTime);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

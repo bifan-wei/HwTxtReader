@@ -21,6 +21,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27+'
     implementation files('libs/chardet.jar')
 }

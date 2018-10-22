@@ -96,7 +96,12 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         FilePath = getIntent().getStringExtra("FilePath");
         FileName = getIntent().getStringExtra("FileName");
         ContentStr = getIntent().getStringExtra("ContentStr");
-        return FilePath != null && new File(FilePath).exists();
+        if (ContentStr == null) {
+            return FilePath != null && new File(FilePath).exists();
+        } else {
+            return true;
+        }
+
     }
 
     private String getRealPathFromUri(Uri contentUri) {
