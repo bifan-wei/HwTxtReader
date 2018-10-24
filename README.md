@@ -1,35 +1,34 @@
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_txt_logo.png) <br> 
 **想要快速实现文本播放显示功能么？HwTxtReader 是一个轻量级文本播放控件，能帮助你快速集成加载播放小说文本文件功能，同时内置默认的播放页面，能让你快速集成一个简洁漂亮的小说阅读器**<br> 
 <br> <br> 
-**目前实现了的功能：**
-1. 字体设置与调节。包括大小、颜色、是否加粗。<br> 
-2. 页面风格设置，夜间模式等。<br> 
-3. 进度跳转与当前进度获取。<br> 
-4. 章节获取与章节跳转。<br> 
-5. 可以滑盖翻页与平移翻页切换，支持轻击翻页。<br> 
-6. 可以进行长按滑动选择复制文字。<br> 
-7. 数字与英文字符显示特点颜色。<br> 
-8. 自动跳转到上次阅读进度。<br> 
-9. 支持设置段落间距。<br> 
-10. 支持竖向排版
+#### 目前实现了的功能：
++  字体设置与调节。包括大小、颜色、是否加粗。<br>
++   页面风格设置，夜间模式等。<br>
++   进度跳转与当前进度获取。<br>
++   章节获取与章节跳转。<br>
++   可以滑盖翻页与平移翻页切换，支持轻击翻页。<br>
++   可以进行长按滑动选择复制文字。<br>
++   数字与英文字符显示特点颜色。<br>
++   自动跳转到上次阅读进度。<br>
++   支持设置段落间距。<br>
++  支持竖向排版
 
 <br>
 
-**演示demo**
+#### 演示demo
 <br><br>
 **[apk下载](https://github.com/bifan-wei/HwTxtReader/tree/master/demoapk)** <br>
 ![image](https://github.com/bifan-wei/bifanResource/blob/master/videos/demo_video.gif)
-## 更新日志请查看 updateLog.txt文件
+#### 更新日志请查看 updateLog.txt文件
 <br>
 
-**目前demo效果图：**<br>
+#### 目前demo效果图：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)
 <br><br>
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_show.png)
 <br><br>
 
-# 使用方法：
-<br>
+#### 使用方法：
 <br>
 
  **添加hwtxtreaderlib依赖**
@@ -91,5 +90,5 @@ dependencies {
 <br> 
 <br> 
 
-**如果你觉得还不错，欢迎start支持。**<br> 
+#### 如果你觉得还不错，欢迎start支持。
 

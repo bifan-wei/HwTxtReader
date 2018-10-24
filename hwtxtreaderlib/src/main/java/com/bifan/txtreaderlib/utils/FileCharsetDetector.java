@@ -1,5 +1,7 @@
 package com.bifan.txtreaderlib.utils;
 
+import android.text.TextUtils;
+
 import org.mozilla.intl.chardet.nsDetector;
 import org.mozilla.intl.chardet.nsICharsetDetectionObserver;
 
@@ -13,7 +15,7 @@ public class FileCharsetDetector {
     private boolean found = false;
     private String encoding = null;
 
-    public static void main(String[] argv) throws Exception {
+    public static void main(String[] argv) {
     }
 
 
@@ -40,6 +42,11 @@ public class FileCharsetDetector {
             }
             if (!checked) {
                 charset = guessFileEncoding(file, new nsDetector());
+                if (!TextUtils.isEmpty(charset)) {
+                    if (charset.equals("Big5")) {
+                        charset = "GBK";
+                    }
+                }
             }
             bis.reset();
             bis.close();
@@ -59,7 +66,7 @@ public class FileCharsetDetector {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    private String guessFileEncoding(File file, nsDetector det) throws  IOException {
+    private String guessFileEncoding(File file, nsDetector det) throws IOException {
         // Set an observer...
         // The Notify() will be called when a matching charset is found.
         det.Init(new nsICharsetDetectionObserver() {

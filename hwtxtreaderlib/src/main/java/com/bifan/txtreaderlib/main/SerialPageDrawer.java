@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 import android.widget.Scroller;
 
 import com.bifan.txtreaderlib.interfaces.IReaderViewDrawer;
-import com.bifan.txtreaderlib.utils.ELogger;
 
 /**
  * Created by bifan-wei
@@ -201,7 +200,6 @@ public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawe
     @Override
     public void computeScroll() {
         if (scroller.computeScrollOffset()) {
-            ELogger.log(tag,"computeScroll");
             readerView.mTouch.x = scroller.getCurrX();
             readerView.invalidate();
             checkPageData();
