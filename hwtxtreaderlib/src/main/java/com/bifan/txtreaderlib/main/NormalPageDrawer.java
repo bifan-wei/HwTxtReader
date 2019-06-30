@@ -39,14 +39,24 @@ public class NormalPageDrawer extends PageDrawerBase implements IReaderViewDrawe
     @Override
     public void drawPageNextBottomPage(Canvas canvas) {
         //绘制执行下一页时的下面页部分
+     /*  float x =getWidth()+getMoveDistance();
         mPath.reset();
-        mPath.moveTo(getWidth() + getMoveDistance(), 0);
+        mPath.moveTo(x, 0);
         mPath.lineTo(getWidth(), 0);
         mPath.lineTo(getWidth(), getHeight());
-        mPath.lineTo(getWidth() + getMoveDistance(), getHeight());
-        mPath.lineTo(getWidth() + getMoveDistance(), 0);
+        mPath.lineTo(x, getHeight());
+        mPath.lineTo(x, 0);
+        canvas.clipPath(mPath, Region.Op.INTERSECT);
+        canvas.drawBitmap(getBottomPage(), x, x, null);*/
 
-        canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
+        float x =getWidth()+getMoveDistance();
+        mPath.reset();
+        mPath.moveTo(x, 0);
+        mPath.lineTo(getWidth(), 0);
+        mPath.lineTo(getWidth(), getHeight());
+        mPath.lineTo(x, getHeight());
+        mPath.lineTo(x, 0);
+        canvas.clipPath(mPath, Region.Op.INTERSECT);
         canvas.drawBitmap(getBottomPage(), 0, 0, null);
 
     }
@@ -56,11 +66,11 @@ public class NormalPageDrawer extends PageDrawerBase implements IReaderViewDrawe
         //绘制执行下一页时的上面页部分
         mPath.reset();
         mPath.moveTo(0, 0);
-        mPath.lineTo(getWidth() + getMoveDistance(), 0);
-        mPath.lineTo(getWidth() + getMoveDistance(), getHeight());
+        mPath.lineTo(getWidth() , 0);
+        mPath.lineTo(getWidth() , getHeight());
         mPath.lineTo(0, getHeight());
         mPath.lineTo(0, 0);
-        canvas.clipPath(mPath);
+        canvas.clipPath(mPath,Region.Op.INTERSECT);
         canvas.drawBitmap(getTopPage(), getMoveDistance()+1, 0, null);
     }
 
@@ -82,28 +92,30 @@ public class NormalPageDrawer extends PageDrawerBase implements IReaderViewDrawe
     @Override
     public void drawPagePreBottomPage(Canvas canvas) {
         //绘制执行上一页时的下面页部分
+        float x = getMoveDistance();
         mPath.reset();
         mPath.moveTo(0, 0);
-        mPath.lineTo(getMoveDistance(), 0);
-        mPath.lineTo(getMoveDistance(), getHeight());
+        mPath.lineTo(x, 0);
+        mPath.lineTo(x, getHeight());
         mPath.lineTo(0, getHeight());
         mPath.lineTo(0, 0);
-
-        canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
+        canvas.clipPath(mPath, Region.Op.INTERSECT);
         canvas.drawBitmap(getBottomPage(), 0, 0, null);
     }
 
     @Override
     public void drawPagePreTopPage(Canvas canvas) {
         //绘制执行上一页时的上面页部分
+        float distance = getMoveDistance();
+        float x = getWidth();
         mPath.reset();
-        mPath.moveTo(getMoveDistance(), 0);
-        mPath.lineTo(getWidth(), 0);
-        mPath.lineTo(getWidth(), getHeight());
-        mPath.lineTo(getMoveDistance(), getHeight());
-        mPath.lineTo(getMoveDistance(), 0);
-        canvas.clipPath(mPath);
-        canvas.drawBitmap(getTopPage(), getMoveDistance(), 0, null);
+        mPath.moveTo(0, 0);
+        mPath.lineTo(x , 0);
+        mPath.lineTo(x , getHeight());
+        mPath.lineTo(0, getHeight());
+        mPath.lineTo(0, 0);
+        canvas.clipPath(mPath, Region.Op.INTERSECT);
+        canvas.drawBitmap(getTopPage(), distance, 0, null);
     }
 
     private Boolean onPageStateBackAnimation = false;

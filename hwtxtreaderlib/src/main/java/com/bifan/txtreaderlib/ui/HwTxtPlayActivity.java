@@ -54,7 +54,6 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         init();
         loadFile();
         registerListener();
-
     }
 
     protected int getContentViewLayout() {
@@ -255,6 +254,9 @@ public class HwTxtPlayActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     */
     protected void loadOurFile() {
         mTxtReaderView.loadTxtFile(FilePath, new ILoadListener() {
             @Override

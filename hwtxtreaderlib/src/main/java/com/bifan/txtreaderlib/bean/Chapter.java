@@ -32,7 +32,6 @@ public class Chapter implements IChapter {
     }
 
     public Chapter() {
-
     }
 
     public void setTitle(String title) {

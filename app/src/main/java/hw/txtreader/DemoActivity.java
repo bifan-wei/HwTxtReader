@@ -25,7 +25,7 @@ import java.io.File;
 public class DemoActivity extends AppCompatActivity {
     private String tag = "MainActivity";
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 0x01;
-    private String FilePath = Environment.getExternalStorageDirectory() + "/test5.txt";
+    private String FilePath = Environment.getExternalStorageDirectory() + "/test4.txt";
     private Boolean Permit = false;
     private EditText mEditText;
 
