@@ -6,7 +6,7 @@
 +   页面风格设置，夜间模式等。<br>
 +   进度跳转与当前进度获取。<br>
 +   章节获取与章节跳转。<br>
-+   可以滑盖翻页与平移翻页切换，支持轻击翻页。<br>
++   可以滑盖翻页、平移翻页切换、剪切翻页切换，支持轻击翻页。<br>
 +   可以进行长按滑动选择复制文字。<br>
 +   数字与英文字符显示特点颜色。<br>
 +   自动跳转到上次阅读进度。<br>
@@ -15,6 +15,10 @@
 
 <br>
 
+#### 2019/06/30最新更新：增加剪切翻页风格，需要直接下代码
+<br>
+![image](https://github.com/bifan-wei/bifanResource/blob/master/git/shear.gif)
+<br>
 #### 演示demo
 <br><br>
 **[apk下载](https://github.com/bifan-wei/HwTxtReader/tree/master/demoapk)** <br>
