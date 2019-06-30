@@ -15,10 +15,9 @@
 
 <br>
 
-#### 2019/06/30最新更新：增加剪切翻页风格，需要直接下代码
-<br>
-![image](https://github.com/bifan-wei/bifanResource/blob/master/git/shear.gif)
-<br>
+#### 2019/06/30最新更新：增加剪切翻页风格，需要直接下代码<br><br>
+![image](https://github.com/bifan-wei/bifanResource/blob/master/git/shear.gif)<br>
+
 #### 演示demo
 <br><br>
 **[apk下载](https://github.com/bifan-wei/HwTxtReader/tree/master/demoapk)** <br>
