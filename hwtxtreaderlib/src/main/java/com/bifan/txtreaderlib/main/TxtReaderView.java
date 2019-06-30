@@ -487,16 +487,24 @@ public class TxtReaderView extends TxtReaderBaseView {
      */
     public void setPageSwitchByTranslate() {
         TxtConfig.saveSwitchByTranslate(getContext(), true);
-        getTxtReaderContext().getTxtConfig().SwitchByTranslate = true;
+        getTxtReaderContext().getTxtConfig().Page_Switch_Mode = TxtConfig.PAGE_SWITCH_MODE_SERIAL;
         drawer = new SerialPageDrawer(this, readerContext, mScroller);
     }
 
+    /**
+     * 剪切切换页面
+     */
+    public void setPageSwitchByShear() {
+        TxtConfig.saveSwitchByTranslate(getContext(), true);
+        getTxtReaderContext().getTxtConfig().Page_Switch_Mode = TxtConfig.PAGE_SWITCH_MODE_SHEAR;
+        drawer = new ShearPageDrawer(this, readerContext, mScroller);
+    }
     /**
      * 滑盖切换页面
      */
     public void setPageSwitchByCover() {
         TxtConfig.saveSwitchByTranslate(getContext(), false);
-        getTxtReaderContext().getTxtConfig().SwitchByTranslate = false;
+        getTxtReaderContext().getTxtConfig().Page_Switch_Mode = TxtConfig.PAGE_SWITCH_MODE_COVER;
         drawer = new NormalPageDrawer(this, readerContext, mScroller);
     }
 

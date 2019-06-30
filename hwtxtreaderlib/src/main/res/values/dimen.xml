@@ -2,8 +2,8 @@
 <resources>
     <dimen name="hwtxtreader_menu_textsize_min">13sp</dimen>
     <dimen name="hwtxtreader_menu_textsize_normal">15sp</dimen>
-    <dimen name="hwtxtreader_menu_textsize_max">17sp</dimen>
+    <dimen name="hwtxtreader_menu_textsize_max">15sp</dimen>
     <dimen name="hwtxtreader_menu_textsetting_padding_topbottom">3dp</dimen>
-    <dimen name="hwtxtreader_menu_textsetting_padding_leftright">12dp</dimen>
+    <dimen name="hwtxtreader_menu_textsetting_padding_leftright">10dp</dimen>
     <dimen name="hwtxtreader_ic_selector">20dp</dimen>
 </resources>

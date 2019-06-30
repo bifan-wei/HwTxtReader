@@ -71,7 +71,7 @@ public class TxtConfigInitTask implements ITxtTask {
         config.SelectTextColor = TxtConfig.getSelectTextColor(readerContext.context);
         config.SliderColor = TxtConfig.getSliderColor(readerContext.context);
         config.Bold = TxtConfig.isBold(readerContext.context);
-        config.SwitchByTranslate = TxtConfig.isSwitchByTranslate(readerContext.context);
+        config.Page_Switch_Mode = TxtConfig.getPageSwitchMode(readerContext.context);
         config.ShowSpecialChar = TxtConfig.IsShowSpecialChar(readerContext.context);
         config.VerticalPageMode = TxtConfig.IsOnVerticalPageMode(readerContext.context);
         config.PageSwitchDuration = TxtConfig.getPageSwitchDuration(readerContext.context);
