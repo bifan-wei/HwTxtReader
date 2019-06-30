@@ -15,7 +15,7 @@
 
 <br>
 
-#### 2019/06/30最新更新：增加剪切翻页风格，需要直接下代码<br><br>
+#### 2019/06/30最新更新：增加剪切翻页风格，需要直接下代码,你的点赞是对我最大的支持，欢迎start issue！<br><br>
 ![image](https://github.com/bifan-wei/bifanResource/blob/master/git/shear.gif)<br>
 
 #### 演示demo
