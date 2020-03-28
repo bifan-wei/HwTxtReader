@@ -81,6 +81,60 @@ public class TxtBitmapUtil {
         if (page == null || !page.HasData() || bg == null || bg.isRecycled()) {
             return null;
         }
+
+        Bitmap bitmap = bg.copy(Bitmap.Config.RGB_565, true);
+        Canvas canvas = new Canvas(bitmap);
+        List<ITxtLine> lines = page.getLines();
+        int textHeight = txtConfig.textSize;
+        int lineWidth = (int) pageParam.LineWidth;
+        int bottom = pageParam.PaddingTop + textHeight;
+        float CharPadding = pageParam.TextPadding;
+        Paint paint = paintContext.textPaint;
+        int defaultColor = txtConfig.textColor;
+
+        float x = calculateX(pageParam, txtConfig, page);
+        float y = bottom;
+
+        if (!txtConfig.ShowSpecialChar) {
+            paint.setColor(defaultColor);
+        }
+        for (ITxtLine line : lines) {
+            if (line.HasData()) {
+                for (TxtChar txtChar : line.getTxtChars()) {
+                    if (txtConfig.ShowSpecialChar) {
+                        if (txtChar instanceof NumChar || txtChar instanceof EnChar) {
+                            paint.setColor(txtChar.getTextColor());
+                        } else {
+                            paint.setColor(defaultColor);
+                        }
+                    }
+                    canvas.drawText(txtChar.getValueStr(), x, y, paint);
+                    txtChar.Left = (int) x;
+                    txtChar.Right = (int) (x + textHeight + 5);
+                    txtChar.Bottom = (int) (y + 5);
+                    txtChar.Top = (int) (txtChar.Bottom - txtChar.CharWidth);
+                    y = y + CharPadding + textHeight;
+                }
+                x = x - lineWidth;
+                y = bottom;
+            }
+        }
+
+        return bitmap;
+    }
+
+    private static float calculateX( PageParam pageParam, TxtConfig txtConfig, IPage page) {
+        int lineNum = page.getLineNum();
+        int margin = (pageParam.PageWidth - txtConfig.textSize * lineNum - pageParam.LinePadding * (lineNum - 1) ) / 2;
+        return pageParam.PageWidth - margin-txtConfig.textSize;
+    }
+
+
+    public static final Bitmap createVerticalPage0(Bitmap bg, PaintContext paintContext, PageParam pageParam, TxtConfig txtConfig, IPage page) {
+        if (page == null || !page.HasData() || bg == null || bg.isRecycled()) {
+            return null;
+        }
+
         Bitmap bitmap = bg.copy(Bitmap.Config.RGB_565, true);
         Canvas canvas = new Canvas(bitmap);
         List<ITxtLine> lines = page.getLines();
@@ -112,10 +166,10 @@ public class TxtBitmapUtil {
                     }
                     canvas.drawText(txtChar.getValueStr(), x, y, paint);
                     txtChar.Left = (int) x;
-                    txtChar.Right = (int) (x + textHeight+5);
-                    txtChar.Bottom =  (int) (y + 5);
+                    txtChar.Right = (int) (x + textHeight + 5);
+                    txtChar.Bottom = (int) (y + 5);
                     txtChar.Top = (int) (txtChar.Bottom - txtChar.CharWidth);
-                    y = y + CharPadding+textHeight;
+                    y = y + CharPadding + textHeight;
                 }
                 x = x + lineWidth;
                 y = bottom;
