@@ -16,6 +16,7 @@
 
 <br>
 #### 2020/03/28 最新更新：优化竖向古风排版，欢迎start issue！<br><br>
+
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_style.png)<br>
 
 #### 2019/06/30最新更新：增加剪切翻页风格，需要直接下代码。周末不陪女朋友宅宿舍更新这个，良心维护啊！！你的点赞是对我最大的支持，欢迎start issue！<br><br>
