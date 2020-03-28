@@ -15,6 +15,7 @@
 +   支持点击手机本地txt文件后，可以选择该阅读器打开
 
 <br>
+
 #### 2020/03/28 最新更新：优化竖向古风排版，欢迎start issue！<br><br>
 
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_style.png)<br>
