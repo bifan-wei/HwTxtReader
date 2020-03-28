@@ -1,6 +1,9 @@
 package com.bifan.txtreaderlib.tasks;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 
 import com.bifan.txtreaderlib.interfaces.ILoadListener;
 import com.bifan.txtreaderlib.interfaces.ITxtTask;
@@ -49,7 +52,7 @@ public class TxtConfigInitTask implements ITxtTask {
             startCharIndex = readerContext.getFileMsg().PreCharIndex;
         }
         //init  Context
-        initPainContext(readerContext.getPaintContext(), readerContext.getTxtConfig());
+        initPainContext(readerContext.context, readerContext.getPaintContext(), readerContext.getTxtConfig());
 
         ITxtTask txtTask = new TxtPageLoadTask(startParagraphIndex, startCharIndex);
         txtTask.Run(callBack, readerContext);
@@ -81,7 +84,7 @@ public class TxtConfigInitTask implements ITxtTask {
      * @param paintContext
      * @param txtConfig
      */
-    public static void initPainContext(PaintContext paintContext, TxtConfig txtConfig) {
+    public static void initPainContext(Context context, PaintContext paintContext, TxtConfig txtConfig) {
         paintContext.textPaint.setTextSize(txtConfig.textSize);
         paintContext.textPaint.setFakeBoldText(txtConfig.Bold);
         paintContext.textPaint.setTextAlign(Paint.Align.LEFT);
@@ -98,6 +101,13 @@ public class TxtConfigInitTask implements ITxtTask {
         paintContext.sliderPaint.setColor(txtConfig.SliderColor);
         paintContext.sliderPaint.setAntiAlias(true);
         paintContext.textPaint.setFakeBoldText(txtConfig.Bold);
+        if (txtConfig.VerticalPageMode) {
+            AssetManager mgr = context.getAssets();
+            Typeface tf = Typeface.createFromAsset(mgr, "fonts/text_style.TTF");
+            paintContext.textPaint.setTypeface(tf);
+        } else {
+            paintContext.textPaint.setTypeface(null);
+        }
     }
 
     private void initPageParam(TxtReaderContext readerContext) {
