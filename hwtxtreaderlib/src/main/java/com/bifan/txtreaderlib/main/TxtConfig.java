@@ -25,7 +25,7 @@ public class TxtConfig {
     public static final String C_CENTER_CLICK_AREA = "CENTER_CLICK_AREA";
     public static final String C_PAGE_SWITCH_DURATION = "PAGE_SWITCH_DURATION";
     public static final String C_PAGE_VERTICAL_MODE = "PAGE_VERTICAL_MODE ";
-    public static final String C_PAGE_SWITCH_STYPE_MODE = "PAGE_SWITCH_STYPE_MODE ";
+    public static final String C_PAGE_SWITCH_TYPE_MODE = "PAGE_SWITCH_SYPE_MODE ";
 
     public static  final int PAGE_SWITCH_MODE_COVER = 1;//in px
     public static  final int PAGE_SWITCH_MODE_SERIAL = 2;//in px
@@ -51,10 +51,11 @@ public class TxtConfig {
     public int SelectTextColor = DEFAULT_SELECT_TEXT_COLOR;//选中颜色
     public int SliderColor = DEFAULT_SLIDER_COLOR;//滑动条颜色
 
+    public static  boolean DebugMode = true;//debug模式会进行打印日志，默认是开启
 
     public Boolean showNote = true;//是否显示笔记
     public Boolean canPressSelect = true;//是否能长按选中
-    //public Boolean SwitchByTranslate = true;//是否平移切换
+
     public Boolean VerticalPageMode = false;
     public Boolean Bold = false;//是否加粗
     public Boolean ShowSpecialChar = true;//是否显示特殊符号，对于数字、英文，可以显示特定颜色
@@ -68,7 +69,7 @@ public class TxtConfig {
 
     public static int getPageSwitchMode(Context context) {
         SharedPreferences share = getS(context);
-        int PageSwitchMode =  share.getInt(C_PAGE_SWITCH_STYPE_MODE, PAGE_SWITCH_MODE_COVER);
+        int PageSwitchMode =  share.getInt(C_PAGE_SWITCH_TYPE_MODE, PAGE_SWITCH_MODE_COVER);
         if(PageSwitchMode!=PAGE_SWITCH_MODE_COVER
                 &&PageSwitchMode!= PAGE_SWITCH_MODE_SERIAL
                 &&PageSwitchMode!= PAGE_SWITCH_MODE_SHEAR){
@@ -84,7 +85,7 @@ public class TxtConfig {
     public static void savePageSwitchMode(Context context,int PageSwitchMode) {
         SharedPreferences share = getS(context);
         SharedPreferences.Editor editor = share.edit();
-        editor.putInt(C_PAGE_SWITCH_STYPE_MODE, PageSwitchMode);
+        editor.putInt(C_PAGE_SWITCH_TYPE_MODE, PageSwitchMode);
         editor.commit();
     }
 
@@ -276,6 +277,6 @@ public class TxtConfig {
 
     public static Boolean IsOnVerticalPageMode(Context context) {
         SharedPreferences share = getS(context);
-        return share.getBoolean(C_PAGE_VERTICAL_MODE, true);
+        return share.getBoolean(C_PAGE_VERTICAL_MODE, false);
     }
 }

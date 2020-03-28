@@ -3,6 +3,7 @@ package com.bifan.txtreaderlib.utils;
 import android.util.Log;
 
 import com.bifan.txtreaderlib.interfaces.ITxtReaderLoggerListener;
+import com.bifan.txtreaderlib.main.TxtConfig;
 
 /**
  * Created by HP on 2017/11/15.
@@ -14,9 +15,11 @@ public class ELogger {
         ELogger.l = l;
     }
     public static void log(String tag, String msg) {
-        Log.e(tag, msg + "");
-        if (l != null) {
-            l.onLog(tag, msg + "");
+        if(TxtConfig.DebugMode) {
+            Log.e(tag, msg + "");
+            if (l != null) {
+                l.onLog(tag, msg + "");
+            }
         }
     }
 

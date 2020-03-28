@@ -59,7 +59,6 @@ public class FileCharsetDetector {
 
     /**
      * 获取文件的编码
-     *
      * @param file
      * @param det
      * @return
