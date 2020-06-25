@@ -28,9 +28,6 @@
 #### 演示demo
 <br><br>
 **[apk下载](https://github.com/bifan-wei/HwTxtReader/tree/master/demoapk)** <br>
-![image](https://github.com/bifan-wei/bifanResource/blob/master/videos/demo_video.gif)
-#### 更新日志请查看 updateLog.txt文件
-<br>
 
 #### 目前demo效果图：
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_reader1.png)
