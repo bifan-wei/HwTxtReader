@@ -40,7 +40,7 @@ public class TxtConfig {
 
     public   int Page_Switch_Mode = PAGE_SWITCH_MODE_COVER;
     public static  int MAX_TEXT_SIZE = 150;//in px
-    public static  int MIN_TEXT_SIZE = 30;//in px
+    public static  int MIN_TEXT_SIZE = 50;//in px
     public static  int DEFAULT_SELECT_TEXT_COLOR = Color.parseColor("#44f6950b");
     public static  int DEFAULT_SLIDER_COLOR = Color.parseColor("#1f4cf5");
 
@@ -79,7 +79,6 @@ public class TxtConfig {
     }
 
     /**
-     * @param context
      * @param PageSwitchMode PAGE_SWITCH_MODE_COVER、PAGE_SWITCH_MODE_SERIAL、PAGE_SWITCH__MODE_SHEAR
      */
     public static void savePageSwitchMode(Context context,int PageSwitchMode) {

@@ -2,37 +2,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="10dp"
+                android:paddingBottom="15dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:paddingTop="10dp">
+                android:paddingTop="15dp">
 
     <TextView
-        android:id="@+id/adapter_chatperlist_index"
+        android:id="@+id/adapter_chapterlist_index"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:text="1"
-        android:textColor="#7e7e7e"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="#ffffff"
         android:textSize="14sp"/>
 
     <TextView
-        android:id="@+id/adapter_chatperlist_title"
+        android:id="@+id/adapter_chapterlist_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@+id/adapter_chatperlist_progress"
-        android:layout_toRightOf="@+id/adapter_chatperlist_index"
+        android:layout_toLeftOf="@+id/adapter_chapterlist_progress"
+        android:layout_toRightOf="@+id/adapter_chapterlist_index"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="第一章"
-        android:textColor="#a86c4d"
+        android:textColor="#ffffff"
         android:textSize="16sp"/>
 
     <TextView
-        android:id="@+id/adapter_chatperlist_progress"
+        android:id="@+id/adapter_chapterlist_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

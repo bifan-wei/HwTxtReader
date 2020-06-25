@@ -79,14 +79,11 @@ public class ChapterList extends PopupWindow {
         this.setFocusable(true);
         this.setOutsideTouchable(true);
         this.setAnimationStyle(R.style.HwTxtChapterMenuAnimation);
-        this.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f1f6b8")));
+        this.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1c1c1a")));
         mAdapter = new MyAdapter();
         mRootView.setAdapter(mAdapter);
     }
 
-    public void setBackGroundColor(int color){
-        mRootView.setBackgroundColor(color);
-    }
 
     private class MyAdapter extends BaseAdapter {
         @Override
@@ -104,25 +101,29 @@ public class ChapterList extends PopupWindow {
             return 0;
         }
 
+        private int ColorNegative = Color.parseColor("#aeaca2");
+        private int ColorSelected = Color.parseColor("#fa4613");
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             Holder holder;
             if (view == null) {
                 holder = new Holder();
                 view = LayoutInflater.from(mContext).inflate(R.layout.adapter_chapterlist, null);
-                holder.index = view.findViewById(R.id.adapter_chatperlist_index);
-                holder.title = view.findViewById(R.id.adapter_chatperlist_title);
-                holder.progress = view.findViewById(R.id.adapter_chatperlist_progress);
+                holder.index = view.findViewById(R.id.adapter_chapterlist_index);
+                holder.title = view.findViewById(R.id.adapter_chapterlist_title);
+                holder.progress = view.findViewById(R.id.adapter_chapterlist_progress);
                 view.setTag(holder);
             } else {
                 holder = (Holder) view.getTag();
             }
             IChapter chapter = mChapters.get(i);
             if (CurrentIndex == i) {
-                holder.progress.setTextColor(Color.parseColor("#3f4032"));
+                holder.title.setTextColor(ColorSelected);
+                holder.progress.setTextColor(Color.WHITE);
                 holder.progress.setText("当前");
             } else {
-                holder.progress.setTextColor(Color.parseColor("#aeaca2"));
+                holder.title.setTextColor(Color.WHITE);
+                holder.progress.setTextColor(ColorNegative);
                 float p = 0;
                 if (AllCharNum > 0) {
                     p = (float) chapter.getStartIndex() / (float) AllCharNum;

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#000000"
+    android:background="#0a0a12"
     android:orientation="horizontal"
     android:paddingBottom="13dp"
     android:paddingLeft="10dp"
@@ -16,11 +16,13 @@
         android:src="@drawable/ic_key_back" />
 
     <TextView
-        android:id="@+id/txtreadr_menu_title"
+        android:id="@+id/txtreader_menu_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="25dp"
+        android:gravity="center"
+        android:layout_marginRight="55dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:text=""

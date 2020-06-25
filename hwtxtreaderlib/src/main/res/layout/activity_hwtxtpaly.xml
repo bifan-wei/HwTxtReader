@@ -7,54 +7,37 @@
         android:id="@+id/activity_hwtxtplay_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
-        >
+        android:background="#ffffff">
+
+
+        <TextView
+            android:id="@+id/activity_hwtxtplay_chapter_menutext"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_charpter"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text=""
+            android:textColor="#858582" />
 
         <TextView
             android:id="@+id/activity_hwtxtplay_chaptername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@+id/activity_hwtxtplay_chpatermenu"
+            android:layout_toRightOf="@+id/activity_hwtxtplay_chapter_menutext"
             android:ellipsize="end"
             android:maxLines="1"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:text="第一章"
             android:textColor="#666666" />
-
-        <LinearLayout
-            android:id="@+id/activity_hwtxtplay_chpatermenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:clickable="true"
-            android:orientation="horizontal">
-
-            <View
-
-                android:layout_width="7dp"
-                android:layout_height="7dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@+id/activity_hwtxtplay_chapter_menutext"
-                android:background="@drawable/shape_little_ball" />
-
-            <TextView
-                android:id="@+id/activity_hwtxtplay_chapter_menutext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:clickable="true"
-                android:text="章节"
-                android:textColor="#858582" />
-        </LinearLayout>
-
 
     </RelativeLayout>
 
@@ -84,14 +67,15 @@
 
         <TextView
             android:id="@+id/activity_hwtxtplay_setting_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
             android:layout_marginRight="5dp"
+            android:background="@drawable/ic_setting"
             android:clickable="true"
-            android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="设置"
+            android:text=""
             android:textColor="#858582" />
     </RelativeLayout>
 
@@ -161,11 +145,13 @@
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone" />
+
     <include
         android:id="@+id/activity_hwtxtplay_chapter_msg"
-        layout="@layout/view_charpter_msg"
+        layout="@layout/view_chapter_msg"
         android:layout_width="250dp"
         android:layout_height="80dp"
         android:layout_centerInParent="true"
         android:visibility="gone" />
+
 </RelativeLayout>

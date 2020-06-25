@@ -185,7 +185,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mHandler = new Handler();
         mChapterMsgView = findViewById(R.id.activity_hwtxtplay_chapter_msg);
         mChapterMsgName = (TextView) findViewById(R.id.chapter_name);
-        mChapterMsgProgress = (TextView) findViewById(R.id.charpter_progress);
+        mChapterMsgProgress = (TextView) findViewById(R.id.chapter_progress);
         mTopDecoration = findViewById(R.id.activity_hwtxtplay_top);
         mBottomDecoration = findViewById(R.id.activity_hwtxtplay_bottom);
         mTxtReaderView = (TxtReaderView) findViewById(R.id.activity_hwtxtplay_readerView);
@@ -199,7 +199,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         ClipboardView = findViewById(R.id.activity_hwtxtplay_Clipboar);
         mSelectedText = (TextView) findViewById(R.id.activity_hwtxtplay_selected_text);
 
-        mMenuHolder.mTitle = (TextView) findViewById(R.id.txtreadr_menu_title);
+        mMenuHolder.mTitle = (TextView) findViewById(R.id.txtreader_menu_title);
         mMenuHolder.mPreChapter = (TextView) findViewById(R.id.txtreadr_menu_chapter_pre);
         mMenuHolder.mNextChapter = (TextView) findViewById(R.id.txtreadr_menu_chapter_next);
         mMenuHolder.mSeekBar = (SeekBar) findViewById(R.id.txtreadr_menu_seekbar);
@@ -207,7 +207,6 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mMenuHolder.mTextSize = (TextView) findViewById(R.id.txtreadr_menu_textsize);
         mMenuHolder.mTextSizeAdd = findViewById(R.id.txtreadr_menu_textsize_add);
         mMenuHolder.mBoldSelectedLayout = findViewById(R.id.txtreadr_menu_textsetting1_bold);
-        mMenuHolder.mNormalSelectedLayout = findViewById(R.id.txtreadr_menu_textsetting1_normal);
         mMenuHolder.mCoverSelectedLayout = findViewById(R.id.txtreadr_menu_textsetting2_cover);
         mMenuHolder.mShearSelectedLayout = findViewById(R.id.txtreadr_menu_textsetting2_shear);
         mMenuHolder.mTranslateSelectedLayout = findViewById(R.id.txtreadr_menu_textsetting2_translate);
@@ -343,11 +342,11 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         onPageSwitchSettingUi(mTxtReaderView.getTxtReaderContext().getTxtConfig().Page_Switch_Mode);
         //保存的翻页模式
         int pageSwitchMode = mTxtReaderView.getTxtReaderContext().getTxtConfig().Page_Switch_Mode;
-        if (pageSwitchMode==TxtConfig.PAGE_SWITCH_MODE_SERIAL) {
+        if (pageSwitchMode == TxtConfig.PAGE_SWITCH_MODE_SERIAL) {
             mTxtReaderView.setPageSwitchByTranslate();
-        } else if (pageSwitchMode==TxtConfig.PAGE_SWITCH_MODE_COVER){
+        } else if (pageSwitchMode == TxtConfig.PAGE_SWITCH_MODE_COVER) {
             mTxtReaderView.setPageSwitchByCover();
-        }else if (pageSwitchMode==TxtConfig.PAGE_SWITCH_MODE_SHEAR){
+        } else if (pageSwitchMode == TxtConfig.PAGE_SWITCH_MODE_SHEAR) {
             mTxtReaderView.setPageSwitchByShear();
         }
         //章节初始化
@@ -365,7 +364,6 @@ public class HwTxtPlayActivity extends AppCompatActivity {
                     mTxtReaderView.loadFromProgress(chapter.getStartParagraphIndex(), 0);
                 }
             });
-            mChapterListPop.setBackGroundColor(mTxtReaderView.getBackgroundColor());
         } else {
             Gone(mChapterMenuText);
         }
@@ -392,26 +390,25 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mMenuHolder.mNextChapter.setOnClickListener(new ChapterChangeClickListener(false));
         mMenuHolder.mTextSizeAdd.setOnClickListener(new TextChangeClickListener(true));
         mMenuHolder.mTextSizeDel.setOnClickListener(new TextChangeClickListener(false));
-        mMenuHolder.mBoldSelectedLayout.setOnClickListener(new TextSettingClickListener(true));
-        mMenuHolder.mNormalSelectedLayout.setOnClickListener(new TextSettingClickListener(false));
+        mMenuHolder.mBoldSelectedLayout.setOnClickListener(new TextSettingClickListener());
         mMenuHolder.mTranslateSelectedLayout.setOnClickListener(new SwitchSettingClickListener(TxtConfig.PAGE_SWITCH_MODE_SERIAL));
         mMenuHolder.mCoverSelectedLayout.setOnClickListener(new SwitchSettingClickListener(TxtConfig.PAGE_SWITCH_MODE_COVER));
         mMenuHolder.mShearSelectedLayout.setOnClickListener(new SwitchSettingClickListener(TxtConfig.PAGE_SWITCH_MODE_SHEAR));
     }
 
     protected void setStyleChangeListener() {
-        mMenuHolder.mStyle1.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_styleclor1), StyleTextColors[0]));
-        mMenuHolder.mStyle2.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_styleclor2), StyleTextColors[1]));
-        mMenuHolder.mStyle3.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_styleclor3), StyleTextColors[2]));
-        mMenuHolder.mStyle4.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_styleclor4), StyleTextColors[3]));
-        mMenuHolder.mStyle5.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_styleclor5), StyleTextColors[4]));
+        mMenuHolder.mStyle1.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_stylecolor1), StyleTextColors[0]));
+        mMenuHolder.mStyle2.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_stylecolor2), StyleTextColors[1]));
+        mMenuHolder.mStyle3.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_stylecolor3), StyleTextColors[2]));
+        mMenuHolder.mStyle4.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_stylecolor4), StyleTextColors[3]));
+        mMenuHolder.mStyle5.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_stylecolor5), StyleTextColors[4]));
     }
 
     protected void setOnTextSelectListener() {
         mTxtReaderView.setOnTextSelectListener(new ITextSelectListener() {
             @Override
             public void onTextChanging(TxtChar firstSelectedChar, TxtChar lastSelectedChar) {
-                //firstSelectedChar.Top
+                 //firstSelectedChar.Top
                 //  firstSelectedChar.Bottom
                 // 这里可以根据 firstSelectedChar与lastSelectedChar的top与bottom的位置
                 //计算显示你要显示的弹窗位置，如果需要的话
@@ -506,9 +503,9 @@ public class HwTxtPlayActivity extends AppCompatActivity {
                 return true;
             }
         });
-        mChapterMenuText.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener chapterMsgShowClick = new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 if (mChapterListPop != null) {
                     if (!mChapterListPop.isShowing()) {
                         mChapterListPop.showAsDropDown(mTopDecoration);
@@ -527,7 +524,9 @@ public class HwTxtPlayActivity extends AppCompatActivity {
                     }
                 }
             }
-        });
+        };
+        mChapterNameText.setOnClickListener(chapterMsgShowClick);
+        mChapterMenuText.setOnClickListener(chapterMsgShowClick);
         mTopMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -597,25 +596,20 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     }
 
     private void onTextSettingUi(Boolean isBold) {
-        if (isBold) {
-            mMenuHolder.mBoldSelectedLayout.setBackgroundResource(R.drawable.shape_menu_textsetting_selected);
-            mMenuHolder.mNormalSelectedLayout.setBackgroundResource(R.drawable.shape_menu_textsetting_unselected);
-        } else {
-            mMenuHolder.mBoldSelectedLayout.setBackgroundResource(R.drawable.shape_menu_textsetting_unselected);
-            mMenuHolder.mNormalSelectedLayout.setBackgroundResource(R.drawable.shape_menu_textsetting_selected);
-        }
+        int rs = isBold ? R.drawable.ic_bold_selected : R.drawable.ic_bold_normal;
+        mMenuHolder.mBoldSelectedLayout.setBackgroundDrawable(getResources().getDrawable(rs));
     }
 
     private void onPageSwitchSettingUi(int pageSwitchMode) {
-        if (pageSwitchMode==TxtConfig.PAGE_SWITCH_MODE_SERIAL) {
+        if (pageSwitchMode == TxtConfig.PAGE_SWITCH_MODE_SERIAL) {
             mMenuHolder.mTranslateSelectedLayout.setBackgroundResource(R.drawable.shape_menu_textsetting_selected);
             mMenuHolder.mCoverSelectedLayout.setBackgroundResource(R.drawable.shape_menu_textsetting_unselected);
             mMenuHolder.mShearSelectedLayout.setBackgroundResource(R.drawable.shape_menu_textsetting_unselected);
-        } else if (pageSwitchMode==TxtConfig.PAGE_SWITCH_MODE_COVER){
+        } else if (pageSwitchMode == TxtConfig.PAGE_SWITCH_MODE_COVER) {
             mMenuHolder.mTranslateSelectedLayout.setBackgroundResource(R.drawable.shape_menu_textsetting_unselected);
             mMenuHolder.mCoverSelectedLayout.setBackgroundResource(R.drawable.shape_menu_textsetting_selected);
             mMenuHolder.mShearSelectedLayout.setBackgroundResource(R.drawable.shape_menu_textsetting_unselected);
-        }else if (pageSwitchMode==TxtConfig.PAGE_SWITCH_MODE_SHEAR){
+        } else if (pageSwitchMode == TxtConfig.PAGE_SWITCH_MODE_SHEAR) {
             mMenuHolder.mTranslateSelectedLayout.setBackgroundResource(R.drawable.shape_menu_textsetting_unselected);
             mMenuHolder.mCoverSelectedLayout.setBackgroundResource(R.drawable.shape_menu_textsetting_unselected);
             mMenuHolder.mShearSelectedLayout.setBackgroundResource(R.drawable.shape_menu_textsetting_selected);
@@ -623,17 +617,16 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     }
 
     private class TextSettingClickListener implements View.OnClickListener {
-        private Boolean Bold;
 
-        public TextSettingClickListener(Boolean bold) {
-            Bold = bold;
+        public TextSettingClickListener() {
         }
 
         @Override
         public void onClick(View view) {
             if (FileExist) {
-                mTxtReaderView.setTextBold(Bold);
-                onTextSettingUi(Bold);
+                Boolean Bold=mTxtReaderView.getTxtReaderContext().getTxtConfig().Bold;
+                mTxtReaderView.setTextBold(!Bold);
+                onTextSettingUi(!Bold);
             }
         }
     }
@@ -648,11 +641,12 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             if (FileExist) {
-                if (pageSwitchMode==TxtConfig.PAGE_SWITCH_MODE_COVER) {
+                if (pageSwitchMode == TxtConfig.PAGE_SWITCH_MODE_COVER) {
                     mTxtReaderView.setPageSwitchByCover();
-                } else   if (pageSwitchMode==TxtConfig.PAGE_SWITCH_MODE_SERIAL){
+                } else if (pageSwitchMode == TxtConfig.PAGE_SWITCH_MODE_SERIAL) {
                     mTxtReaderView.setPageSwitchByTranslate();
-                }  if (pageSwitchMode==TxtConfig.PAGE_SWITCH_MODE_SHEAR){
+                }
+                if (pageSwitchMode == TxtConfig.PAGE_SWITCH_MODE_SHEAR) {
                     mTxtReaderView.setPageSwitchByShear();
                 }
                 onPageSwitchSettingUi(pageSwitchMode);
@@ -719,9 +713,6 @@ public class HwTxtPlayActivity extends AppCompatActivity {
                 mTxtReaderView.setStyle(BgColor, TextColor);
                 mTopDecoration.setBackgroundColor(BgColor);
                 mBottomDecoration.setBackgroundColor(BgColor);
-                if (mChapterListPop != null) {
-                    mChapterListPop.setBackGroundColor(BgColor);
-                }
             }
         }
     }
@@ -762,7 +753,6 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         public View mTextSizeAdd;
         public TextView mTextSize;
         public View mBoldSelectedLayout;
-        public View mNormalSelectedLayout;
         public View mCoverSelectedLayout;
         public View mShearSelectedLayout;
         public View mTranslateSelectedLayout;

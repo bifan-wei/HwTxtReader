@@ -93,6 +93,10 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //把默认背景绘制出来，不然默认是白色的，导致显示有点奇怪
+        if (readerContext != null) {
+            canvas.drawColor(readerContext.getTxtConfig().backgroundColor);
+        }
         //初始化完成才允许绘制
         if (readerContext.InitDone()) {
             //绘制页面行数据
@@ -526,10 +530,10 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      */
     protected void onPressSelectText(MotionEvent e) {
         TxtChar selectedChar = findCharByPosition(e.getX(), e.getY());
-        if(selectedChar!=null)
-        ELogger.log("onPressSelectText",selectedChar.toString());
+        if (selectedChar != null)
+            ELogger.log("onPressSelectText", selectedChar.toString());
         else
-            ELogger.log("onPressSelectText","is null"+e.getX()+","+e.getY());
+            ELogger.log("onPressSelectText", "is null" + e.getX() + "," + e.getY());
         if (selectedChar != null) {
             FirstSelectedChar = selectedChar;
             LastSelectedChar = selectedChar;
@@ -574,14 +578,14 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      */
     private TxtChar findCharByPosition(float positionX, float positionY) {
         boolean isVerticalMode = false;
-        if(readerContext!=null&&readerContext.getTxtConfig()!=null){
+        if (readerContext != null && readerContext.getTxtConfig() != null) {
             isVerticalMode = readerContext.getTxtConfig().VerticalPageMode;
         }
-       if(isVerticalMode){
-            return  findCharByPositionOfVerticalMode(positionX,positionY);
-       }else{
-           return  findCharByPositionOfHorizontalMode(positionX,positionY);
-       }
+        if (isVerticalMode) {
+            return findCharByPositionOfVerticalMode(positionX, positionY);
+        } else {
+            return findCharByPositionOfHorizontalMode(positionX, positionY);
+        }
     }
 
     private TxtChar findCharByPositionOfVerticalMode(float positionX, float positionY) {
@@ -1228,7 +1232,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
                 @Override
                 public void run() {
                     onPageProgress(readerContext.getPageData().MidPage());
-                    if(listener!=null) {
+                    if (listener != null) {
                         listener.onSuccess();
                     }
                 }
@@ -1238,14 +1242,14 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
         @Override
         public void onFail(TxtMsg txtMsg) {
-            if(listener!=null) {
+            if (listener != null) {
                 listener.onFail(txtMsg);
             }
         }
 
         @Override
         public void onMessage(String message) {
-            if(listener!=null) {
+            if (listener != null) {
                 listener.onMessage(message);
             }
         }

@@ -1,0 +1,7 @@
+<resources>
+
+    <declare-styleable name="CircleView">
+        <attr name="CircleRadius" format="dimension" />
+        <attr name="BgColor" format="color|reference" />
+    </declare-styleable>
+</resources>
