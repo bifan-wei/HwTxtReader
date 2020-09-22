@@ -49,7 +49,7 @@ repositories {
 }
  
 dependencies {
-	        implementation 'com.github.bifan-wei:HwTxtReader:V2.1.1'
+	        implementation 'com.github.bifan-wei:HwTxtReader:V2.2'
 	        //注意Android support 版本请使用 implementation 'com.android.support:appcompat-v7:28.0.0'，
 		}
 		
