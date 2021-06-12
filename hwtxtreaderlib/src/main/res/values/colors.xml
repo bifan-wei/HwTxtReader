@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="hwtxtreader_bottom_menu_textcolor">#ffffff</color>
-    <color name="hwtxtreader_stylecolor1">#ffffff</color>
-    <color name="hwtxtreader_stylecolor2">#ccebcc</color>
-    <color name="hwtxtreader_stylecolor3">#d4c7a5</color>
-    <color name="hwtxtreader_stylecolor4">#393330</color>
-    <color name="hwtxtreader_stylecolor5">#00141f</color>
-    <color name="hwtxtreader_colorTips">#767678</color>
+    <color name="hwTxtReader_bottom_menu_textColor">#ffffff</color>
+    <color name="hwTxtReader_styleColor1">#ffffff</color>
+    <color name="hwTxtReader_styleColor2">#ccebcc</color>
+    <color name="hwTxtReader_styleColor3">#d4c7a5</color>
+    <color name="hwTxtReader_styleColor4">#393330</color>
+    <color name="hwTxtReader_styleColor5">#00141f</color>
+    <color name="hwTxtReader_colorTips">#767678</color>
 </resources>

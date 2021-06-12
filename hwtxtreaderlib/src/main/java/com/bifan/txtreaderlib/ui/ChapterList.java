@@ -109,9 +109,9 @@ public class ChapterList extends PopupWindow {
             if (view == null) {
                 holder = new Holder();
                 view = LayoutInflater.from(mContext).inflate(R.layout.adapter_chapterlist, null);
-                holder.index = view.findViewById(R.id.adapter_chapterlist_index);
-                holder.title = view.findViewById(R.id.adapter_chapterlist_title);
-                holder.progress = view.findViewById(R.id.adapter_chapterlist_progress);
+                holder.index = view.findViewById(R.id.adapter_chapterList_index);
+                holder.title = view.findViewById(R.id.adapter_chapterList_title);
+                holder.progress = view.findViewById(R.id.adapter_chapterList_progress);
                 view.setTag(holder);
             } else {
                 holder = (Holder) view.getTag();

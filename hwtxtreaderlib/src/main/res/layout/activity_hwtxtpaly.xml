@@ -4,34 +4,34 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/activity_hwtxtplay_top"
+        android:id="@+id/activity_hwTxtPlay_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff">
 
 
         <TextView
-            android:id="@+id/activity_hwtxtplay_chapter_menutext"
+            android:id="@+id/activity_hwTxtPlay_chapter_menuText"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/ic_charpter"
+            android:background="@drawable/ic_chapter"
             android:clickable="true"
             android:focusable="true"
             android:paddingBottom="10dp"
             android:paddingRight="10dp"
-            android:paddingLeft="10dp"
+            android:paddingLeft="13dp"
             android:paddingTop="10dp"
             android:text=""
             android:textColor="#858582" />
 
         <TextView
-            android:id="@+id/activity_hwtxtplay_chaptername"
+            android:id="@+id/activity_hwTxtPlay_chapterName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_toRightOf="@+id/activity_hwtxtplay_chapter_menutext"
+            android:layout_toRightOf="@+id/activity_hwTxtPlay_chapter_menuText"
             android:ellipsize="end"
             android:maxLines="1"
             android:paddingBottom="10dp"
@@ -42,15 +42,15 @@
     </RelativeLayout>
 
     <com.bifan.txtreaderlib.main.TxtReaderView
-        android:id="@+id/activity_hwtxtplay_readerView"
+        android:id="@+id/activity_hwTxtPlay_readerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/activity_hwtxtplay_bottom"
-        android:layout_below="@+id/activity_hwtxtplay_top"
+        android:layout_above="@+id/activity_hwTxtPlay_bottom"
+        android:layout_below="@+id/activity_hwTxtPlay_top"
         android:background="#ffffff" />
 
     <RelativeLayout
-        android:id="@+id/activity_hwtxtplay_bottom"
+        android:id="@+id/activity_hwTxtPlay_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -58,7 +58,7 @@
         android:paddingTop="5dp">
 
         <TextView
-            android:id="@+id/activity_hwtxtplay_progress_text"
+            android:id="@+id/activity_hwTxtPlay_progress_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -66,7 +66,7 @@
             android:textColor="#666666" />
 
         <TextView
-            android:id="@+id/activity_hwtxtplay_setting_text"
+            android:id="@+id/activity_hwTxtPlay_setting_text"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentRight="true"
@@ -81,7 +81,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/activity_hwtxtplay_Clipboar"
+        android:id="@+id/activity_hwTxtPlay_ClipBoar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -94,7 +94,7 @@
             android:background="#666666" />
 
         <TextView
-            android:id="@+id/activity_hwtxtplay_selected_text"
+            android:id="@+id/activity_hwTxtPlay_selected_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -104,7 +104,7 @@
             android:textColor="#aaffffff" />
 
         <TextView
-            android:id="@+id/activity_hwtxtplay_Clipboar_click"
+            android:id="@+id/activity_hwTxtPlay_ClipBoar_click"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -119,25 +119,25 @@
 
 
     <View
-        android:id="@+id/activity_hwtxtplay_cover"
+        android:id="@+id/activity_hwTxtPlay_cover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/activity_hwtxtplay_menu_bottom"
-        android:layout_below="@+id/activity_hwtxtplay_menu_top"
+        android:layout_above="@+id/activity_hwTxtPlay_menu_bottom"
+        android:layout_below="@+id/activity_hwTxtPlay_menu_top"
         android:background="#00000000"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone" />
 
     <include
-        android:id="@+id/activity_hwtxtplay_menu_top"
+        android:id="@+id/activity_hwTxtPlay_menu_top"
         layout="@layout/view_menu_top"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone" />
 
     <include
-        android:id="@+id/activity_hwtxtplay_menu_bottom"
+        android:id="@+id/activity_hwTxtPlay_menu_bottom"
         layout="@layout/view_menu_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
         android:visibility="gone" />
 
     <include
-        android:id="@+id/activity_hwtxtplay_chapter_msg"
+        android:id="@+id/activity_hwTxtPlay_chapter_msg"
         layout="@layout/view_chapter_msg"
         android:layout_width="250dp"
         android:layout_height="80dp"

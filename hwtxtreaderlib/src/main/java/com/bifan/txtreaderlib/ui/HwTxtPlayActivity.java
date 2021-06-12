@@ -9,9 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -183,23 +183,23 @@ public class HwTxtPlayActivity extends AppCompatActivity {
 
     protected void init() {
         mHandler = new Handler();
-        mChapterMsgView = findViewById(R.id.activity_hwtxtplay_chapter_msg);
+        mChapterMsgView = findViewById(R.id.activity_hwTxtPlay_chapter_msg);
         mChapterMsgName = (TextView) findViewById(R.id.chapter_name);
         mChapterMsgProgress = (TextView) findViewById(R.id.chapter_progress);
-        mTopDecoration = findViewById(R.id.activity_hwtxtplay_top);
-        mBottomDecoration = findViewById(R.id.activity_hwtxtplay_bottom);
-        mTxtReaderView = (TxtReaderView) findViewById(R.id.activity_hwtxtplay_readerView);
-        mChapterNameText = (TextView) findViewById(R.id.activity_hwtxtplay_chaptername);
-        mChapterMenuText = (TextView) findViewById(R.id.activity_hwtxtplay_chapter_menutext);
-        mProgressText = (TextView) findViewById(R.id.activity_hwtxtplay_progress_text);
-        mSettingText = (TextView) findViewById(R.id.activity_hwtxtplay_setting_text);
-        mTopMenu = findViewById(R.id.activity_hwtxtplay_menu_top);
-        mBottomMenu = findViewById(R.id.activity_hwtxtplay_menu_bottom);
-        mCoverView = findViewById(R.id.activity_hwtxtplay_cover);
-        ClipboardView = findViewById(R.id.activity_hwtxtplay_Clipboar);
-        mSelectedText = (TextView) findViewById(R.id.activity_hwtxtplay_selected_text);
+        mTopDecoration = findViewById(R.id.activity_hwTxtPlay_top);
+        mBottomDecoration = findViewById(R.id.activity_hwTxtPlay_bottom);
+        mTxtReaderView = (TxtReaderView) findViewById(R.id.activity_hwTxtPlay_readerView);
+        mChapterNameText = (TextView) findViewById(R.id.activity_hwTxtPlay_chapterName);
+        mChapterMenuText = (TextView) findViewById(R.id.activity_hwTxtPlay_chapter_menuText);
+        mProgressText = (TextView) findViewById(R.id.activity_hwTxtPlay_progress_text);
+        mSettingText = (TextView) findViewById(R.id.activity_hwTxtPlay_setting_text);
+        mTopMenu = findViewById(R.id.activity_hwTxtPlay_menu_top);
+        mBottomMenu = findViewById(R.id.activity_hwTxtPlay_menu_bottom);
+        mCoverView = findViewById(R.id.activity_hwTxtPlay_cover);
+        ClipboardView = findViewById(R.id.activity_hwTxtPlay_ClipBoar);
+        mSelectedText = (TextView) findViewById(R.id.activity_hwTxtPlay_selected_text);
 
-        mMenuHolder.mTitle = (TextView) findViewById(R.id.txtreader_menu_title);
+        mMenuHolder.mTitle = (TextView) findViewById(R.id.txtReader_menu_title);
         mMenuHolder.mPreChapter = (TextView) findViewById(R.id.txtreadr_menu_chapter_pre);
         mMenuHolder.mNextChapter = (TextView) findViewById(R.id.txtreadr_menu_chapter_next);
         mMenuHolder.mSeekBar = (SeekBar) findViewById(R.id.txtreadr_menu_seekbar);
@@ -397,11 +397,11 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     }
 
     protected void setStyleChangeListener() {
-        mMenuHolder.mStyle1.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_stylecolor1), StyleTextColors[0]));
-        mMenuHolder.mStyle2.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_stylecolor2), StyleTextColors[1]));
-        mMenuHolder.mStyle3.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_stylecolor3), StyleTextColors[2]));
-        mMenuHolder.mStyle4.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_stylecolor4), StyleTextColors[3]));
-        mMenuHolder.mStyle5.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwtxtreader_stylecolor5), StyleTextColors[4]));
+        mMenuHolder.mStyle1.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwTxtReader_styleColor1), StyleTextColors[0]));
+        mMenuHolder.mStyle2.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwTxtReader_styleColor2), StyleTextColors[1]));
+        mMenuHolder.mStyle3.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwTxtReader_styleColor3), StyleTextColors[2]));
+        mMenuHolder.mStyle4.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwTxtReader_styleColor4), StyleTextColors[3]));
+        mMenuHolder.mStyle5.setOnClickListener(new StyleChangeClickListener(ContextCompat.getColor(this, R.color.hwTxtReader_styleColor5), StyleTextColors[4]));
     }
 
     protected void setOnTextSelectListener() {

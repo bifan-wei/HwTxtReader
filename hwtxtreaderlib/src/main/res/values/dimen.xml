@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="hwtxtreader_menu_textsize_min">13sp</dimen>
-    <dimen name="hwtxtreader_menu_textsize_normal">14sp</dimen>
-    <dimen name="hwtxtreader_menu_textsize_max">16sp</dimen>
-    <dimen name="hwtxtreader_menu_textsetting_padding_topbottom">10dp</dimen>
-    <dimen name="hwtxtreader_menu_textsetting_padding_leftright">5dp</dimen>
-    <dimen name="hwtxtreader_ic_selector">20dp</dimen>
-    <dimen name="hwtxtreader_menu_text_tips">13sp</dimen>
+    <dimen name="hwTxtReader_menu_textSize_min">13sp</dimen>
+    <dimen name="hwTxtReader_menu_textSize_normal">14sp</dimen>
+    <dimen name="hwTxtReader_menu_textSize_max">16sp</dimen>
+    <dimen name="hwTxtReader_menu_textSetting_padding_topBottom">10dp</dimen>
+    <dimen name="hwTxtReader_menu_textSetting_padding_leftRight">5dp</dimen>
+    <dimen name="hwTxtReader_ic_selector">20dp</dimen>
+    <dimen name="hwTxtReader_menu_text_tips">13sp</dimen>
 
 </resources>

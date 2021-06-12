@@ -16,7 +16,7 @@
         android:src="@drawable/ic_key_back" />
 
     <TextView
-        android:id="@+id/txtreader_menu_title"
+        android:id="@+id/txtReader_menu_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

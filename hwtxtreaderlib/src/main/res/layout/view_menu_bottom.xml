@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="上一章"
-            android:textColor="@color/hwtxtreader_bottom_menu_textcolor"
+            android:textColor="@color/hwTxtReader_bottom_menu_textColor"
             android:textSize="13sp" />
 
         <SeekBar
@@ -45,7 +45,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="下一章"
-            android:textColor="@color/hwtxtreader_bottom_menu_textcolor"
+            android:textColor="@color/hwTxtReader_bottom_menu_textColor"
             android:textSize="13sp" />
     </RelativeLayout>
 
@@ -68,8 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="字体"
-            android:textColor="@color/hwtxtreader_colorTips"
-            android:textSize="@dimen/hwtxtreader_menu_text_tips" />
+            android:textColor="@color/hwTxtReader_colorTips"
+            android:textSize="@dimen/hwTxtReader_menu_text_tips" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -105,7 +105,7 @@
                         android:layout_marginRight="20dp"
                         android:gravity="center"
                         android:text="25"
-                        android:textColor="@color/hwtxtreader_bottom_menu_textcolor"
+                        android:textColor="@color/hwTxtReader_bottom_menu_textColor"
                         android:textSize="21sp" />
 
 
@@ -152,8 +152,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="翻页"
-            android:textColor="@color/hwtxtreader_colorTips"
-            android:textSize="@dimen/hwtxtreader_menu_text_tips" />
+            android:textColor="@color/hwTxtReader_colorTips"
+            android:textSize="@dimen/hwTxtReader_menu_text_tips" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -187,8 +187,8 @@
                         android:paddingRight="10dp"
                         android:paddingTop="5dp"
                         android:text="滑盖"
-                        android:textColor="@color/hwtxtreader_bottom_menu_textcolor"
-                        android:textSize="@dimen/hwtxtreader_menu_textsize_max" />
+                        android:textColor="@color/hwTxtReader_bottom_menu_textColor"
+                        android:textSize="@dimen/hwTxtReader_menu_textSize_max" />
 
                 </LinearLayout>
 
@@ -209,8 +209,8 @@
                         android:paddingRight="10dp"
                         android:paddingTop="5dp"
                         android:text="平移"
-                        android:textColor="@color/hwtxtreader_bottom_menu_textcolor"
-                        android:textSize="@dimen/hwtxtreader_menu_textsize_max" />
+                        android:textColor="@color/hwTxtReader_bottom_menu_textColor"
+                        android:textSize="@dimen/hwTxtReader_menu_textSize_max" />
 
                 </LinearLayout>
 
@@ -231,8 +231,8 @@
                         android:paddingRight="10dp"
                         android:paddingTop="5dp"
                         android:text="剪切"
-                        android:textColor="@color/hwtxtreader_bottom_menu_textcolor"
-                        android:textSize="@dimen/hwtxtreader_menu_textsize_max" />
+                        android:textColor="@color/hwTxtReader_bottom_menu_textColor"
+                        android:textSize="@dimen/hwTxtReader_menu_textSize_max" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -251,8 +251,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="风格"
-            android:textColor="@color/hwtxtreader_colorTips"
-            android:textSize="@dimen/hwtxtreader_menu_text_tips" />
+            android:textColor="@color/hwTxtReader_colorTips"
+            android:textSize="@dimen/hwTxtReader_menu_text_tips" />
 
 
         <LinearLayout
@@ -276,7 +276,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_centerInParent="true"
-                    app:BgColor="@color/hwtxtreader_stylecolor1" />
+                    app:BgColor="@color/hwTxtReader_styleColor1" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -289,7 +289,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_centerInParent="true"
-                    app:BgColor="@color/hwtxtreader_stylecolor2" />
+                    app:BgColor="@color/hwTxtReader_styleColor2" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -302,7 +302,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_centerInParent="true"
-                    app:BgColor="@color/hwtxtreader_stylecolor3" />
+                    app:BgColor="@color/hwTxtReader_styleColor3" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -315,7 +315,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_centerInParent="true"
-                    app:BgColor="@color/hwtxtreader_stylecolor5" />
+                    app:BgColor="@color/hwTxtReader_styleColor5" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -328,7 +328,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_centerInParent="true"
-                    app:BgColor="@color/hwtxtreader_stylecolor4" />
+                    app:BgColor="@color/hwTxtReader_styleColor4" />
             </RelativeLayout>
 
 
