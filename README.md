@@ -18,7 +18,7 @@
 
 ### 看不到图片？查看这里[CSDN](https://blog.csdn.net/u014614038/article/details/51062842)
 
-#### 2020/06/25 最新更新：菜单界面重新优化，更简洁漂亮！如有帮助欢迎start issue！<br><br>
+#### 2021/06/12 最新更新：适配Android X！凭兴趣爱好维护！如有帮助欢迎start支持！<br><br>
 
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_style.png)<br>
 
