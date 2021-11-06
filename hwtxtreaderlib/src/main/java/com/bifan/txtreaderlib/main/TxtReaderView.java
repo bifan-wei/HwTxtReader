@@ -2,7 +2,6 @@ package com.bifan.txtreaderlib.main;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -19,11 +18,13 @@ import com.bifan.txtreaderlib.tasks.DrawPrepareTask;
 import com.bifan.txtreaderlib.tasks.TxtConfigInitTask;
 import com.bifan.txtreaderlib.tasks.TxtPageLoadTask;
 import com.bifan.txtreaderlib.utils.ELogger;
-import com.bifan.txtreaderlib.utils.FileHashUtil;
+import com.bifan.txtreaderlib.utils.FileUtil;
 import com.bifan.txtreaderlib.utils.TxtBitmapUtil;
 
 import java.io.File;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by bifa-wei
@@ -525,7 +526,7 @@ public class TxtReaderView extends TxtReaderBaseView {
                     r.fileName = fileMsg.FileName;
                     r.filePath = fileMsg.FilePath;
                     try {
-                        r.fileHashName = FileHashUtil.getMD5Checksum(path);
+                        r.fileHashName = FileUtil.getMD5Checksum(path);
                     } catch (Exception e) {
                         ELogger.log(tag, "saveCurrentProgress Exception:" + e.toString());
                         readRecordDB.closeTable();

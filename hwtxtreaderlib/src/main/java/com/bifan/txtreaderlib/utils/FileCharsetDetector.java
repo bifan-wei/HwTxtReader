@@ -15,9 +15,6 @@ public class FileCharsetDetector {
     private boolean found = false;
     private String encoding = null;
 
-    public static void main(String[] argv) {
-    }
-
 
     public String getCharset(File file) {
         String charset = "GBK";

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">HwTxtReaderLib</string>
+    <string name="zero_percent">0%</string>
+    <string name="first_chapter">first chapter</string>
+    <string name="selected_0_num_text">Select 0 words</string>
+    <string name="copy">copy</string>
+    <string name="pre_chapter">pre chapter</string>
+    <string name="next_chapter">next chapter</string>
+    <string name="font">font</string>
+    <string name="cover">cover</string>
+    <string name="translate">translate</string>
+    <string name="shear">shear</string>
+    <string name="page">page</string>
+    <string name="style">style</string>
+</resources>

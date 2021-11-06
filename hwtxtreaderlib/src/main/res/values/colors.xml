@@ -7,4 +7,15 @@
     <color name="hwTxtReader_styleColor4">#393330</color>
     <color name="hwTxtReader_styleColor5">#00141f</color>
     <color name="hwTxtReader_colorTips">#767678</color>
+
+
+    <color name="color_withe">#ffffff</color>
+    <color name="color_aaffffff">#aaffffff</color>
+    <color name="color_22ffffff">#22ffffff</color>
+    <color name="color_black">#000000</color>
+    <color name="color_858582">#858582</color>
+    <color name="color_666666">#858582</color>
+    <color name="color_transparent">#00000000</color>
+    <color name="color_7e7e7e">#7e7e7e</color>
+    <color name="color_0a0a12">#0a0a12</color>
 </resources>

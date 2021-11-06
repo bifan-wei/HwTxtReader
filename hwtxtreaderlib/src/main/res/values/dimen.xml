@@ -7,5 +7,25 @@
     <dimen name="hwTxtReader_menu_textSetting_padding_leftRight">5dp</dimen>
     <dimen name="hwTxtReader_ic_selector">20dp</dimen>
     <dimen name="hwTxtReader_menu_text_tips">13sp</dimen>
+    <dimen name="sp_21">21sp</dimen>
+    <dimen name="s_px_1">1px</dimen>
+    <dimen name="s_dp_3">3dp</dimen>
+    <dimen name="s_dp_5">5dp</dimen>
+    <dimen name="s_dp_10">10dp</dimen>
+    <dimen name="s_dp_12">12dp</dimen>
+    <dimen name="s_dp_13">13dp</dimen>
+    <dimen name="s_dp_17">17dp</dimen>
+    <dimen name="s_dp_20">20dp</dimen>
+    <dimen name="s_dp_21">21dp</dimen>
+    <dimen name="s_dp_15">15dp</dimen>
+    <dimen name="s_dp_16">16dp</dimen>
+    <dimen name="s_dp_18">18dp</dimen>
+    <dimen name="s_dp_25">25dp</dimen>
+    <dimen name="s_dp_30">30dp</dimen>
+    <dimen name="s_dp_35">35dp</dimen>
+    <dimen name="s_dp_50">50dp</dimen>
+    <dimen name="s_dp_55">55dp</dimen>
+    <dimen name="s_dp_80">80dp</dimen>
+    <dimen name="s_dp_14">14dp</dimen>
 
 </resources>

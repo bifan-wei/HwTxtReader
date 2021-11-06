@@ -6,71 +6,70 @@
     android:layout_alignParentBottom="true"
     android:background="#0a0a12"
     android:orientation="vertical"
-    android:padding="10dp">
-
+    android:padding="@dimen/s_dp_10">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
-
-        <TextView
-            android:id="@+id/txtreadr_menu_chapter_pre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="上一章"
-            android:textColor="@color/hwTxtReader_bottom_menu_textColor"
-            android:textSize="13sp" />
+        android:layout_marginTop="@dimen/s_dp_5">
 
         <SeekBar
-            android:id="@+id/txtreadr_menu_seekbar"
+            android:id="@+id/txtReadr_menu_seekbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
-            android:layout_toLeftOf="@+id/txtreadr_menu_chapter_next"
-            android:layout_toRightOf="@+id/txtreadr_menu_chapter_pre"
+            android:layout_toStartOf="@+id/txtReadr_menu_chapter_next"
+            android:layout_toLeftOf="@+id/txtReadr_menu_chapter_next"
+            android:layout_toEndOf="@+id/txtReadr_menu_chapter_pre"
+            android:layout_toRightOf="@+id/txtReadr_menu_chapter_pre"
             android:layout_weight="1"
-            android:maxHeight="3dip"
-            android:minHeight="3dip"
+            android:maxHeight="@dimen/s_dp_3"
+            android:minHeight="@dimen/s_dp_3"
             android:progress="30"
             android:progressDrawable="@drawable/txtview_po_seekbar"
             android:thumb="@drawable/shape_seekbar_thumb"
             android:thumbOffset="0dip" />
 
         <TextView
-            android:id="@+id/txtreadr_menu_chapter_next"
+            android:id="@+id/txtReadr_menu_chapter_pre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/pre_chapter"
+            android:textColor="@color/hwTxtReader_bottom_menu_textColor"
+            android:textSize="@dimen/s_dp_13" />
+
+        <TextView
+            android:id="@+id/txtReadr_menu_chapter_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="下一章"
+            android:text="@string/next_chapter"
             android:textColor="@color/hwTxtReader_bottom_menu_textColor"
-            android:textSize="13sp" />
+            android:textSize="@dimen/s_dp_13" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="15dp"
-        android:background="#22ffffff" />
-
+        android:layout_height="@dimen/s_px_1"
+        android:layout_marginLeft="@dimen/s_dp_5"
+        android:layout_marginTop="@dimen/s_dp_15"
+        android:layout_marginRight="@dimen/s_dp_5"
+        android:background="@color/color_22ffffff" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/s_dp_20"
         android:orientation="horizontal">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="字体"
+            android:text="@string/font"
             android:textColor="@color/hwTxtReader_colorTips"
-            android:textSize="@dimen/hwTxtReader_menu_text_tips" />
-
+            android:textSize="@dimen/s_dp_13" />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -84,111 +83,112 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:orientation="horizontal">
 
 
                     <ImageView
-                        android:id="@+id/txtreadr_menu_textsize_del"
-                        android:layout_width="30dp"
+                        android:id="@+id/txtRead_menu_textsize_del"
+                        android:layout_width="@dimen/s_dp_30"
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:scaleType="centerInside"
                         android:src="@drawable/ic_key_del" />
 
 
+                    <ImageView
+                        android:id="@+id/txtRead_menu_textSize_add"
+                        android:layout_width="@dimen/s_dp_30"
+                        android:layout_height="@dimen/s_dp_30"
+                        android:layout_marginLeft="@dimen/s_dp_30"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_key_add" />
+
+
                     <TextView
-                        android:id="@+id/txtreadr_menu_textsize"
+                        android:id="@+id/txtRead_menu_textSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="@dimen/s_dp_20"
+                        android:layout_marginRight="@dimen/s_dp_20"
                         android:gravity="center"
                         android:text="25"
                         android:textColor="@color/hwTxtReader_bottom_menu_textColor"
-                        android:textSize="21sp" />
-
-
-                    <ImageView
-                        android:id="@+id/txtreadr_menu_textsize_add"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_key_add" />
+                        android:textSize="@dimen/sp_21" />
 
 
                 </LinearLayout>
 
 
                 <LinearLayout
-                    android:id="@+id/txtreadr_menu_textsetting1"
+                    android:id="@+id/txtRead_menu_textSetting1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="@dimen/s_dp_50"
                     android:orientation="horizontal">
 
                     <View
-                        android:id="@+id/txtreadr_menu_textsetting1_bold"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:id="@+id/txtRead_menu_textSetting1_bold"
+                        android:layout_width="@dimen/s_dp_35"
+                        android:layout_height="@dimen/s_dp_35"
                         android:background="@drawable/ic_bold_normal" />
                 </LinearLayout>
 
 
             </LinearLayout>
         </RelativeLayout>
+
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtreadr_menu_textsetting1"
-        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/txtRead_menu_textSetting1"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="翻页"
+            android:text="@string/page"
             android:textColor="@color/hwTxtReader_colorTips"
-            android:textSize="@dimen/hwTxtReader_menu_text_tips" />
-
+            android:textSize="@dimen/s_dp_13" />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical">
 
             <LinearLayout
-                android:id="@+id/txtreadr_menu_textsetting2"
+                android:id="@+id/txtRead_menu_textSetting2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="@dimen/s_dp_20"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingRight="15dp"
-
+                    android:paddingRight="@dimen/s_dp_15"
                     >
 
                     <TextView
-                        android:id="@+id/txtreadr_menu_textsetting2_cover"
+                        android:id="@+id/txtRead_menu_textSetting2_cover"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:gravity="center|top"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingTop="5dp"
-                        android:text="滑盖"
+                        android:paddingLeft="@dimen/s_dp_10"
+                        android:paddingTop="@dimen/s_dp_5"
+                        android:paddingRight="@dimen/s_dp_10"
+                        android:paddingBottom="@dimen/s_dp_5"
+                        android:text="@string/cover"
                         android:textColor="@color/hwTxtReader_bottom_menu_textColor"
-                        android:textSize="@dimen/hwTxtReader_menu_textSize_max" />
+                        android:textSize="@dimen/s_dp_16" />
 
                 </LinearLayout>
 
@@ -196,21 +196,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp">
+                    android:paddingLeft="@dimen/s_dp_15"
+                    android:paddingRight="@dimen/s_dp_15">
 
                     <TextView
-                        android:id="@+id/txtreadr_menu_textsetting2_translate"
+                        android:id="@+id/txtRead_menu_textSetting2_translate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
                         android:paddingTop="5dp"
-                        android:text="平移"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/translate"
                         android:textColor="@color/hwTxtReader_bottom_menu_textColor"
-                        android:textSize="@dimen/hwTxtReader_menu_textSize_max" />
+                        android:textSize="@dimen/s_dp_16" />
 
                 </LinearLayout>
 
@@ -221,48 +221,46 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/txtreadr_menu_textsetting2_shear"
+                        android:id="@+id/txtRead_menu_textSetting2_shear"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:gravity="center|top"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingTop="5dp"
-                        android:text="剪切"
+                        android:paddingLeft="@dimen/s_dp_10"
+                        android:paddingTop="@dimen/s_dp_5"
+                        android:paddingRight="@dimen/s_dp_10"
+                        android:paddingBottom="@dimen/s_dp_5"
+                        android:text="@string/shear"
                         android:textColor="@color/hwTxtReader_bottom_menu_textColor"
-                        android:textSize="@dimen/hwTxtReader_menu_textSize_max" />
+                        android:textSize="@dimen/s_dp_16" />
 
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
+
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/s_dp_10"
+        android:layout_marginBottom="@dimen/s_dp_10"
         android:orientation="horizontal">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="风格"
+            android:text="@string/style"
             android:textColor="@color/hwTxtReader_colorTips"
-            android:textSize="@dimen/hwTxtReader_menu_text_tips" />
-
-
+            android:textSize="@dimen/s_dp_13" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="@dimen/s_dp_10"
             android:layout_marginTop="0dp"
+            android:layout_marginRight="@dimen/s_dp_10"
             android:orientation="horizontal"
             android:weightSum="5">
 
@@ -272,9 +270,9 @@
                 android:layout_weight="1">
 
                 <com.bifan.txtreaderlib.ui.CircleView
-                    android:id="@+id/hwtxtreader_menu_style1"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:id="@+id/txtReader_menu_style1"
+                    android:layout_width="@dimen/s_dp_25"
+                    android:layout_height="@dimen/s_dp_25"
                     android:layout_centerInParent="true"
                     app:BgColor="@color/hwTxtReader_styleColor1" />
             </RelativeLayout>
@@ -285,9 +283,9 @@
                 android:layout_weight="1">
 
                 <com.bifan.txtreaderlib.ui.CircleView
-                    android:id="@+id/hwtxtreader_menu_style2"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:id="@+id/txtReader_menu_style2"
+                    android:layout_width="@dimen/s_dp_25"
+                    android:layout_height="@dimen/s_dp_25"
                     android:layout_centerInParent="true"
                     app:BgColor="@color/hwTxtReader_styleColor2" />
             </RelativeLayout>
@@ -298,9 +296,9 @@
                 android:layout_weight="1">
 
                 <com.bifan.txtreaderlib.ui.CircleView
-                    android:id="@+id/hwtxtreader_menu_style3"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:id="@+id/txtRead_menu_style3"
+                    android:layout_width="@dimen/s_dp_25"
+                    android:layout_height="@dimen/s_dp_25"
                     android:layout_centerInParent="true"
                     app:BgColor="@color/hwTxtReader_styleColor3" />
             </RelativeLayout>
@@ -311,9 +309,9 @@
                 android:layout_weight="1">
 
                 <com.bifan.txtreaderlib.ui.CircleView
-                    android:id="@+id/hwtxtreader_menu_style5"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:id="@+id/txtReader_menu_style5"
+                    android:layout_width="@dimen/s_dp_25"
+                    android:layout_height="@dimen/s_dp_25"
                     android:layout_centerInParent="true"
                     app:BgColor="@color/hwTxtReader_styleColor5" />
             </RelativeLayout>
@@ -324,9 +322,9 @@
                 android:layout_weight="1">
 
                 <com.bifan.txtreaderlib.ui.CircleView
-                    android:id="@+id/hwtxtreader_menu_style4"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:id="@+id/txtReader_menu_style4"
+                    android:layout_width="@dimen/s_dp_25"
+                    android:layout_height="@dimen/s_dp_25"
                     android:layout_centerInParent="true"
                     app:BgColor="@color/hwTxtReader_styleColor4" />
             </RelativeLayout>
@@ -334,6 +332,11 @@
 
         </LinearLayout>
 
+
+
+
     </LinearLayout>
+
+
 
 </LinearLayout>

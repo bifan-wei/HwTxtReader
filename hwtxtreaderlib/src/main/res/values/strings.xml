@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">HwTxtReaderLib</string>
+    <string name="zero_percent">0%</string>
+    <string name="first_chapter">第一章</string>
+    <string name="selected_0_num_text">选中0个字</string>
+    <string name="copy">复制</string>
+    <string name="pre_chapter">上一章</string>
+    <string name="next_chapter">下一章</string>
+    <string name="font">字体</string>
+    <string name="cover">滑盖</string>
+    <string name="translate">平移</string>
+    <string name="shear">剪切</string>
+    <string name="page">翻页</string>
+    <string name="style">风格</string>
 </resources>

@@ -69,9 +69,7 @@ public class ChapterList extends PopupWindow {
         int ViewHeight = this.ViewHeight;
         int ViewWidth = metrics.widthPixels;
         mRootView = new ListView(mContext);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mRootView.setLayoutParams(params);
         this.setContentView(mRootView);
         this.setWidth(ViewWidth);
@@ -101,8 +99,8 @@ public class ChapterList extends PopupWindow {
             return 0;
         }
 
-        private int ColorNegative = Color.parseColor("#aeaca2");
-        private int ColorSelected = Color.parseColor("#fa4613");
+        private final int ColorNegative = Color.parseColor("#aeaca2");
+        private final int ColorSelected = Color.parseColor("#fa4613");
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             Holder holder;

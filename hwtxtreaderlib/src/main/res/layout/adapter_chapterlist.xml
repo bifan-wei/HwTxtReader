@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="15dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="15dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/s_dp_15"
+    android:paddingTop="@dimen/s_dp_15"
+    android:paddingRight="@dimen/s_dp_15"
+    android:paddingBottom="@dimen/s_dp_15">
 
     <TextView
         android:id="@+id/adapter_chapterList_index"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="1"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textColor="#ffffff"
-        android:textSize="14sp"/>
+        android:layout_marginLeft="@dimen/s_dp_10"
+        android:layout_marginRight="@dimen/s_dp_10"
+        android:textColor="@color/color_withe"
+        android:textSize="@dimen/s_dp_14" />
 
     <TextView
         android:id="@+id/adapter_chapterList_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="@dimen/s_dp_25"
+        android:layout_marginRight="@dimen/s_dp_10"
         android:layout_toLeftOf="@+id/adapter_chapterList_progress"
         android:layout_toRightOf="@+id/adapter_chapterList_index"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="第一章"
-        android:textColor="#ffffff"
-        android:textSize="16sp"/>
+        android:text="@string/first_chapter"
+        android:textColor="@color/color_withe"
+        android:textSize="@dimen/s_dp_16"
+        android:layout_toEndOf="@+id/adapter_chapterList_index"
+        android:layout_toStartOf="@+id/adapter_chapterList_progress"
+        android:layout_marginStart="@dimen/s_dp_25"
+        android:layout_marginEnd="@dimen/s_dp_10" />
 
     <TextView
         android:id="@+id/adapter_chapterList_progress"
@@ -39,9 +42,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="15dp"
-        android:text="23%"
-        android:textColor="#7e7e7e"
-        android:textSize="14sp"/>
+        android:layout_marginLeft="@dimen/s_dp_15"
+        android:text="@string/zero_percent"
+        android:textColor="@color/color_7e7e7e"
+        android:textSize="@dimen/s_dp_14"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/s_dp_15" />
 
 </RelativeLayout>

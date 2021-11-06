@@ -7,37 +7,37 @@
         android:id="@+id/activity_hwTxtPlay_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff">
+        android:background="@color/color_withe">
 
 
         <TextView
             android:id="@+id/activity_hwTxtPlay_chapter_menuText"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/s_dp_25"
+            android:layout_height="@dimen/s_dp_25"
             android:layout_centerVertical="true"
             android:background="@drawable/ic_chapter"
             android:clickable="true"
             android:focusable="true"
-            android:paddingBottom="10dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="13dp"
-            android:paddingTop="10dp"
+            android:layout_marginLeft="@dimen/s_dp_5"
+            android:paddingTop="@dimen/s_dp_10"
             android:text=""
-            android:textColor="#858582" />
+            android:textColor="@color/color_858582"
+            android:layout_marginStart="@dimen/s_dp_5" />
 
         <TextView
             android:id="@+id/activity_hwTxtPlay_chapterName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="@dimen/s_dp_5"
+            android:layout_marginRight="@dimen/s_dp_5"
             android:layout_toRightOf="@+id/activity_hwTxtPlay_chapter_menuText"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="第一章"
-            android:textColor="#666666" />
+            android:paddingBottom="@dimen/s_dp_10"
+            android:paddingTop="@dimen/s_dp_10"
+            android:text="@string/first_chapter"
+            android:textColor="@color/color_666666"
+            android:layout_toEndOf="@+id/activity_hwTxtPlay_chapter_menuText" />
 
     </RelativeLayout>
 
@@ -47,36 +47,39 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/activity_hwTxtPlay_bottom"
         android:layout_below="@+id/activity_hwTxtPlay_top"
-        android:background="#ffffff" />
+        android:background="@color/color_withe" />
 
     <RelativeLayout
         android:id="@+id/activity_hwTxtPlay_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#ffffff"
-        android:paddingTop="5dp">
+        android:background="@color/color_withe"
+        android:paddingTop="@dimen/s_dp_5">
 
         <TextView
             android:id="@+id/activity_hwTxtPlay_progress_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="0%"
-            android:textColor="#666666" />
+            android:layout_marginLeft="@dimen/s_dp_10"
+            android:text="@string/zero_percent"
+            android:textColor="@color/color_666666"
+            android:layout_marginStart="@dimen/s_dp_10" />
 
         <TextView
             android:id="@+id/activity_hwTxtPlay_setting_text"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/s_dp_25"
+            android:layout_height="@dimen/s_dp_25"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginBottom="@dimen/s_dp_5"
+            android:layout_marginRight="@dimen/s_dp_5"
             android:background="@drawable/ic_setting"
             android:clickable="true"
-            android:paddingTop="5dp"
-            android:text=""
-            android:textColor="#858582" />
+            android:paddingTop="@dimen/s_dp_5"
+            android:textColor="@color/color_858582"
+            android:focusable="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/s_dp_5" />
     </RelativeLayout>
 
 
@@ -85,36 +88,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#000000"
+        android:background="@color/color_black"
         android:visibility="gone">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="#666666" />
+            android:background="@color/color_666666" />
 
         <TextView
             android:id="@+id/activity_hwTxtPlay_selected_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="选中0个字"
-            android:textColor="#aaffffff" />
+            android:layout_marginLeft="@dimen/s_dp_10"
+            android:paddingBottom="@dimen/s_dp_10"
+            android:paddingTop="@dimen/s_dp_10"
+            android:text="@string/selected_0_num_text"
+            android:textColor="@color/color_aaffffff"
+            android:layout_marginStart="@dimen/s_dp_10" />
 
         <TextView
             android:id="@+id/activity_hwTxtPlay_ClipBoar_click"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="@dimen/s_dp_5"
             android:clickable="true"
             android:onClick="onCopyText"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="复制"
-            android:textColor="#ffffff" />
+            android:paddingBottom="@dimen/s_dp_10"
+            android:paddingTop="@dimen/s_dp_10"
+            android:text="@string/copy"
+            android:textColor="@color/color_withe"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/s_dp_5"
+            android:focusable="true" />
     </RelativeLayout>
 
 
@@ -124,7 +131,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/activity_hwTxtPlay_menu_bottom"
         android:layout_below="@+id/activity_hwTxtPlay_menu_top"
-        android:background="#00000000"
+        android:background="@color/color_transparent"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone" />
@@ -149,8 +156,8 @@
     <include
         android:id="@+id/activity_hwTxtPlay_chapter_msg"
         layout="@layout/view_chapter_msg"
-        android:layout_width="250dp"
-        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/s_dp_80"
         android:layout_centerInParent="true"
         android:visibility="gone" />
 

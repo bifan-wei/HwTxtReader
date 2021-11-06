@@ -3,21 +3,21 @@ package com.bifan.txtreaderlib.ui;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
+
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +34,7 @@ import com.bifan.txtreaderlib.interfaces.ITextSelectListener;
 import com.bifan.txtreaderlib.main.TxtConfig;
 import com.bifan.txtreaderlib.main.TxtReaderView;
 import com.bifan.txtreaderlib.utils.ELogger;
+import com.bifan.txtreaderlib.utils.FileProvider;
 
 import java.io.File;
 
@@ -70,7 +71,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         }
         if (uri != null) {
             try {
-                String path = getRealPathFromUri(uri);
+                String path = FileProvider.getFileAbsolutePath(this, uri);
                 if (!TextUtils.isEmpty(path)) {
                     if (path.contains("/storage/")) {
                         path = path.substring(path.indexOf("/storage/"));
@@ -103,22 +104,6 @@ public class HwTxtPlayActivity extends AppCompatActivity {
 
     }
 
-    private String getRealPathFromUri(Uri contentUri) {
-        Cursor cursor = null;
-        try {
-            String[] pro = {MediaStore.Files.FileColumns.DATA};
-            cursor = getContentResolver().query(contentUri, pro, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        } catch (Exception e) {
-            return null;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-    }
 
     /**
      * @param context  上下文
@@ -184,38 +169,38 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     protected void init() {
         mHandler = new Handler();
         mChapterMsgView = findViewById(R.id.activity_hwTxtPlay_chapter_msg);
-        mChapterMsgName = (TextView) findViewById(R.id.chapter_name);
-        mChapterMsgProgress = (TextView) findViewById(R.id.chapter_progress);
+        mChapterMsgName = findViewById(R.id.chapter_name);
+        mChapterMsgProgress = findViewById(R.id.chapter_progress);
         mTopDecoration = findViewById(R.id.activity_hwTxtPlay_top);
         mBottomDecoration = findViewById(R.id.activity_hwTxtPlay_bottom);
-        mTxtReaderView = (TxtReaderView) findViewById(R.id.activity_hwTxtPlay_readerView);
-        mChapterNameText = (TextView) findViewById(R.id.activity_hwTxtPlay_chapterName);
-        mChapterMenuText = (TextView) findViewById(R.id.activity_hwTxtPlay_chapter_menuText);
-        mProgressText = (TextView) findViewById(R.id.activity_hwTxtPlay_progress_text);
-        mSettingText = (TextView) findViewById(R.id.activity_hwTxtPlay_setting_text);
+        mTxtReaderView = findViewById(R.id.activity_hwTxtPlay_readerView);
+        mChapterNameText = findViewById(R.id.activity_hwTxtPlay_chapterName);
+        mChapterMenuText = findViewById(R.id.activity_hwTxtPlay_chapter_menuText);
+        mProgressText = findViewById(R.id.activity_hwTxtPlay_progress_text);
+        mSettingText = findViewById(R.id.activity_hwTxtPlay_setting_text);
         mTopMenu = findViewById(R.id.activity_hwTxtPlay_menu_top);
         mBottomMenu = findViewById(R.id.activity_hwTxtPlay_menu_bottom);
         mCoverView = findViewById(R.id.activity_hwTxtPlay_cover);
         ClipboardView = findViewById(R.id.activity_hwTxtPlay_ClipBoar);
-        mSelectedText = (TextView) findViewById(R.id.activity_hwTxtPlay_selected_text);
+        mSelectedText = findViewById(R.id.activity_hwTxtPlay_selected_text);
 
-        mMenuHolder.mTitle = (TextView) findViewById(R.id.txtReader_menu_title);
-        mMenuHolder.mPreChapter = (TextView) findViewById(R.id.txtreadr_menu_chapter_pre);
-        mMenuHolder.mNextChapter = (TextView) findViewById(R.id.txtreadr_menu_chapter_next);
-        mMenuHolder.mSeekBar = (SeekBar) findViewById(R.id.txtreadr_menu_seekbar);
-        mMenuHolder.mTextSizeDel = findViewById(R.id.txtreadr_menu_textsize_del);
-        mMenuHolder.mTextSize = (TextView) findViewById(R.id.txtreadr_menu_textsize);
-        mMenuHolder.mTextSizeAdd = findViewById(R.id.txtreadr_menu_textsize_add);
-        mMenuHolder.mBoldSelectedLayout = findViewById(R.id.txtreadr_menu_textsetting1_bold);
-        mMenuHolder.mCoverSelectedLayout = findViewById(R.id.txtreadr_menu_textsetting2_cover);
-        mMenuHolder.mShearSelectedLayout = findViewById(R.id.txtreadr_menu_textsetting2_shear);
-        mMenuHolder.mTranslateSelectedLayout = findViewById(R.id.txtreadr_menu_textsetting2_translate);
+        mMenuHolder.mTitle = findViewById(R.id.txtReader_menu_title);
+        mMenuHolder.mPreChapter = findViewById(R.id.txtReadr_menu_chapter_pre);
+        mMenuHolder.mNextChapter = findViewById(R.id.txtReadr_menu_chapter_next);
+        mMenuHolder.mSeekBar = findViewById(R.id.txtReadr_menu_seekbar);
+        mMenuHolder.mTextSizeDel = findViewById(R.id.txtRead_menu_textsize_del);
+        mMenuHolder.mTextSize = findViewById(R.id.txtRead_menu_textSize);
+        mMenuHolder.mTextSizeAdd = findViewById(R.id.txtRead_menu_textSize_add);
+        mMenuHolder.mBoldSelectedLayout = findViewById(R.id.txtRead_menu_textSetting1_bold);
+        mMenuHolder.mCoverSelectedLayout = findViewById(R.id.txtRead_menu_textSetting2_cover);
+        mMenuHolder.mShearSelectedLayout = findViewById(R.id.txtRead_menu_textSetting2_shear);
+        mMenuHolder.mTranslateSelectedLayout = findViewById(R.id.txtRead_menu_textSetting2_translate);
 
-        mMenuHolder.mStyle1 = findViewById(R.id.hwtxtreader_menu_style1);
-        mMenuHolder.mStyle2 = findViewById(R.id.hwtxtreader_menu_style2);
-        mMenuHolder.mStyle3 = findViewById(R.id.hwtxtreader_menu_style3);
-        mMenuHolder.mStyle4 = findViewById(R.id.hwtxtreader_menu_style4);
-        mMenuHolder.mStyle5 = findViewById(R.id.hwtxtreader_menu_style5);
+        mMenuHolder.mStyle1 = findViewById(R.id.txtReader_menu_style1);
+        mMenuHolder.mStyle2 = findViewById(R.id.txtReader_menu_style2);
+        mMenuHolder.mStyle3 = findViewById(R.id.txtRead_menu_style3);
+        mMenuHolder.mStyle4 = findViewById(R.id.txtReader_menu_style4);
+        mMenuHolder.mStyle5 = findViewById(R.id.txtReader_menu_style5);
     }
 
     private final int[] StyleTextColors = new int[]{
@@ -356,13 +341,11 @@ public class HwTxtPlayActivity extends AppCompatActivity {
             m.getDefaultDisplay().getMetrics(metrics);
             int ViewHeight = metrics.heightPixels - mTopDecoration.getHeight();
             mChapterListPop = new ChapterList(this, ViewHeight, mTxtReaderView.getChapters(), mTxtReaderView.getTxtReaderContext().getParagraphData().getCharNum());
-            mChapterListPop.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    IChapter chapter = (IChapter) mChapterListPop.getAdapter().getItem(i);
-                    mChapterListPop.dismiss();
-                    mTxtReaderView.loadFromProgress(chapter.getStartParagraphIndex(), 0);
-                }
+            mChapterListPop.setOnDismissListener(this::hideNavigationBarStatusBar);
+            mChapterListPop.getListView().setOnItemClickListener((adapterView, view, i, l) -> {
+                IChapter chapter = (IChapter) mChapterListPop.getAdapter().getItem(i);
+                mChapterListPop.dismiss();
+                mTxtReaderView.loadFromProgress(chapter.getStartParagraphIndex(), 0);
             });
         } else {
             Gone(mChapterMenuText);
@@ -408,7 +391,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mTxtReaderView.setOnTextSelectListener(new ITextSelectListener() {
             @Override
             public void onTextChanging(TxtChar firstSelectedChar, TxtChar lastSelectedChar) {
-                 //firstSelectedChar.Top
+                //firstSelectedChar.Top
                 //  firstSelectedChar.Bottom
                 // 这里可以根据 firstSelectedChar与lastSelectedChar的top与bottom的位置
                 //计算显示你要显示的弹窗位置，如果需要的话
@@ -521,6 +504,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
                         }, 300);
                     } else {
                         mChapterListPop.dismiss();
+
                     }
                 }
             }
@@ -624,7 +608,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             if (FileExist) {
-                Boolean Bold=mTxtReaderView.getTxtReaderContext().getTxtConfig().Bold;
+                Boolean Bold = mTxtReaderView.getTxtReaderContext().getTxtConfig().Bold;
                 mTxtReaderView.setTextBold(!Bold);
                 onTextSettingUi(!Bold);
             }
@@ -761,6 +745,25 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         public View mStyle3;
         public View mStyle4;
         public View mStyle5;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideNavigationBarStatusBar();
+    }
+
+    private void hideNavigationBarStatusBar() {
+        if (Build.VERSION.SDK_INT >= 19) {
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
     }
 
     @Override

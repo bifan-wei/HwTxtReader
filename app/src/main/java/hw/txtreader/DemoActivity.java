@@ -4,14 +4,16 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import com.bifan.txtreaderlib.main.TxtConfig;
 import com.bifan.txtreaderlib.ui.HwTxtPlayActivity;
+import com.bifan.txtreaderlib.utils.FileProvider;
 
 import java.io.File;
 
@@ -35,30 +38,20 @@ public class DemoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mEditText = (EditText) findViewById(R.id.editText);
         mEditText.setText(FilePath);
-        if (CheckPermission()) {
-            Permit = true;
-        } else {
-
-        }
+        Permit = CheckPermission();
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {//是否选择，没选择就不会继续
-            Uri uri = data.getData();//得到uri，后面就是将uri转化成file的过程。
-            String[] pros = {MediaStore.Files.FileColumns.DATA};
-            try {
-                Cursor cursor = managedQuery(uri, pros, null, null, null);
-                int actual_txt_column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                cursor.moveToFirst();
-                String path = cursor.getString(actual_txt_column_index);
-                mEditText.setText(path);
-            } catch (Exception e) {
-                toast("选择出错了");
-            }
+            Uri uri = data.getData();//得到uri，后面就是将uri转化成file的过程
+            String path = FileProvider.getFileAbsolutePath(this,uri);
+            mEditText.setText(path);
         }
     }
+
 
     public void chooseFile(View view) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -69,7 +62,7 @@ public class DemoActivity extends AppCompatActivity {
 
     public void loadFile(View view) {
         if (Permit) {
-            TxtConfig.saveIsOnVerticalPageMode(this,false);
+            TxtConfig.saveIsOnVerticalPageMode(this, false);
             FilePath = mEditText.getText().toString().trim();
             if (TextUtils.isEmpty(FilePath) || !(new File(FilePath)).exists()) {
                 toast("文件不存在");
@@ -85,7 +78,7 @@ public class DemoActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(FilePath) || !(new File(FilePath)).exists()) {
                 toast("文件不存在");
             } else {
-                TxtConfig.saveIsOnVerticalPageMode(this,true);
+                TxtConfig.saveIsOnVerticalPageMode(this, true);
                 HwTxtPlayActivity.loadTxtFile(this, FilePath);
             }
         }
@@ -117,6 +110,17 @@ public class DemoActivity extends AppCompatActivity {
     }
 
     private Boolean CheckPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // 安卓11，判断有没有“所有文件访问权限”权限
+            if (Environment.isExternalStorageManager()) {
+                return true;
+            } else {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                return false;
+            }
+        }
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -131,7 +135,6 @@ public class DemoActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-
         if (requestCode == MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Permit = true;
@@ -146,6 +149,7 @@ public class DemoActivity extends AppCompatActivity {
     }
 
     private Toast t;
+
     private void toast(String msg) {
         if (t != null) {
             t.cancel();

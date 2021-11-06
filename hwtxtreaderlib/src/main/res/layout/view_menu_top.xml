@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#0a0a12"
+    android:background="@color/color_0a0a12"
     android:orientation="horizontal"
-    android:paddingBottom="13dp"
-    android:paddingLeft="10dp"
-    android:paddingTop="13dp">
+    android:paddingBottom="@dimen/s_dp_13"
+    android:paddingLeft="@dimen/s_dp_10"
+    android:paddingTop="@dimen/s_dp_13"
+    android:paddingStart="@dimen/s_dp_10">
 
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="18dp"
+        android:layout_width="@dimen/s_dp_30"
+        android:layout_height="@dimen/s_dp_18"
         android:layout_gravity="center_vertical"
         android:onClick="BackClick"
         android:src="@drawable/ic_key_back" />
@@ -20,12 +21,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="@dimen/s_dp_25"
         android:gravity="center"
-        android:layout_marginRight="55dp"
+        android:layout_marginRight="@dimen/s_dp_55"
         android:ellipsize="end"
         android:maxLines="1"
         android:text=""
-        android:textColor="#ffffff"
-        android:textSize="17sp" />
+        android:textColor="@color/color_withe"
+        android:textSize="@dimen/s_dp_17"
+        android:layout_marginStart="@dimen/s_dp_25"
+        android:layout_marginEnd="@dimen/s_dp_55" />
 </LinearLayout>

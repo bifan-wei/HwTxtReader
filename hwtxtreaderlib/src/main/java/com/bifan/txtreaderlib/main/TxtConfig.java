@@ -62,7 +62,7 @@ public class TxtConfig {
     public float CenterClickArea = 0.35f;//0~1,中间点击区域占View宽度的百分比，区域为高为宽两倍的矩形，如果为1f，说明点击翻页将不起效果
     public int PageSwitchDuration = 400;//页面滑动时间间隔，毫秒，建议不要低于200
 
-    public static final SharedPreferences getS(Context context) {
+    public static SharedPreferences getS(Context context) {
         SharedPreferences share = context.getSharedPreferences(SAVE_NAME, Context.MODE_PRIVATE);
         return share;
     }
@@ -85,7 +85,7 @@ public class TxtConfig {
         SharedPreferences share = getS(context);
         SharedPreferences.Editor editor = share.edit();
         editor.putInt(C_PAGE_SWITCH_TYPE_MODE, PageSwitchMode);
-        editor.commit();
+        editor.apply();
     }
 
 
@@ -94,11 +94,11 @@ public class TxtConfig {
      * @param duration 不能低于100，建议200以上
      */
     public static void savePageSwitchDuration(Context context, int duration) {
-        duration = duration < 100 ? 100 : duration;
+        duration = Math.max(duration, 100);
         SharedPreferences share = getS(context);
         SharedPreferences.Editor editor = share.edit();
         editor.putInt(C_PAGE_SWITCH_DURATION, duration);
-        editor.commit();
+        editor.apply();
     }
 
     public static int getPageSwitchDuration(Context context) {
@@ -107,12 +107,12 @@ public class TxtConfig {
     }
 
     public static void saveTextSize(Context context, int textSize) {
-        textSize = textSize < MIN_TEXT_SIZE ? MIN_TEXT_SIZE : textSize;
-        textSize = textSize > MAX_TEXT_SIZE ? MAX_TEXT_SIZE : textSize;
+        textSize = Math.max(textSize, MIN_TEXT_SIZE);
+        textSize = Math.min(textSize, MAX_TEXT_SIZE);
         SharedPreferences share = getS(context);
         SharedPreferences.Editor editor = share.edit();
         editor.putInt(C_TEXT_SIZE, textSize);
-        editor.commit();
+        editor.apply();
     }
 
     public static int getTextSize(Context context) {
