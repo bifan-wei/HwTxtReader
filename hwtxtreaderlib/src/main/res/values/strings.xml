@@ -12,4 +12,5 @@
     <string name="shear">剪切</string>
     <string name="page">翻页</string>
     <string name="style">风格</string>
+    <string name="select_char_num">选中%d个文字</string>
 </resources>

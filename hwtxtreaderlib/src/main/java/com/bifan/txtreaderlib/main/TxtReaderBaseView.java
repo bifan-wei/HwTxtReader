@@ -7,7 +7,9 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.Region;
+
 import androidx.annotation.Nullable;
+
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -29,6 +31,7 @@ import com.bifan.txtreaderlib.interfaces.ISliderListener;
 import com.bifan.txtreaderlib.interfaces.ITxtLine;
 import com.bifan.txtreaderlib.interfaces.ITxtTask;
 import com.bifan.txtreaderlib.tasks.BitmapProduceTask;
+import com.bifan.txtreaderlib.tasks.DestroyableTask;
 import com.bifan.txtreaderlib.tasks.TextLoader;
 import com.bifan.txtreaderlib.tasks.TxtFileLoader;
 import com.bifan.txtreaderlib.utils.DisPlayUtil;
@@ -60,6 +63,12 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
     protected Bitmap BottomPage = null;//底部页
     protected Mode CurrentMode = Mode.Normal;//当前页面模式
     protected boolean hasDown = false;
+    private IPageEdgeListener pageEdgeListener;
+    private IPageChangeListener pageChangeListener;
+    private ISliderListener sliderListener;
+    private ICenterAreaClickListener centerAreaClickListener;
+    private DestroyableTask mFileLoadTask, mStrLoadTask;
+    private TxtFileLoader mTxtFileLoader;
 
     public TxtReaderBaseView(Context context) {
         super(context);
@@ -1191,13 +1200,11 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      * @param listener
      */
     private void loadFile(final String filePath, final ILoadListener listener) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                TxtFileLoader loader = new TxtFileLoader();
-                loader.load(filePath, readerContext, new DataLoadListener(listener));
-            }
-        }).start();
+        destroyFileLoadTask();
+        final TxtFileLoader loader = new TxtFileLoader();
+        DestroyableTask task = new DestroyableTask(loader::onStop);
+        task.excuse(() -> loader.load(filePath, readerContext, new DataLoadListener(listener)));
+        mFileLoadTask = task;
     }
 
     /**
@@ -1205,13 +1212,23 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
      * @param listener
      */
     private void loadTextStr(final String text, final ILoadListener listener) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                TextLoader loader = new TextLoader();
-                loader.load(text, readerContext, new DataLoadListener(listener));
-            }
-        }).start();
+        destroyStrLoadTask();
+        final TextLoader loader = new TextLoader();
+        DestroyableTask task = new DestroyableTask(null);
+        task.excuse(() -> loader.load(text, readerContext, new DataLoadListener(listener)));
+        mStrLoadTask = task;
+    }
+
+    private void destroyFileLoadTask() {
+        if (mFileLoadTask != null) {
+            mFileLoadTask.destroy();
+        }
+    }
+
+    private void destroyStrLoadTask() {
+        if (mStrLoadTask != null) {
+            mStrLoadTask.destroy();
+        }
     }
 
     /**
@@ -1265,10 +1282,6 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
 
     //-------------------------------------------------------------
-    private IPageEdgeListener pageEdgeListener;
-    private IPageChangeListener pageChangeListener;
-    private ISliderListener sliderListener;
-    private ICenterAreaClickListener centerAreaClickListener;
 
 
     /**
@@ -1382,5 +1395,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         postInvalidate();
     }
 
+    public void onDestroy() {
+        destroyFileLoadTask();
+        destroyStrLoadTask();
+    }
 
 }

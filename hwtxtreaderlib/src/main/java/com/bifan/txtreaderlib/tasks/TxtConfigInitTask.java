@@ -19,11 +19,11 @@ import com.bifan.txtreaderlib.utils.TxtBitmapUtil;
  */
 
 public class TxtConfigInitTask implements ITxtTask {
-    private String atg = "TxtConfigInitTask";
+    private String tag = "TxtConfigInitTask";
 
     @Override
     public void Run(ILoadListener callBack, TxtReaderContext readerContext) {
-        ELogger.log(atg, "do TxtConfigInit");
+        ELogger.log(tag, "do TxtConfigInit");
         callBack.onMessage("start init settings in TxtConfigInitTask");
 
         TxtConfig config = readerContext.getTxtConfig();
@@ -101,12 +101,11 @@ public class TxtConfigInitTask implements ITxtTask {
         paintContext.sliderPaint.setColor(txtConfig.SliderColor);
         paintContext.sliderPaint.setAntiAlias(true);
         paintContext.textPaint.setFakeBoldText(txtConfig.Bold);
+        paintContext.textPaint.setTypeface(null);
         if (txtConfig.VerticalPageMode) {
             AssetManager mgr = context.getAssets();
             Typeface tf = Typeface.createFromAsset(mgr, "fonts/text_style.TTF");
             paintContext.textPaint.setTypeface(tf);
-        } else {
-            paintContext.textPaint.setTypeface(null);
         }
     }
 

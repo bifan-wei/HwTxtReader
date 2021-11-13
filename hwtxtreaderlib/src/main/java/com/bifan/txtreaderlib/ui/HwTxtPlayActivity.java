@@ -12,6 +12,7 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -224,15 +225,12 @@ public class HwTxtPlayActivity extends AppCompatActivity {
             }
 
         }
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //延迟加载避免闪一下的情况出现
-                if (ContentStr == null) {
-                    loadOurFile();
-                } else {
-                    loadStr();
-                }
+        mHandler.postDelayed(() -> {
+            //延迟加载避免闪一下的情况出现
+            if (ContentStr == null) {
+                loadOurFile();
+            } else {
+                loadStr();
             }
         }, 300);
 
@@ -254,12 +252,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
             @Override
             public void onFail(final TxtMsg txtMsg) {
                 if (!hasExisted) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            onLoadDataFail(txtMsg);
-                        }
-                    });
+                    runOnUiThread(() -> onLoadDataFail(txtMsg));
                 }
 
             }
@@ -276,7 +269,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
      */
     protected void onLoadDataFail(TxtMsg txtMsg) {
         //加载失败信息
-        toast(txtMsg + "");
+        toast(String.valueOf(txtMsg));
     }
 
     /**
@@ -316,7 +309,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         if (mTxtReaderView.getTxtReaderContext().getFileMsg() != null) {
             FileName = mTxtReaderView.getTxtReaderContext().getFileMsg().FileName;
         }
-        mMenuHolder.mTextSize.setText(mTxtReaderView.getTextSize() + "");
+        mMenuHolder.mTextSize.setText(String.valueOf(mTxtReaderView.getTextSize()));
         mTopDecoration.setBackgroundColor(mTxtReaderView.getBackgroundColor());
         mBottomDecoration.setBackgroundColor(mTxtReaderView.getBackgroundColor());
         //mTxtReaderView.setLeftSlider(new MuiLeftSlider());//修改左滑动条
@@ -353,12 +346,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     }
 
     protected void registerListener() {
-        mSettingText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Show(mTopMenu, mBottomMenu, mCoverView);
-            }
-        });
+        mSettingText.setOnClickListener(view -> Show(mTopMenu, mBottomMenu, mCoverView));
         setMenuListener();
         setSeekBarListener();
         setCenterClickListener();
@@ -431,18 +419,15 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     }
 
     protected void setPageChangeListener() {
-        mTxtReaderView.setPageChangeListener(new IPageChangeListener() {
-            @Override
-            public void onCurrentPage(float progress) {
-                int p = (int) (progress * 1000);
-                mProgressText.setText(((float) p / 10) + "%");
-                mMenuHolder.mSeekBar.setProgress((int) (progress * 100));
-                IChapter currentChapter = mTxtReaderView.getCurrentChapter();
-                if (currentChapter != null) {
-                    mChapterNameText.setText((currentChapter.getTitle() + "").trim());
-                } else {
-                    mChapterNameText.setText("无章节");
-                }
+        mTxtReaderView.setPageChangeListener(progress -> {
+            int p = (int) (progress * 1000);
+            mProgressText.setText(((float) p / 10) + "%");
+            mMenuHolder.mSeekBar.setProgress((int) (progress * 100));
+            IChapter currentChapter = mTxtReaderView.getCurrentChapter();
+            if (currentChapter != null) {
+                mChapterNameText.setText((currentChapter.getTitle() + "").trim());
+            } else {
+                mChapterNameText.setText("无章节");
             }
         });
     }
@@ -477,14 +462,11 @@ public class HwTxtPlayActivity extends AppCompatActivity {
             if (mChapterListPop != null) {
                 if (!mChapterListPop.isShowing()) {
                     mChapterListPop.showAsDropDown(mTopDecoration);
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            IChapter currentChapter = mTxtReaderView.getCurrentChapter();
-                            if (currentChapter != null) {
-                                mChapterListPop.setCurrentIndex(currentChapter.getIndex());
-                                mChapterListPop.notifyDataSetChanged();
-                            }
+                    mHandler.postDelayed(() -> {
+                        IChapter currentChapter = mTxtReaderView.getCurrentChapter();
+                        if (currentChapter != null) {
+                            mChapterListPop.setCurrentIndex(currentChapter.getIndex());
+                            mChapterListPop.notifyDataSetChanged();
                         }
                     }, 300);
                 } else {
@@ -547,13 +529,14 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     }
 
     private void onCurrentSelectedText(String SelectedText) {
-        mSelectedText.setText("选中" + (SelectedText + "").length() + "个文字");
+        String selectTextShow = String.format(getString(R.string.select_char_num), (SelectedText + "").length());
+        mSelectedText.setText(selectTextShow);
         CurrentSelectedText = SelectedText;
     }
 
     private void onTextSettingUi(Boolean isBold) {
         int rs = isBold ? R.drawable.ic_bold_selected : R.drawable.ic_bold_normal;
-        mMenuHolder.mBoldSelectedLayout.setBackgroundDrawable(getResources().getDrawable(rs));
+        mMenuHolder.mBoldSelectedLayout.setBackgroundDrawable(ResourcesCompat.getDrawable(getResources(), rs, null));
     }
 
     private void onPageSwitchSettingUi(int pageSwitchMode) {
@@ -588,7 +571,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     }
 
     private class SwitchSettingClickListener implements View.OnClickListener {
-        private int pageSwitchMode;
+        private final int pageSwitchMode;
 
         public SwitchSettingClickListener(int pageSwitchMode) {
             this.pageSwitchMode = pageSwitchMode;
@@ -612,7 +595,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
 
 
     private class ChapterChangeClickListener implements View.OnClickListener {
-        private Boolean Pre;
+        private final Boolean Pre;
 
         public ChapterChangeClickListener(Boolean pre) {
             Pre = pre;
@@ -629,7 +612,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     }
 
     private class TextChangeClickListener implements View.OnClickListener {
-        private Boolean Add;
+        private final Boolean Add;
 
         public TextChangeClickListener(Boolean pre) {
             Add = pre;
@@ -655,8 +638,8 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     }
 
     private class StyleChangeClickListener implements View.OnClickListener {
-        private int BgColor;
-        private int TextColor;
+        private final int BgColor;
+        private final int TextColor;
 
         public StyleChangeClickListener(int bgColor, int textColor) {
             BgColor = bgColor;
@@ -700,7 +683,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         t.show();
     }
 
-    protected class MenuHolder {
+    protected static class MenuHolder {
         public TextView mTitle;
         public TextView mPreChapter;
         public TextView mNextChapter;
@@ -777,28 +760,26 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         if (!hasExisted) {
             ContentStr = null;
             hasExisted = true;
+            if (mHandler != null) {
+                mHandler.removeCallbacksAndMessages(null);
+                mHandler = null;
+            }
             if (mTxtReaderView != null) {
                 mTxtReaderView.saveCurrentProgress();
+                mTxtReaderView.onDestroy();
             }
-            mHandler.postDelayed(() -> {
-                if (mTxtReaderView != null) {
-                    mTxtReaderView.getTxtReaderContext().Clear();
-                    mTxtReaderView = null;
+            if (mTxtReaderView != null) {
+                mTxtReaderView.getTxtReaderContext().Clear();
+                mTxtReaderView = null;
+            }
+            if (mChapterListPop != null) {
+                if (mChapterListPop.isShowing()) {
+                    mChapterListPop.dismiss();
                 }
-                if (mHandler != null) {
-                    mHandler.removeCallbacksAndMessages(null);
-                    mHandler = null;
-                }
-                if (mChapterListPop != null) {
-                    if (mChapterListPop.isShowing()) {
-                        mChapterListPop.dismiss();
-                    }
-                    mChapterListPop.onDestroy();
-                    mChapterListPop = null;
-                }
-                mMenuHolder = null;
-            }, 300);
-
+                mChapterListPop.onDestroy();
+                mChapterListPop = null;
+            }
+            mMenuHolder = null;
         }
     }
 }
