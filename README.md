@@ -1,5 +1,6 @@
 ![image](https://github.com/bifan-wei/HwTxtReader/blob/master/pics/ic_txt_logo.png) <br> 
 **一分钟让你的app快速集成一个简洁漂亮的小说阅读器！**<br>
+**HwTxtReader 长期更新维护，打造一个简单易用的文本阅读控件，欢迎使用与支持！**<br>
 <br> <br> 
 #### 目前实现了的功能：
 +   字体设置与调节。包括大小、颜色、是否加粗。<br>
