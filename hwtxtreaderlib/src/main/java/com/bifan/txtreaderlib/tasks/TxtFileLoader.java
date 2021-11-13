@@ -15,17 +15,21 @@ import java.io.File;
 
 
 /**
- * created by ： bifan-wei
+ * @description
+ * @author bifan-wei
+ * @time 2021/11/13 16:53
  */
 
 public class TxtFileLoader {
     private String tag = "TxtFileLoader";
+    private FileDataLoadTask mFileDataLoadTask;
 
     public void load(String filePath, TxtReaderContext readerContext, ILoadListener loadListener) {
         load(filePath, null, readerContext, loadListener);
     }
 
     public void load(String filePath, String fileName, TxtReaderContext readerContext, ILoadListener loadListener) {
+        onStop();
         if (!FileUtil.FileExist(filePath)) {
             loadListener.onFail(TxtMsg.FileNoExist);
             return;
@@ -34,8 +38,8 @@ public class TxtFileLoader {
         initFile(filePath, fileName, readerContext);
         ELogger.log(tag, "initFile done");
         loadListener.onMessage("initFile done");
-        ITxtTask txtTask = new FileDataLoadTask();
-        txtTask.Run(loadListener, readerContext);
+        mFileDataLoadTask = new FileDataLoadTask();
+        mFileDataLoadTask.Run(loadListener, readerContext);
 
     }
 
@@ -64,8 +68,15 @@ public class TxtFileLoader {
                 fileMsg.PreCharIndex = r.chartIndex;
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         readRecordDB.createTable();
         readerContext.setFileMsg(fileMsg);
+    }
+
+    public void onStop() {
+        if (mFileDataLoadTask != null) {
+            mFileDataLoadTask.onStop();
+        }
     }
 }

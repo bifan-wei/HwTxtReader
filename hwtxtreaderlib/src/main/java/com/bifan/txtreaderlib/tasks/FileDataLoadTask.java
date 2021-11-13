@@ -23,17 +23,25 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 /**
- * created by ： bifan-wei
+ * @author bifan-wei
+ * @description
+ * @time 2021/11/13 16:52
  */
 
 public class FileDataLoadTask implements ITxtTask {
+    private static final String ChapterPatternStr = "(^.{0,3}\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";
     private String tag = "FileDataLoadTask";
     private IChapterMatcher chapterMatcher;
+    private boolean stop = false;
+
+    public void onStop() {
+        stop = true;
+    }
 
     @Override
     public void Run(ILoadListener callBack, TxtReaderContext readerContext) {
+        stop = false;
         IParagraphData paragraphData = new ParagraphData();
         chapterMatcher = readerContext.getChapterMatcher();
         List<IChapter> chapter = new ArrayList<>();
@@ -51,6 +59,7 @@ public class FileDataLoadTask implements ITxtTask {
             callBack.onFail(TxtMsg.InitError);
             callBack.onMessage("ReadData fail on FileDataLoadTask");
         }
+        stop = true;
     }
 
     private Boolean ReadData(String filePath, String Charset, IParagraphData paragraphData, List<IChapter> chapters) {
@@ -59,13 +68,12 @@ public class FileDataLoadTask implements ITxtTask {
         ELogger.log(tag, "start to  ReadData");
         ELogger.log(tag, "--file Charset:" + Charset);
         try {
-            bufferedReader = new BufferedReader(
-                    new InputStreamReader(new FileInputStream(file), Charset));
+            bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charset));
             try {
                 String data;
                 int index = 0;
                 int chapterIndex = 0;
-                while ((data = bufferedReader.readLine()) != null) {
+                while (!stop && (data = bufferedReader.readLine()) != null) {
                     if (data.length() > 0) {
                         IChapter chapter = compileChapter(data, paragraphData.getCharNum(), index, chapterIndex);
                         paragraphData.addParagraph(data);
@@ -77,7 +85,7 @@ public class FileDataLoadTask implements ITxtTask {
                     }
                 }
                 initChapterEndIndex(chapters, paragraphData.getParagraphNum());
-                return true;
+                return !stop;
             } catch (IOException e) {
                 ELogger.log(tag, "IOException:" + e.toString());
             }
@@ -97,10 +105,7 @@ public class FileDataLoadTask implements ITxtTask {
         return false;
     }
 
-    /**
-     * @param chapters
-     * @param paragraphNum
-     */
+
     private void initChapterEndIndex(List<IChapter> chapters, int paragraphNum) {
         if (chapters != null && chapters.size() > 0) {
             for (int i = 0, sum = chapters.size(); i < sum; i++) {
@@ -108,21 +113,21 @@ public class FileDataLoadTask implements ITxtTask {
                 IChapter chapter = chapters.get(i);
                 if (nextIndex < sum) {
                     int startIndex = chapter.getStartParagraphIndex();
-                    int endIndex = chapters.get(nextIndex).getEndParagraphIndex()- 1;
+                    int endIndex = chapters.get(nextIndex).getEndParagraphIndex() - 1;
                     if (endIndex < startIndex) {
                         endIndex = startIndex;
                     }
                     chapter.setEndParagraphIndex(endIndex);
                 } else {
                     int endIndex = paragraphNum - 1;
-                    endIndex = endIndex < 0 ? 0 : endIndex;
+                    endIndex = Math.max(endIndex, 0);
                     chapter.setEndParagraphIndex(endIndex);
                 }
             }
         }
     }
 
-    private static final String ChapterPatternStr = "(^.{0,3}\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";
+
 
     /**
      * @param data              文本数据
@@ -136,11 +141,10 @@ public class FileDataLoadTask implements ITxtTask {
             if (data.trim().startsWith("第") || data.contains("第")) {
                 Pattern p = Pattern.compile(ChapterPatternStr);
                 Matcher matcher = p.matcher(data);
-                while (matcher.find()) {
+                if (matcher.find()) {
                     int startIndex = 0;
                     int endIndex = data.length();
-                    IChapter c = new Chapter(chapterStartIndex, chapterIndex, data, ParagraphIndex, ParagraphIndex, startIndex, endIndex);
-                    return c;
+                    return new Chapter(chapterStartIndex, chapterIndex, data, ParagraphIndex, ParagraphIndex, startIndex, endIndex);
                 }
             }
             return null;

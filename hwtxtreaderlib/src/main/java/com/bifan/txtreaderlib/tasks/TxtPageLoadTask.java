@@ -13,8 +13,8 @@ import com.bifan.txtreaderlib.utils.ELogger;
 
 public class TxtPageLoadTask implements ITxtTask {
     private String tag = "TxtPageLoadTask";
-    private int startParagraphIndex;
-    private int startCharIndex;
+    private final int startParagraphIndex;
+    private final int startCharIndex;
 
     public TxtPageLoadTask(int startParagraphIndex, int startCharIndex) {
         this.startParagraphIndex = startParagraphIndex;
@@ -26,7 +26,7 @@ public class TxtPageLoadTask implements ITxtTask {
         callBack.onMessage("start load pageData");
 
         IPage firstPage = null;
-        IPage midPage ;
+        IPage midPage;
         IPage nextPage = null;
 
         midPage = readerContext.getPageDataPipeline().getPageStartFromProgress(startParagraphIndex, startCharIndex);

@@ -16,8 +16,9 @@ import java.util.List;
  * on 2018/1/28.
  */
 
-public class TextLoader  {
-    private String tag = "FileDataLoadTask";
+public class TextLoader {
+    private final String tag = "FileDataLoadTask";
+
     public void load(String text, TxtReaderContext readerContext, ILoadListener callBack) {
         IParagraphData paragraphData = new ParagraphData();
         List<IChapter> chapter = new ArrayList<>();

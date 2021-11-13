@@ -12,4 +12,5 @@
     <string name="shear">shear</string>
     <string name="page">page</string>
     <string name="style">style</string>
+    <string name="select_char_num">selected %d characters</string>
 </resources>

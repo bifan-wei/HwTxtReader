@@ -2,10 +2,12 @@ package com.bifan.txtreaderlib.bean;
 
 import com.bifan.txtreaderlib.interfaces.IChapter;
 
-/*
-* create by bifan-wei
-* 2017-11-13
-*/
+/**
+ * @description
+ * @author bifan-wei
+ * @time 2021/11/13 16:05
+ */
+
 public class Chapter implements IChapter {
     public String Title;
     public int Index;//章节位置
