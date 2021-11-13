@@ -467,82 +467,54 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     }
 
     protected void setMenuListener() {
-        mTopMenu.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return true;
-            }
+        mTopMenu.setOnTouchListener((view, motionEvent) -> true);
+        mBottomMenu.setOnTouchListener((view, motionEvent) -> true);
+        mCoverView.setOnTouchListener((view, motionEvent) -> {
+            Gone(mTopMenu, mBottomMenu, mCoverView, mChapterMsgView);
+            return true;
         });
-        mBottomMenu.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return true;
-            }
-        });
-        mCoverView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                Gone(mTopMenu, mBottomMenu, mCoverView, mChapterMsgView);
-                return true;
-            }
-        });
-        View.OnClickListener chapterMsgShowClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mChapterListPop != null) {
-                    if (!mChapterListPop.isShowing()) {
-                        mChapterListPop.showAsDropDown(mTopDecoration);
-                        mHandler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                IChapter currentChapter = mTxtReaderView.getCurrentChapter();
-                                if (currentChapter != null) {
-                                    mChapterListPop.setCurrentIndex(currentChapter.getIndex());
-                                    mChapterListPop.notifyDataSetChanged();
-                                }
+        View.OnClickListener chapterMsgShowClick = v -> {
+            if (mChapterListPop != null) {
+                if (!mChapterListPop.isShowing()) {
+                    mChapterListPop.showAsDropDown(mTopDecoration);
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            IChapter currentChapter = mTxtReaderView.getCurrentChapter();
+                            if (currentChapter != null) {
+                                mChapterListPop.setCurrentIndex(currentChapter.getIndex());
+                                mChapterListPop.notifyDataSetChanged();
                             }
-                        }, 300);
-                    } else {
-                        mChapterListPop.dismiss();
+                        }
+                    }, 300);
+                } else {
+                    mChapterListPop.dismiss();
 
-                    }
                 }
             }
         };
         mChapterNameText.setOnClickListener(chapterMsgShowClick);
         mChapterMenuText.setOnClickListener(chapterMsgShowClick);
-        mTopMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mChapterListPop.isShowing()) {
-                    mChapterListPop.dismiss();
-                }
+        mTopMenu.setOnClickListener(view -> {
+            if (mChapterListPop.isShowing()) {
+                mChapterListPop.dismiss();
             }
         });
     }
 
     protected void setSeekBarListener() {
-
-        mMenuHolder.mSeekBar.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    mTxtReaderView.loadFromProgress(mMenuHolder.mSeekBar.getProgress());
-                    Gone(mChapterMsgView);
-                }
-                return false;
+        mMenuHolder.mSeekBar.setOnTouchListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                mTxtReaderView.loadFromProgress(mMenuHolder.mSeekBar.getProgress());
+                Gone(mChapterMsgView);
             }
+            return false;
         });
         mMenuHolder.mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, final int progress, boolean fromUser) {
                 if (fromUser) {
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            onShowChapterMsg(progress);
-                        }
-                    });
+                    mHandler.post(() -> onShowChapterMsg(progress));
                 }
             }
 
@@ -808,26 +780,23 @@ public class HwTxtPlayActivity extends AppCompatActivity {
             if (mTxtReaderView != null) {
                 mTxtReaderView.saveCurrentProgress();
             }
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (mTxtReaderView != null) {
-                        mTxtReaderView.getTxtReaderContext().Clear();
-                        mTxtReaderView = null;
-                    }
-                    if (mHandler != null) {
-                        mHandler.removeCallbacksAndMessages(null);
-                        mHandler = null;
-                    }
-                    if (mChapterListPop != null) {
-                        if (mChapterListPop.isShowing()) {
-                            mChapterListPop.dismiss();
-                        }
-                        mChapterListPop.onDestroy();
-                        mChapterListPop = null;
-                    }
-                    mMenuHolder = null;
+            mHandler.postDelayed(() -> {
+                if (mTxtReaderView != null) {
+                    mTxtReaderView.getTxtReaderContext().Clear();
+                    mTxtReaderView = null;
                 }
+                if (mHandler != null) {
+                    mHandler.removeCallbacksAndMessages(null);
+                    mHandler = null;
+                }
+                if (mChapterListPop != null) {
+                    if (mChapterListPop.isShowing()) {
+                        mChapterListPop.dismiss();
+                    }
+                    mChapterListPop.onDestroy();
+                    mChapterListPop = null;
+                }
+                mMenuHolder = null;
             }, 300);
 
         }

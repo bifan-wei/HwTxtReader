@@ -33,25 +33,21 @@ public class MoreDisplayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         handler = new Handler();
         setContentView(R.layout.activity_display_more);
-        setReaderView((TxtReaderView) findViewById(R.id.txtReaderView_g_1), backgroundColors[0], textColors[0], 20);
-        setReaderView((TxtReaderView) findViewById(R.id.txtReaderView_g_2), backgroundColors[1], textColors[1], 200);
-        setReaderView((TxtReaderView) findViewById(R.id.txtReaderView_g_3), backgroundColors[2], textColors[2], 400);
-        setReaderView((TxtReaderView) findViewById(R.id.txtReaderView_g_4), backgroundColors[3], textColors[3], 600);
+        setReaderView(findViewById(R.id.txtReaderView_g_1), backgroundColors[0], textColors[0], 20);
+        setReaderView(findViewById(R.id.txtReaderView_g_2), backgroundColors[1], textColors[1], 200);
+        setReaderView(findViewById(R.id.txtReaderView_g_3), backgroundColors[2], textColors[2], 400);
+        setReaderView(findViewById(R.id.txtReaderView_g_4), backgroundColors[3], textColors[3], 600);
     }
 
     private void setReaderView(final TxtReaderView readerView, final int background, final int textColor, long delatLoadTime) {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                String path = getIntent().getStringExtra("filePath");
-                readerView.loadTxtFile(path, new LoadListenerAdapter() {
-                    @Override
-                    public void onSuccess() {
-                        readerView.setStyle(background, textColor);
-                        //readerView.setPageSwitchByTranslate();
-                    }
-                });
-            }
+        handler.postDelayed(() -> {
+            String path = getIntent().getStringExtra("filePath");
+            readerView.loadTxtFile(path, new LoadListenerAdapter() {
+                @Override
+                public void onSuccess() {
+                    readerView.setStyle(background, textColor);
+                }
+            });
         }, delatLoadTime);
     }
 

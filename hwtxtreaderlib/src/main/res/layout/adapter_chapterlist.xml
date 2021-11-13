@@ -22,31 +22,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/s_dp_25"
         android:layout_marginLeft="@dimen/s_dp_25"
+        android:layout_marginEnd="@dimen/s_dp_10"
         android:layout_marginRight="@dimen/s_dp_10"
+        android:layout_toStartOf="@+id/adapter_chapterList_progress"
         android:layout_toLeftOf="@+id/adapter_chapterList_progress"
+        android:layout_toEndOf="@+id/adapter_chapterList_index"
         android:layout_toRightOf="@+id/adapter_chapterList_index"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="@string/first_chapter"
         android:textColor="@color/color_withe"
-        android:textSize="@dimen/s_dp_16"
-        android:layout_toEndOf="@+id/adapter_chapterList_index"
-        android:layout_toStartOf="@+id/adapter_chapterList_progress"
-        android:layout_marginStart="@dimen/s_dp_25"
-        android:layout_marginEnd="@dimen/s_dp_10" />
+        android:textSize="@dimen/s_dp_16" />
 
     <TextView
         android:id="@+id/adapter_chapterList_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/s_dp_15"
         android:layout_marginLeft="@dimen/s_dp_15"
         android:text="@string/zero_percent"
         android:textColor="@color/color_7e7e7e"
-        android:textSize="@dimen/s_dp_14"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="@dimen/s_dp_15" />
+        android:textSize="@dimen/s_dp_14" />
 
 </RelativeLayout>

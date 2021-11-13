@@ -7,5 +7,5 @@
     <com.bifan.txtreaderlib.main.TxtReaderView
         android:id="@+id/txtReaderView"
         android:layout_width="match_parent"
-        android:layout_height="300px" />
+        android:layout_height="200dp" />
 </LinearLayout>
