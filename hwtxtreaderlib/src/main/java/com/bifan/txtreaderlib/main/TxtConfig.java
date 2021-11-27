@@ -19,7 +19,6 @@ public class TxtConfig {
     public static final String C_BACKGROUND_COLOR = "BACKGROUND_COLOR";
     public static final String C_IS_SHOW_NOTE = "IS_SHOW_NOTE";
     public static final String C_CAN_PRESS_SELECT = "CAN_PRESS_SELECT";
-    public static final String C_SWITCH_BY_TRANSLATE = "SWITCH_BY_TRANSLATE";
     public static final String C_BOLD = "BOLD ";
     public static final String C_SHOW_SPECIAL_CHAR = "SHOW_SPECIAL_CHAR ";
     public static final String C_CENTER_CLICK_AREA = "CENTER_CLICK_AREA";
@@ -146,7 +145,7 @@ public class TxtConfig {
         return share.getInt(C_NOTE_TEXT_COLOR, Color.BLACK);
     }
 
-    public static void saveSelsetTextColor(Context context, int textColor) {
+    public static void saveSelectTextColor(Context context, int textColor) {
         SharedPreferences share = getS(context);
         SharedPreferences.Editor editor = share.edit();
         editor.putInt(C_SELECT_TEXT_COLOR, textColor);
@@ -225,20 +224,6 @@ public class TxtConfig {
         return share.getBoolean(C_CAN_PRESS_SELECT, true);
     }
 
-    public static void saveSwitchByTranslate(Context context, Boolean switchByTranslate) {
-        SharedPreferences share = getS(context);
-        SharedPreferences.Editor editor = share.edit();
-        editor.putBoolean(C_SWITCH_BY_TRANSLATE, switchByTranslate);
-        editor.apply();
-        editor.commit();
-    }
-
-
-
-    public static Boolean isSwitchByTranslate(Context context) {
-        SharedPreferences share = getS(context);
-        return share.getBoolean(C_SWITCH_BY_TRANSLATE, true);
-    }
 
     public static void saveIsBold(Context context, Boolean bold) {
         SharedPreferences share = getS(context);

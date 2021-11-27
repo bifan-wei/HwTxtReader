@@ -95,6 +95,7 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
         mScroller = new TxtReaderScroller(getContext());
         mGestureDetector = new GestureDetector(getContext(), this);
         PageChangeMinMoveDistance = DisPlayUtil.dip2px(getContext(), 30);
+        readerContext.setPageParam(new PageParam());
         setClickable(true);
     }
 
@@ -1274,10 +1275,9 @@ public abstract class TxtReaderBaseView extends View implements GestureDetector.
 
     private void initReaderContext() {
         PageChangeMinMoveDistance = getWidth() / 5;
-        PageParam param = new PageParam();
+        PageParam param = readerContext.getPageParam();
         param.PageWidth = getWidth();
         param.PageHeight = getHeight();
-        readerContext.setPageParam(param);
     }
 
 

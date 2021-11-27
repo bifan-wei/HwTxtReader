@@ -8,6 +8,58 @@
     android:orientation="vertical"
     android:padding="@dimen/s_dp_10">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/s_dp_5">
+
+        <SeekBar
+            android:id="@+id/txtReadr_menu_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_toStartOf="@+id/txtReadr_menu_chapter_next"
+            android:layout_toLeftOf="@+id/txtReadr_menu_chapter_next"
+            android:layout_toEndOf="@+id/txtReadr_menu_chapter_pre"
+            android:layout_toRightOf="@+id/txtReadr_menu_chapter_pre"
+            android:layout_weight="1"
+            android:maxHeight="@dimen/s_dp_3"
+            android:minHeight="@dimen/s_dp_3"
+            android:progress="30"
+            android:progressDrawable="@drawable/txtview_po_seekbar"
+            android:thumb="@drawable/shape_seekbar_thumb"
+            android:thumbOffset="0dip" />
+
+        <TextView
+            android:id="@+id/txtReadr_menu_chapter_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/next_chapter"
+            android:textColor="@color/hwTxtReader_bottom_menu_textColor"
+            android:textSize="@dimen/s_dp_13" />
+
+        <TextView
+            android:id="@+id/txtReadr_menu_chapter_pre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/pre_chapter"
+            android:textColor="@color/hwTxtReader_bottom_menu_textColor"
+            android:textSize="@dimen/s_dp_13" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/s_px_1"
+        android:layout_marginLeft="@dimen/s_dp_5"
+        android:layout_marginTop="@dimen/s_dp_15"
+        android:layout_marginRight="@dimen/s_dp_5"
+        android:background="@color/color_22ffffff" />
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -289,60 +341,6 @@
 
 
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/s_dp_5">
-
-        <SeekBar
-            android:id="@+id/txtReadr_menu_seekbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical"
-            android:layout_toStartOf="@+id/txtReadr_menu_chapter_next"
-            android:layout_toLeftOf="@+id/txtReadr_menu_chapter_next"
-            android:layout_toEndOf="@+id/txtReadr_menu_chapter_pre"
-            android:layout_toRightOf="@+id/txtReadr_menu_chapter_pre"
-            android:layout_weight="1"
-            android:maxHeight="@dimen/s_dp_3"
-            android:minHeight="@dimen/s_dp_3"
-            android:progress="30"
-            android:progressDrawable="@drawable/txtview_po_seekbar"
-            android:thumb="@drawable/shape_seekbar_thumb"
-
-
-            android:thumbOffset="0dip" />
-
-        <TextView
-            android:id="@+id/txtReadr_menu_chapter_pre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="@string/pre_chapter"
-            android:textColor="@color/hwTxtReader_bottom_menu_textColor"
-            android:textSize="@dimen/s_dp_13" />
-
-        <TextView
-            android:id="@+id/txtReadr_menu_chapter_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="@string/next_chapter"
-            android:textColor="@color/hwTxtReader_bottom_menu_textColor"
-            android:textSize="@dimen/s_dp_13" />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/s_px_1"
-        android:layout_marginLeft="@dimen/s_dp_5"
-        android:layout_marginTop="@dimen/s_dp_15"
-        android:layout_marginRight="@dimen/s_dp_5"
-        android:background="@color/color_22ffffff" />
 
 
 </LinearLayout>

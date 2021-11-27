@@ -189,7 +189,7 @@ public class TxtReaderView extends TxtReaderBaseView {
     protected void onTextSelectMoveForward(MotionEvent event) {
         getDrawer().onTextSelectMoveForward(event);
         if (textSelectListener != null) {
-            textSelectListener.onTextChanging(FirstSelectedChar,LastSelectedChar);
+            textSelectListener.onTextChanging(FirstSelectedChar, LastSelectedChar);
             textSelectListener.onTextChanging(getCurrentSelectedText());
         }
     }
@@ -198,7 +198,7 @@ public class TxtReaderView extends TxtReaderBaseView {
     protected void onTextSelectMoveBack(MotionEvent event) {
         getDrawer().onTextSelectMoveBack(event);
         if (textSelectListener != null) {
-            textSelectListener.onTextChanging(FirstSelectedChar,LastSelectedChar);
+            textSelectListener.onTextChanging(FirstSelectedChar, LastSelectedChar);
             textSelectListener.onTextChanging(getCurrentSelectedText());
         }
     }
@@ -212,8 +212,18 @@ public class TxtReaderView extends TxtReaderBaseView {
 
     private IReaderViewDrawer getDrawer() {
         if (drawer == null) {
-            //  drawer = new SerialPageDrawer(this, readerContext, mScroller);
-            drawer = new NormalPageDrawer(this, readerContext, mScroller);
+            int pageSwitchMode = readerContext.getTxtConfig().Page_Switch_Mode;
+            switch (pageSwitchMode) {
+                case TxtConfig.PAGE_SWITCH_MODE_SERIAL:
+                    drawer = new SerialPageDrawer(this, readerContext, mScroller);
+                    break;
+                case TxtConfig.PAGE_SWITCH_MODE_SHEAR:
+                    drawer = new ShearPageDrawer(this, readerContext, mScroller);
+                    break;
+                default:
+                    drawer = new NormalPageDrawer(this, readerContext, mScroller);
+            }
+
         }
         return drawer;
     }
@@ -244,7 +254,9 @@ public class TxtReaderView extends TxtReaderBaseView {
      */
     public void setTextSize(int textSize) {
         readerContext.getTxtConfig().saveTextSize(getContext(), textSize);
-        Reload();
+        if (getWidth() > 0) {
+            Reload();
+        }
     }
 
 
@@ -276,15 +288,17 @@ public class TxtReaderView extends TxtReaderBaseView {
         saveProgress();
         TxtConfig.saveTextColor(getContext(), textColor);
         TxtConfig.saveBackgroundColor(getContext(), backgroundColor);
-        readerContext.getTxtConfig().textColor = textColor;
-        readerContext.getTxtConfig().backgroundColor = backgroundColor;
-        if (readerContext.getBitmapData().getBgBitmap() != null) {
-            readerContext.getBitmapData().getBgBitmap().recycle();
+        if (getWidth() > 0) {
+            readerContext.getTxtConfig().textColor = textColor;
+            readerContext.getTxtConfig().backgroundColor = backgroundColor;
+            if (readerContext.getBitmapData().getBgBitmap() != null) {
+                readerContext.getBitmapData().getBgBitmap().recycle();
+            }
+            int width = readerContext.getPageParam().PageWidth;
+            int height = readerContext.getPageParam().PageHeight;
+            readerContext.getBitmapData().setBgBitmap(TxtBitmapUtil.createBitmap(backgroundColor, width, height));
+            refreshCurrentView();
         }
-        int width = readerContext.getPageParam().PageWidth;
-        int height = readerContext.getPageParam().PageHeight;
-        readerContext.getBitmapData().setBgBitmap(TxtBitmapUtil.createBitmap(backgroundColor, width, height));
-        refreshCurrentView();
     }
 
 
@@ -333,8 +347,6 @@ public class TxtReaderView extends TxtReaderBaseView {
                     post(new Runnable() {
                         @Override
                         public void run() {
-                            //IPage midPage = readerContext.getPageData().MidPage();
-                            //onPageProgress(midPage);
                             onProgressCallBack(getProgress(paragraphIndex, charIndex));
                             tryFetchFirstPage();
                         }
@@ -487,7 +499,7 @@ public class TxtReaderView extends TxtReaderBaseView {
      * 平移切换页面
      */
     public void setPageSwitchByTranslate() {
-        TxtConfig.saveSwitchByTranslate(getContext(), true);
+        TxtConfig.savePageSwitchMode(getContext(), TxtConfig.PAGE_SWITCH_MODE_SERIAL);
         getTxtReaderContext().getTxtConfig().Page_Switch_Mode = TxtConfig.PAGE_SWITCH_MODE_SERIAL;
         drawer = new SerialPageDrawer(this, readerContext, mScroller);
     }
@@ -496,15 +508,16 @@ public class TxtReaderView extends TxtReaderBaseView {
      * 剪切切换页面
      */
     public void setPageSwitchByShear() {
-        TxtConfig.saveSwitchByTranslate(getContext(), true);
+        TxtConfig.savePageSwitchMode(getContext(), TxtConfig.PAGE_SWITCH_MODE_SHEAR);
         getTxtReaderContext().getTxtConfig().Page_Switch_Mode = TxtConfig.PAGE_SWITCH_MODE_SHEAR;
         drawer = new ShearPageDrawer(this, readerContext, mScroller);
     }
+
     /**
      * 滑盖切换页面
      */
     public void setPageSwitchByCover() {
-        TxtConfig.saveSwitchByTranslate(getContext(), false);
+        TxtConfig.savePageSwitchMode(getContext(), TxtConfig.PAGE_SWITCH_MODE_COVER);
         getTxtReaderContext().getTxtConfig().Page_Switch_Mode = TxtConfig.PAGE_SWITCH_MODE_COVER;
         drawer = new NormalPageDrawer(this, readerContext, mScroller);
     }
@@ -546,9 +559,11 @@ public class TxtReaderView extends TxtReaderBaseView {
     }
 
     private void refreshCurrentView() {
-        refreshTag(1, 1, 1);
-        ITxtTask task = new DrawPrepareTask();
-        task.Run(actionLoadListener, readerContext);
+        if (getWidth() > 0) {
+            refreshTag(1, 1, 1);
+            ITxtTask task = new DrawPrepareTask();
+            task.Run(actionLoadListener, readerContext);
+        }
     }
 
     /**
@@ -575,7 +590,7 @@ public class TxtReaderView extends TxtReaderBaseView {
             for (IChapter chapter : chapters) {
                 int startIndex = chapter.getStartParagraphIndex();
                 int endIndex = chapter.getEndParagraphIndex();
-                ELogger.log("getChapterFromProgress",startIndex+","+endIndex);
+                ELogger.log("getChapterFromProgress", startIndex + "," + endIndex);
                 if (terminalParagraphIndex >= startIndex && terminalParagraphIndex < endIndex) {
                     return chapter;
                 }
