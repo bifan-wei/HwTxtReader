@@ -10,6 +10,7 @@
         android:supportsRtl="true">
         <activity
             android:name="com.bifan.txtreaderlib.ui.HwTxtPlayActivity"
+            android:exported="true"
             android:theme="@style/HwTxtFullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
